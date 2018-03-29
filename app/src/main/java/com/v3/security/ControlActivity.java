@@ -38,6 +38,7 @@ public class ControlActivity extends AppCompatActivity implements Response.Error
     //EditText coordenadas;
     //EditText Estado;
     Button btninsertar;
+    Button btninforme;
     ProgressDialog progressDialog;
   //  RequestQueue request;
     JsonObjectRequest jsonObjectRequest;
@@ -53,11 +54,9 @@ public class ControlActivity extends AppCompatActivity implements Response.Error
         context = this;
         tvNombreLugar = findViewById(R.id.tvNombreLugar);
         imageView = findViewById(R.id.ivControl);
-
-       // coordenadas = findViewById(R.id.edtCoordenadas);
         Estado = 1;
         btninsertar = findViewById(R.id.btnInsertar);
-
+        btninforme = findViewById(R.id.btnInforme);
         idguardia = Preferencias.getInteger(context, Preferencias.getKeyGuardia());
 
         Bundle extras = getIntent().getBundleExtra("picture");
@@ -128,6 +127,14 @@ public class ControlActivity extends AppCompatActivity implements Response.Error
             @Override
             public void onClick(View view) {
                 cargarWebservice();
+            }
+        });
+        btninforme.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cargarWebservice();
+                Intent intent = new Intent(context, InformesActivity.class);
+                startActivity(intent);
             }
         });
     }
