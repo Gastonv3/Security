@@ -142,7 +142,7 @@ public class ControlActivity extends AppCompatActivity implements Response.Error
 
     @Override
     public void onErrorResponse(VolleyError error) {
-        Toast.makeText(getApplicationContext(), "Casi pero no", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "error", Toast.LENGTH_SHORT).show();
     }
 
     @Override
