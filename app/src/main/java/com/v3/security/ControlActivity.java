@@ -35,13 +35,13 @@ import org.json.JSONObject;
 
 public class ControlActivity extends AppCompatActivity implements Response.ErrorListener, Response.Listener<JSONObject> {
     EditText idGuardia;
-    EditText coordenadas;
+    //EditText coordenadas;
     //EditText Estado;
     Button btninsertar;
     ProgressDialog progressDialog;
   //  RequestQueue request;
     JsonObjectRequest jsonObjectRequest;
-
+    String coordenadas;
     int idlugar, Estado, idguardia;
     Context context;
     ImageView imageView;
@@ -54,7 +54,7 @@ public class ControlActivity extends AppCompatActivity implements Response.Error
         tvNombreLugar = findViewById(R.id.tvNombreLugar);
         imageView = findViewById(R.id.ivControl);
 
-        coordenadas = findViewById(R.id.edtCoordenadas);
+       // coordenadas = findViewById(R.id.edtCoordenadas);
         Estado = 1;
         btninsertar = findViewById(R.id.btnInsertar);
 
@@ -107,7 +107,7 @@ public class ControlActivity extends AppCompatActivity implements Response.Error
                 progressDialog.setMessage("Cargando...");
                 progressDialog.show();*/
                 // Called when a new location is found by the network location provider.
-                coordenadas.setText("" + location.getLatitude() + " " + location.getLongitude());
+                coordenadas= ("" + location.getLatitude() + " " + location.getLongitude());
                 progressDialog.hide();
             }
 
@@ -133,7 +133,7 @@ public class ControlActivity extends AppCompatActivity implements Response.Error
     }
 
     public void cargarWebservice() {
-        String url = "http://192.168.0.14/seguridad/insertarcontrol.php?idGuardia=" + idguardia + "&idLugares=" + idlugar + "&coordenadas=" + coordenadas.getText() +
+        String url = "http://192.168.0.14/seguridad/insertarcontrol.php?idGuardia=" + idguardia + "&idLugares=" + idlugar + "&coordenadas=" + coordenadas +
                 "&Estado=" + Estado;
         //lee y procesa la informacion (Realiza el llamado a la url e intenta conectarse al webservis
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);

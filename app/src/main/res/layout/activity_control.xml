@@ -31,13 +31,6 @@
             android:textStyle="bold" />
     </FrameLayout>
 
-    <EditText
-        android:id="@+id/edtCoordenadas"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName" />
-
     <Button
         android:id="@+id/btnInsertar"
         android:layout_width="match_parent"
@@ -45,5 +38,13 @@
         android:text="Insertar"
         android:textColor="@color/primary_light"
         android:theme="@style/MyButton" />
+
+    <Button
+        android:id="@+id/btnInforme"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/primary_light"
+        android:text="informe"
+        android:theme="@style/MyButton"/>
 
 </LinearLayout>
