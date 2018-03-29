@@ -29,6 +29,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.v3.security.Clases.Lugar;
 import com.v3.security.Util.Preferencias;
+import com.v3.security.Util.VolleySingleton;
 
 import org.json.JSONObject;
 
@@ -38,7 +39,7 @@ public class ControlActivity extends AppCompatActivity implements Response.Error
     //EditText Estado;
     Button btninsertar;
     ProgressDialog progressDialog;
-    RequestQueue request;
+  //  RequestQueue request;
     JsonObjectRequest jsonObjectRequest;
 
     int idlugar, Estado, idguardia;
@@ -65,7 +66,7 @@ public class ControlActivity extends AppCompatActivity implements Response.Error
         imageView.setImageBitmap(bmp);
         idlugar = extras.getInt("idLugar");
         tvNombreLugar.setText(extras.getString("nombre"));
-        request = Volley.newRequestQueue(getApplicationContext());
+       // request = Volley.newRequestQueue(getApplicationContext());
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Cargando...");
         progressDialog.setCancelable(false);
@@ -137,7 +138,8 @@ public class ControlActivity extends AppCompatActivity implements Response.Error
         //lee y procesa la informacion (Realiza el llamado a la url e intenta conectarse al webservis
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
         //permite establecer la cominicacion con los metodos response o error
-        request.add(jsonObjectRequest);
+       // request.add(jsonObjectRequest);
+        VolleySingleton.getInstanciaVolley(getApplicationContext()).addToRequestQueue(jsonObjectRequest);
     }
 
     @Override

@@ -20,6 +20,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.v3.security.Clases.Guardia;
 import com.v3.security.Util.Preferencias;
+import com.v3.security.Util.VolleySingleton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,7 +31,7 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
     EditText etpass;
     Button btnentrar;
     ProgressDialog progressDialog;
-    RequestQueue request;
+    //RequestQueue request;
     JsonObjectRequest jsonObjectRequest;
     Context context;
     CheckBox cbkrecuerdame;
@@ -42,7 +43,7 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
         setContentView(R.layout.activity_login);
         context = this;
         referencias();
-        request = Volley.newRequestQueue(getApplicationContext());
+        //request = Volley.newRequestQueue(getApplicationContext());
         estado = Preferencias.getBoolean(context,Preferencias.getKeyRecuerdame(),false);
         if (estado == true){
             cbkrecuerdame.setChecked(estado);
@@ -76,7 +77,9 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
         //lee y procesa la informacion (Realiza el llamado a la url e intenta conectarse al webservis
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
         //permite establecer la cominicacion con los metodos response o error
-        request.add(jsonObjectRequest);
+        //request.add(jsonObjectRequest);
+        VolleySingleton.getInstanciaVolley(getApplicationContext()).addToRequestQueue(jsonObjectRequest);
+
     }
 
     @Override

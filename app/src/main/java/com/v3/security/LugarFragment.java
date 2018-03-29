@@ -18,6 +18,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.v3.security.Adapter.AdapterLugares;
 import com.v3.security.Clases.Lugar;
+import com.v3.security.Util.VolleySingleton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,7 +43,7 @@ public class LugarFragment extends Fragment implements Response.Listener<JSONObj
     ArrayList<Lugar> lista;
     private static final String url = "http://192.168.0.14/seguridad/extraer.php";
     RecyclerView contenedor;
-    RequestQueue request;
+   // RequestQueue request;
     JsonObjectRequest jsonObjectRequest;
     int idguardia;
     Context context;
@@ -95,7 +96,7 @@ public class LugarFragment extends Fragment implements Response.Listener<JSONObj
         contenedor = (RecyclerView) vista.findViewById(R.id.contenedor);
         contenedor.setLayoutManager(new LinearLayoutManager(context));
         contenedor.setHasFixedSize(true);//indico que el recycler no va a reprensetar variables en lo que es el tamaño
-        request = Volley.newRequestQueue(context);
+     //   request = Volley.newRequestQueue(context);
 
         cargarWebservice();
         return vista;
@@ -104,7 +105,8 @@ public class LugarFragment extends Fragment implements Response.Listener<JSONObj
     private void cargarWebservice() {
         String url = "http://192.168.0.14/seguridad/extraer3.php";
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
-        request.add(jsonObjectRequest);
+        //request.add(jsonObjectRequest);
+        VolleySingleton.getInstanciaVolley(getContext()).addToRequestQueue(jsonObjectRequest);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
