@@ -68,7 +68,7 @@ public class ControlActivity extends AppCompatActivity implements Response.Error
        // request = Volley.newRequestQueue(getApplicationContext());
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Cargando...");
-        progressDialog.setCancelable(false);
+      //  progressDialog.setCancelable(false);
         progressDialog.show();
         //leer permiso y lo almacena en permission
         int permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
