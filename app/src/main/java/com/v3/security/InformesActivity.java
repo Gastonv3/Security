@@ -213,32 +213,37 @@ public class InformesActivity extends AppCompatActivity implements Response.Erro
     }
 
     private void tomarFoto() {
-        File fileImagen = new File(Environment.getExternalStorageDirectory(), RUTA_IMAGEN);
-        boolean isCreada = fileImagen.exists();
-        String nombre = "";
-        if (isCreada == false) {
-            isCreada = fileImagen.mkdir();
+        File fileImagen=new File(Environment.getExternalStorageDirectory(),RUTA_IMAGEN);
+        boolean isCreada=fileImagen.exists();
+        String nombreImagen="";
+        if(isCreada==false){
+            isCreada=fileImagen.mkdirs();
         }
-        if (isCreada == true) {
-            nombre = (System.currentTimeMillis() / 1000) + ".jpg";
 
+        if(isCreada==true){
+            nombreImagen=(System.currentTimeMillis()/1000)+".jpg";
         }
-        path = Environment.getExternalStorageDirectory() + File.separator + RUTA_IMAGEN +
-                File.separator + nombre;
-        File imagen = new File(path);
-        Intent intent = null;
 
-        intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            String authorities = getApplicationContext().getPackageName() + ".provider";
-            Uri imageUri = FileProvider.getUriForFile(this, authorities, imagen);
+        path=Environment.getExternalStorageDirectory()+
+                File.separator+RUTA_IMAGEN+File.separator+nombreImagen;
+
+        File imagen=new File(path);
+
+        Intent intent=null;
+        intent=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        ////
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.N)
+        {
+            String authorities=getApplicationContext().getPackageName()+".provider";
+            Uri imageUri=FileProvider.getUriForFile(this,authorities,imagen);
             intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-        } else {
+        }else
+        {
             intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imagen));
         }
+        startActivityForResult(intent,CODIGO_FOTO);
 
-        startActivityForResult(intent, CODIGO_FOTO);
     }
 
     private void extraerId() {
