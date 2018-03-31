@@ -38,8 +38,8 @@
         <ImageView
             android:id="@+id/ivfoto"
             android:layout_width="match_parent"
-            android:layout_height="280dp"
-            android:scaleType="centerInside"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
 
             app:srcCompat="@drawable/img_base" />
     </LinearLayout>
