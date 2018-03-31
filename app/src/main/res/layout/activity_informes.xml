@@ -10,16 +10,9 @@
     <EditText
         android:id="@+id/etInforme"
         android:layout_width="match_parent"
-        android:layout_height="182dp"
+        android:layout_height="95dp"
         android:ems="10"
         android:inputType="textMultiLine" />
-
-    <Button
-        android:id="@+id/btnInsertarInforme"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Insertar informe"
-        android:theme="@style/MyButton"/>
 
     <Button
         android:id="@+id/btnfoto"
@@ -27,21 +20,52 @@
         android:layout_height="wrap_content"
         android:text="foto"
         android:theme="@style/MyButton" />
-
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_gravity="center"
-       >
+        android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/ivfoto"
+        <LinearLayout
+            android:id="@+id/linearfoto"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="centerCrop"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:layout_above="@+id/linearbotones"
+            >
 
-            app:srcCompat="@drawable/img_base" />
-    </LinearLayout>
+            <ImageView
+                android:id="@+id/ivfoto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/img_base" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearbotones"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_alignParentBottom="true">
+
+            <Button
+                android:id="@+id/btnInsertarInforme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="enviar"
+                android:theme="@style/MyButton" />
+
+            <Button
+                android:id="@+id/btnCancelar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Cancelar"
+                android:theme="@style/MyButton"/>
+        </LinearLayout>
+    </RelativeLayout>
+
 
 </LinearLayout>

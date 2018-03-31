@@ -18,6 +18,11 @@
         android:theme="@style/Login">
         <activity android:name=".LoginActivity">
             android:theme="@style/Login"
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
         </activity>
         <activity
@@ -30,11 +35,7 @@
             android:theme="@style/Main"/>
         <activity android:name=".InformesActivity">
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <provider

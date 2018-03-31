@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.media.ExifInterface;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Build;
@@ -53,7 +54,7 @@ public class InformesActivity extends AppCompatActivity implements Response.Erro
     Context context;
     ImageView imageView;
     JsonObjectRequest jsonObjectRequest;
-    Button btnInsertarInforme, btnFoto;
+    Button btnInsertarInforme, btnFoto, btnCancelar;
     String path;
     StringRequest stringRequest;
     int idControl;
@@ -87,12 +88,13 @@ public class InformesActivity extends AppCompatActivity implements Response.Erro
                         }
                     });
                     bitmap = BitmapFactory.decodeFile(path);
-                    bitmap = redimensionarImagen(bitmap, 1280, 720);
-                    imageView.setImageBitmap(bitmap);
+                    bitmap = redimensionarImagen(bitmap, 1280, 960);
+
+                    rotateimagen(bitmap);
+                   // imageView.setImageBitmap(bitmap);
 
                     break;
             }
-         //   bitmap = redimensionarImagen(bitmap, 600, 800);
         }
     }
 
@@ -112,7 +114,9 @@ public class InformesActivity extends AppCompatActivity implements Response.Erro
         } else {
             return bitmap;
         }
+
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,6 +127,7 @@ public class InformesActivity extends AppCompatActivity implements Response.Erro
         imageView = findViewById(R.id.ivfoto);
         btnInsertarInforme = findViewById(R.id.btnInsertarInforme);
         btnFoto = findViewById(R.id.btnfoto);
+        btnCancelar = findViewById(R.id.btnCancelar);
         extraerId();
         if (validaPermisos()) {
             btnFoto.setEnabled(true);
@@ -159,7 +164,20 @@ public class InformesActivity extends AppCompatActivity implements Response.Erro
         btnInsertarInforme.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                cargarInforme();
+                if(etinforme.getText().toString().isEmpty()){
+                    Toast.makeText(context, "Debe Ingresar un informe", Toast.LENGTH_SHORT).show();
+                }else{
+                    cargarInforme();
+                }
+
+
+            }
+        });
+        btnCancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                eliminarControl();
+                finish();
             }
         });
 
@@ -286,7 +304,21 @@ public class InformesActivity extends AppCompatActivity implements Response.Erro
         // request.add(jsonObjectRequest);
         VolleySingleton.getInstanciaVolley(getApplicationContext()).addToRequestQueue(jsonObjectRequest);
     }
+    private  void eliminarControl(){
+        String url = "http://192.168.0.14/seguridad/eliminarcontrol.php?idControles="+idControl;
+        jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Toast.makeText(context, "se elimino", Toast.LENGTH_SHORT).show();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+            }
+        });
 
+        VolleySingleton.getInstanciaVolley(getApplicationContext()).addToRequestQueue(jsonObjectRequest);
+    }
     //subir imagen
     public void cargarInforme() {
 
@@ -312,24 +344,10 @@ public class InformesActivity extends AppCompatActivity implements Response.Erro
             //enviar datos mediante post
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-             /*   String id="a";
-                String documento="36854072";
-                String nombre="gaston";
-                String profesion="lic";
 
-                String imagen=convertirImgString(bitmap);
-
-                Map<String,String> parametros=new HashMap<>();
-                parametros.put("id",id);
-                parametros.put("documento",documento);
-                parametros.put("nombre",nombre);
-                parametros.put("profesion",profesion);
-                parametros.put("imagen",imagen);
-
-                return parametros;*/
                 String idinforme="a";
                 String idControles= String.valueOf(idControl);
-                String 	observacion="gaston";
+                String 	observacion="hola";
                // String fecha_hora="2018-03-31 01:41:48";
 
                 String foto=convertirImgString(bitmap);
@@ -380,4 +398,28 @@ public class InformesActivity extends AppCompatActivity implements Response.Erro
         }
         idControl = control.getIdControles();
     }
+    private void rotateimagen (Bitmap bitmap){
+        ExifInterface exifInterface = null;
+        try {
+            exifInterface=new ExifInterface(path);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        int orientation = exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION,ExifInterface.ORIENTATION_UNDEFINED);
+        Matrix matrix = new Matrix();
+        switch (orientation){
+            case ExifInterface.ORIENTATION_ROTATE_90:
+                matrix.setRotate(90);
+
+                break;
+            case ExifInterface.ORIENTATION_ROTATE_180:
+                matrix.setRotate(180);
+                break;
+            default:
+        }
+        Bitmap rotateBitmap = Bitmap.createBitmap(bitmap,0,0,bitmap.getWidth(),bitmap.getHeight(),matrix,true);
+        imageView.setImageBitmap(rotateBitmap);
+    }
+
+
 }
