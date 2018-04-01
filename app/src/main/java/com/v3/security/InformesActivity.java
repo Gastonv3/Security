@@ -348,9 +348,17 @@ public class InformesActivity extends AppCompatActivity implements Response.Erro
                 String idinforme="a";
                 String idControles= String.valueOf(idControl);
                 String 	observacion="hola";
-               // String fecha_hora="2018-03-31 01:41:48";
+               // String fecha_hora="2018-03-31 01:41:48"
+                String foto = null;
+                if (bitmap==null){
+                    Bitmap bitmap2= BitmapFactory.decodeResource(context.getResources(),
+                            R.drawable.img_base);
+                    foto=convertirImgString(bitmap2);
+                }else {
+                    foto=convertirImgString(bitmap);
+                }
 
-                String foto=convertirImgString(bitmap);
+
 
                 Map<String,String> parametros=new HashMap<>();
                 parametros.put("idinforme",idinforme);
