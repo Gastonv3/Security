@@ -25,11 +25,9 @@ public class MainActivity extends AppCompatActivity  {
                     transaction.replace(R.id.c, new LugarFragment()).commit();
                     return true;
                 case R.id.navigation_dashboard:
-                    mTextMessage.setText(R.string.title_notifications);
+                    transaction.replace(R.id.c, new RegistroFragment()).commit();
                     return true;
-                case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_notifications);
-                    return true;
+
             }
             return false;
         }

@@ -137,7 +137,8 @@ public class InformesActivity extends AppCompatActivity implements Response.Erro
         btnFoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final CharSequence opciones[] = {"Tomar foto", "Cargar Imagen", "Cancelar"};
+                tomarFoto();
+              /*  final CharSequence opciones[] = {"Tomar foto", "Cargar Imagen", "Cancelar"};
                 final AlertDialog.Builder alertaOpciones = new AlertDialog.Builder(context);
                 alertaOpciones.setTitle("Seleccione una Opción");
                 alertaOpciones.setItems(opciones, new DialogInterface.OnClickListener() {
@@ -157,7 +158,7 @@ public class InformesActivity extends AppCompatActivity implements Response.Erro
                         }
                     }
                 });
-                alertaOpciones.show();
+                alertaOpciones.show();*/
             }
         });
 
