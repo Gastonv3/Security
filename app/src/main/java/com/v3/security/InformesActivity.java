@@ -329,6 +329,9 @@ public class InformesActivity extends AppCompatActivity implements Response.Erro
             public void onResponse(String response) {
                 if (response.trim().equalsIgnoreCase("registra")) {
                     etinforme.setText("");
+                   bitmap = null;
+                    imageView.setImageResource(R.drawable.img_base);
+                    btnInsertarInforme.setText("Enviar Otro informe");
                     Toast.makeText(context, "Se ha registrado", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(context, "No ha registrado", Toast.LENGTH_SHORT).show();
@@ -347,7 +350,7 @@ public class InformesActivity extends AppCompatActivity implements Response.Erro
 
                 String idinforme="a";
                 String idControles= String.valueOf(idControl);
-                String 	observacion="hola";
+                String 	observacion=etinforme.getText().toString();
                // String fecha_hora="2018-03-31 01:41:48"
                 String foto = null;
                 if (bitmap==null){
