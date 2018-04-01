@@ -1,8 +1,15 @@
 package com.v3.security;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -26,6 +33,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+
 public class LoginActivity extends AppCompatActivity implements Response.ErrorListener, Response.Listener<JSONObject>{
     EditText etlogin;
     EditText etpass;
@@ -44,6 +53,31 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
         context = this;
         referencias();
         //request = Volley.newRequestQueue(getApplicationContext());
+        int permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
+        //si el permiso esta denegado lo solicitamos
+        if (permissionCheck== PackageManager.PERMISSION_DENIED){
+
+            //si requiere mostrar un mensaje antes de solicitar el permiso hacerlo dentro del siguiente if
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.ACCESS_FINE_LOCATION)) {
+
+                // Show an expanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+
+            } else {
+
+                // No explanation needed, we can request the permission.
+
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        1);
+
+                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+                // app-defined int constant. The callback method gets the
+                // result of the request.
+            }
+        }
         estado = Preferencias.getBoolean(context,Preferencias.getKeyRecuerdame(),false);
         if (estado == true){
             cbkrecuerdame.setChecked(estado);
@@ -120,5 +154,34 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
             etlogin.setText(Preferencias.getString(context, Preferencias.getKeyUser()));
             etpass.setText(Preferencias.getString(context, Preferencias.getKeyPass()));
         }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode){
+            case 1:{
+                if(grantResults.length>0&&grantResults[0]==PackageManager.PERMISSION_GRANTED){
+
+                }else {
+                    cargarDialogoRecomendacion();
+                }
+            } break;
+        }
+
+    }
+    private void cargarDialogoRecomendacion() {
+        final android.app.AlertDialog.Builder dialog = new android.app.AlertDialog.Builder(LoginActivity.this);
+        dialog.setTitle("Permiso Desactivado");
+        dialog.setMessage("Debe aceptar el permiso");
+        dialog.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    requestPermissions(new String[]{ACCESS_FINE_LOCATION}, 1);
+                }
+            }
+        });
+        dialog.show();
     }
 }

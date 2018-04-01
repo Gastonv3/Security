@@ -23,16 +23,19 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/Main"/>
+            android:theme="@style/Main">
+
+        </activity>
         <activity
             android:name=".ControlActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/Main"/>
+            android:theme="@style/Main">
+
+        </activity>
         <activity android:name=".InformesActivity">
 
 
