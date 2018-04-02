@@ -55,6 +55,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="enviar"
+                android:drawableLeft="@drawable/ic_note_add_black_24dp"
                 android:theme="@style/MyButton" />
 
             <Button
@@ -62,7 +63,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:drawableLeft="@drawable/ic_close_black_24dp"
                 android:text="Cancelar"
+
                 android:theme="@style/MyButton"/>
         </LinearLayout>
     </RelativeLayout>
