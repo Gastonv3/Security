@@ -1,5 +1,6 @@
 package com.v3.security;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -24,6 +25,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -63,6 +65,8 @@ public class InformesActivity extends AppCompatActivity implements Response.Erro
     final int CODIGO_FOTO = 20;
     final int CODIGO_SELECCIONA = 10;
     Bitmap bitmap;
+    ImageButton ibInsertarInforme, ibCancelar,ibFoto;
+    ProgressDialog progressDialog;
 
 
     @Override
@@ -125,16 +129,19 @@ public class InformesActivity extends AppCompatActivity implements Response.Erro
         context = this;
         etinforme = findViewById(R.id.etInforme);
         imageView = findViewById(R.id.ivfoto);
-        btnInsertarInforme = findViewById(R.id.btnInsertarInforme);
-        btnFoto = findViewById(R.id.btnfoto);
-        btnCancelar = findViewById(R.id.btnCancelar);
+       // btnInsertarInforme = findViewById(R.id.btnInsertarInforme);
+       // btnFoto = findViewById(R.id.btnfoto);
+      //  btnCancelar = findViewById(R.id.btnCancelar);
+        ibInsertarInforme = findViewById(R.id.ibInsertarInforme);
+        ibCancelar = findViewById(R.id.ibCancelar);
+        ibFoto= findViewById(R.id.ibFoto);
         extraerId();
         if (validaPermisos()) {
-            btnFoto.setEnabled(true);
+            ibFoto.setEnabled(true);
         } else {
-            btnFoto.setEnabled(false);
+            ibFoto.setEnabled(false);
         }
-        btnFoto.setOnClickListener(new View.OnClickListener() {
+       /* btnFoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 tomarFoto();
@@ -159,10 +166,35 @@ public class InformesActivity extends AppCompatActivity implements Response.Erro
                     }
                 });
                 alertaOpciones.show();*/
+  //
+       //     }
+   //     });
+        ibCancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                eliminarControl();
+                finish();
+            }
+        });
+        ibInsertarInforme.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(etinforme.getText().toString().isEmpty()){
+                    Toast.makeText(context, "Debe Ingresar un informe", Toast.LENGTH_SHORT).show();
+                }else{
+                    cargarInforme();
+                }
+
+            }
+        });
+        ibFoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                tomarFoto();
             }
         });
 
-        btnInsertarInforme.setOnClickListener(new View.OnClickListener() {
+      /*  btnInsertarInforme.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(etinforme.getText().toString().isEmpty()){
@@ -180,7 +212,7 @@ public class InformesActivity extends AppCompatActivity implements Response.Erro
                 eliminarControl();
                 finish();
             }
-        });
+        });*/
 
     }
 
@@ -297,7 +329,10 @@ public class InformesActivity extends AppCompatActivity implements Response.Erro
     }
 
     private void extraerId() {
-
+        progressDialog=new ProgressDialog(context);
+        progressDialog.setMessage("Cargando...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
         String url = "http://192.168.0.14/seguridad/extraerMayorId.php";
         //lee y procesa la informacion (Realiza el llamado a la url e intenta conectarse al webservis
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
@@ -306,15 +341,22 @@ public class InformesActivity extends AppCompatActivity implements Response.Erro
         VolleySingleton.getInstanciaVolley(getApplicationContext()).addToRequestQueue(jsonObjectRequest);
     }
     private  void eliminarControl(){
+        progressDialog=new ProgressDialog(context);
+        progressDialog.setMessage("Cargando...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
         String url = "http://192.168.0.14/seguridad/eliminarcontrol.php?idControles="+idControl;
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
+                progressDialog.hide();
                 Toast.makeText(context, "se elimino", Toast.LENGTH_SHORT).show();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                progressDialog.hide();
+
             }
         });
 
@@ -322,7 +364,10 @@ public class InformesActivity extends AppCompatActivity implements Response.Erro
     }
     //subir imagen
     public void cargarInforme() {
-
+        progressDialog=new ProgressDialog(context);
+        progressDialog.setMessage("Cargando...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
         String url = "http://192.168.0.14/seguridad/informe2.php?";
         //lee y procesa la informacion (Realiza el llamado a la url e intenta conectarse al webservis
         stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
@@ -332,15 +377,18 @@ public class InformesActivity extends AppCompatActivity implements Response.Erro
                     etinforme.setText("");
                    bitmap = null;
                     imageView.setImageResource(R.drawable.img_base);
-                    btnInsertarInforme.setText("Enviar Otro informe");
+                    progressDialog.hide();
+                   // btnInsertarInforme.setText("Enviar Otro informe");
                     Toast.makeText(context, "Se ha registrado", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(context, "No ha registrado", Toast.LENGTH_SHORT).show();
+                    progressDialog.hide();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                progressDialog.hide();
                 Toast.makeText(context, "No se ha podido conectar", Toast.LENGTH_SHORT).show();
 
             }
@@ -409,6 +457,7 @@ public class InformesActivity extends AppCompatActivity implements Response.Erro
             e.printStackTrace();
         }
         idControl = control.getIdControles();
+        progressDialog.hide();
     }
     private void rotateimagen (Bitmap bitmap){
         ExifInterface exifInterface = null;

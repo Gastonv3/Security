@@ -33,6 +33,15 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.v3.security.Clases.Lugar;
 import com.v3.security.Util.Preferencias;
 import com.v3.security.Util.VolleySingleton;
@@ -43,7 +52,15 @@ import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.Manifest.permission.CAMERA;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
-public class ControlActivity extends AppCompatActivity implements Response.ErrorListener, Response.Listener<JSONObject> {
+public class ControlActivity extends AppCompatActivity implements Response.ErrorListener, Response.Listener<JSONObject>, OnMapReadyCallback {
+    private Location lastLocation;
+
+    private Marker currentLocationMarker;
+    private GoogleApiClient googleClient;
+
+    ////
+    MapView mapView;
+    GoogleMap mMap;
     EditText idGuardia;
     //EditText coordenadas;
     //EditText Estado;
@@ -54,18 +71,40 @@ public class ControlActivity extends AppCompatActivity implements Response.Error
     JsonObjectRequest jsonObjectRequest;
     String coordenadas;
     int idlugar, Estado, idguardia;
+    Double latitud, longitud;
 
     Context context;
     ImageView imageView;
     TextView tvNombreLugar;
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        mapView.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mapView.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mapView.onDestroy();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_control);
         context = this;
         tvNombreLugar = findViewById(R.id.tvNombreLugar);
         imageView = findViewById(R.id.ivControl);
+        mapView = findViewById(R.id.mapView);
+        mapView.onCreate(savedInstanceState);
         Estado = 1;
         btninsertar = findViewById(R.id.btnInsertar);
         btninforme = findViewById(R.id.btnInforme);
@@ -79,12 +118,13 @@ public class ControlActivity extends AppCompatActivity implements Response.Error
         // request = Volley.newRequestQueue(getApplicationContext());
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Cargando...");
-        //  progressDialog.setCancelable(false);
+        progressDialog.setCancelable(false);
         progressDialog.show();
 
 
         //leer permiso y lo almacena en permission
         int permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
+        int permissionCheck2 = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION);
 
         LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
@@ -92,12 +132,31 @@ public class ControlActivity extends AppCompatActivity implements Response.Error
         LocationListener locationListener = new LocationListener() {
 
             public void onLocationChanged(Location location) {
-                /*progressDialog = new ProgressDialog(getApplicationContext());
-                progressDialog.setMessage("Cargando...");
-                progressDialog.show();*/
+
                 // Called when a new location is found by the network location provider.
+                lastLocation = location;
+
+                if (currentLocationMarker != null) {
+                    currentLocationMarker.remove();
+                }
+
+                LatLng latlng = new LatLng(location.getLatitude(), location.getLongitude());
+                MarkerOptions markerOptions = new MarkerOptions();
+                markerOptions.position(latlng);
+                markerOptions.title("Ni ubicación");
+                markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
+                currentLocationMarker = mMap.addMarker(markerOptions);
+
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(latlng));
+             //   mMap.animateCamera(CameraUpdateFactory.zoomBy(00));
+                mMap.setMinZoomPreference(15);
+                mMap.setMaxZoomPreference(15);
+
+               /* latitud = location.getLatitude();
+                longitud = location.getLongitude();*/
                 coordenadas = ("" + location.getLatitude() + " " + location.getLongitude());
                 progressDialog.hide();
+
             }
 
             public void onStatusChanged(String provider, int status, Bundle extras) {
@@ -110,6 +169,7 @@ public class ControlActivity extends AppCompatActivity implements Response.Error
             }
         };
         permissionCheck = ContextCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION);
+        permissionCheck2 = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION);
 // Register the listener with the Location Manager to receive location updates
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
 
@@ -127,9 +187,13 @@ public class ControlActivity extends AppCompatActivity implements Response.Error
                 startActivity(intent);
             }
         });
+        mapView.getMapAsync(this);
     }
 
     public void cargarWebservice() {
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Cargando...");
+        progressDialog.setCancelable(false);
         String url = "http://192.168.0.14/seguridad/insertarcontrol.php?idGuardia=" + idguardia + "&idLugares=" + idlugar + "&coordenadas=" + coordenadas +
                 "&Estado=" + Estado;
         //lee y procesa la informacion (Realiza el llamado a la url e intenta conectarse al webservis
@@ -141,11 +205,13 @@ public class ControlActivity extends AppCompatActivity implements Response.Error
 
     @Override
     public void onErrorResponse(VolleyError error) {
+        progressDialog.hide();
         Toast.makeText(getApplicationContext(), "error", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onResponse(JSONObject response) {
+        progressDialog.hide();
         Toast.makeText(getApplicationContext(), "Se registro correctamente", Toast.LENGTH_SHORT).show();
     }
 
@@ -153,17 +219,19 @@ public class ControlActivity extends AppCompatActivity implements Response.Error
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode){
-            case 1:{
-                if(grantResults.length>0&&grantResults[0]==PackageManager.PERMISSION_GRANTED){
+        switch (requestCode) {
+            case 1: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                }else {
+                } else {
                     cargarDialogoRecomendacion();
                 }
-            } break;
+            }
+            break;
         }
 
     }
+
     private void cargarDialogoRecomendacion() {
         final android.app.AlertDialog.Builder dialog = new android.app.AlertDialog.Builder(ControlActivity.this);
         dialog.setTitle("Permiso Desactivado");
@@ -179,4 +247,11 @@ public class ControlActivity extends AppCompatActivity implements Response.Error
         dialog.show();
     }
 
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+
+
+    }
 }

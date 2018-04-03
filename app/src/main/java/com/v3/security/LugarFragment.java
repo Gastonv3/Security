@@ -1,5 +1,6 @@
 package com.v3.security;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -47,6 +49,7 @@ public class LugarFragment extends Fragment implements Response.Listener<JSONObj
     JsonObjectRequest jsonObjectRequest;
     int idguardia;
     Context context;
+    ProgressDialog progressDialog;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -103,6 +106,10 @@ public class LugarFragment extends Fragment implements Response.Listener<JSONObj
     }
 
     private void cargarWebservice() {
+        progressDialog=new ProgressDialog(context);
+        progressDialog.setMessage("Cargando...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
         String url = "http://192.168.0.14/seguridad/extraer3.php";
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
         //request.add(jsonObjectRequest);
@@ -134,7 +141,8 @@ public class LugarFragment extends Fragment implements Response.Listener<JSONObj
 
     @Override
     public void onErrorResponse(VolleyError error) {
-
+    progressDialog.hide();
+        Toast.makeText(context,"Error al extraer",Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -157,6 +165,7 @@ public class LugarFragment extends Fragment implements Response.Listener<JSONObj
             }
             AdapterLugares adapter = new AdapterLugares(lista);
             contenedor.setAdapter(adapter);
+            progressDialog.hide();
         } catch (JSONException e) {
             e.printStackTrace();
         }

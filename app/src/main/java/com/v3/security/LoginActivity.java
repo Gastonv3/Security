@@ -34,6 +34,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+import static android.Manifest.permission.CAMERA;
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 
 public class LoginActivity extends AppCompatActivity implements Response.ErrorListener, Response.Listener<JSONObject>{
     EditText etlogin;
@@ -52,32 +55,8 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
         setContentView(R.layout.activity_login);
         context = this;
         referencias();
-        //request = Volley.newRequestQueue(getApplicationContext());
-        int permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
-        //si el permiso esta denegado lo solicitamos
-        if (permissionCheck== PackageManager.PERMISSION_DENIED){
+        validaPermisos();
 
-            //si requiere mostrar un mensaje antes de solicitar el permiso hacerlo dentro del siguiente if
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.ACCESS_FINE_LOCATION)) {
-
-                // Show an expanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
-
-            } else {
-
-                // No explanation needed, we can request the permission.
-
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                        1);
-
-                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-                // app-defined int constant. The callback method gets the
-                // result of the request.
-            }
-        }
         estado = Preferencias.getBoolean(context,Preferencias.getKeyRecuerdame(),false);
         if (estado == true){
             cbkrecuerdame.setChecked(estado);
@@ -107,6 +86,11 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
     }
 
     private void cargarWebServis() {
+        progressDialog=new ProgressDialog(context);
+        progressDialog.setMessage("Cargando...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+
         String url = "http://192.168.0.14/seguridad/login.php?login=" + etlogin.getText() + "&password=" + etpass.getText();
         //lee y procesa la informacion (Realiza el llamado a la url e intenta conectarse al webservis
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
@@ -118,6 +102,7 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
 
     @Override
     public void onErrorResponse(VolleyError error) {
+        progressDialog.hide();
         Toast.makeText(getApplicationContext(), "Casi pero no", Toast.LENGTH_SHORT).show();
     }
 
@@ -145,6 +130,7 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
         Preferencias.setBoolean(context, Preferencias.getKeyRecuerdame(), cbkrecuerdame.isChecked());
         //esto fue para salir de paso
         Preferencias.setString(context,Preferencias.getKeyGuardiaNombre(),guardia.getCodigo_guardia());
+        progressDialog.hide();
         Intent intent2 = new Intent(this, MainActivity.class);
         startActivity(intent2);
     }
@@ -161,12 +147,14 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode){
             case 1:{
-                if(grantResults.length>0&&grantResults[0]==PackageManager.PERMISSION_GRANTED){
+                if(grantResults.length>0&&grantResults[0]==PackageManager.PERMISSION_GRANTED && grantResults[1]==PackageManager.PERMISSION_GRANTED&&
+                        grantResults[2]==PackageManager.PERMISSION_GRANTED&&grantResults[3]==PackageManager.PERMISSION_GRANTED){
 
                 }else {
                     cargarDialogoRecomendacion();
                 }
             } break;
+
         }
 
     }
@@ -178,10 +166,34 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    requestPermissions(new String[]{ACCESS_FINE_LOCATION}, 1);
+                    requestPermissions(new String[]{ACCESS_FINE_LOCATION,WRITE_EXTERNAL_STORAGE,CAMERA,ACCESS_COARSE_LOCATION}, 1);
                 }
             }
         });
         dialog.show();
+    }
+    private boolean validaPermisos() {
+//si buld.version.sdk_int es menor a build.VERSION_CODES.M
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            return true;
+
+        }//en caso de que sea falso pregunto si los permisos estan activos
+        //checkeo si los permisos estan aceptados
+        if ((checkSelfPermission(CAMERA) == PackageManager.PERMISSION_GRANTED) &&
+                (checkSelfPermission(WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)&&
+                (checkSelfPermission(ACCESS_FINE_LOCATION)==PackageManager.PERMISSION_GRANTED)&&(checkSelfPermission(ACCESS_COARSE_LOCATION)==PackageManager.PERMISSION_GRANTED)) {
+            return true;
+        }
+        //en caso de que la version no sea menor y los permisos no se hayan dado debe solicitar los permisos
+        if ((shouldShowRequestPermissionRationale(CAMERA)) ||
+                (shouldShowRequestPermissionRationale(WRITE_EXTERNAL_STORAGE))||(shouldShowRequestPermissionRationale(ACCESS_FINE_LOCATION))||(shouldShowRequestPermissionRationale(ACCESS_COARSE_LOCATION))) {
+            cargarDialogoRecomendacion();
+        }//solicita los permisos
+        else {
+
+            requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE, CAMERA,ACCESS_FINE_LOCATION,ACCESS_COARSE_LOCATION}, 1);
+
+        }
+        return false;
     }
 }

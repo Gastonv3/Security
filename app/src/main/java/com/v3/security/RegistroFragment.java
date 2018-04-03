@@ -1,5 +1,6 @@
 package com.v3.security;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -21,7 +22,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -29,6 +33,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
+import com.v3.security.Util.Preferencias;
 import com.v3.security.Util.VolleySingleton;
 
 import java.io.ByteArrayOutputStream;
@@ -59,12 +64,15 @@ public class RegistroFragment extends Fragment {
     Context context;
     Bitmap bitmap;
     String path;
+    ImageButton ibFotoRegistro, ibEnviarRegistro;
     private final String CARPETA_RAIZ = "misImagenesPueba/";
     private final String RUTA_IMAGEN = CARPETA_RAIZ + "misFotos";
     final int CODIGO_FOTO = 30;
     final int CODIGO_SELECCIONA = 40;
+    int idguardia;
     JsonObjectRequest jsonObjectRequest;
     StringRequest stringRequest;
+    ProgressDialog progressDialog;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -111,11 +119,36 @@ public class RegistroFragment extends Fragment {
         etNombre= view.findViewById(R.id.etNombre);
         etApellido= view.findViewById(R.id.etApellido);
         etMotivo= view.findViewById(R.id.etMotivo);
-        btnEnviarRegistro= view.findViewById(R.id.btnEnviarRegistro);
-        btnFotoRegistro= view.findViewById(R.id.btnFotoRegistro);
+        idguardia = Preferencias.getInteger(context,Preferencias.getKeyGuardia());
+       // btnEnviarRegistro= view.findViewById(R.id.btnEnviarRegistro);
+      //  btnFotoRegistro= view.findViewById(R.id.btnFotoRegistro);
         ivFotoRegistro = view.findViewById(R.id.ivFotoRegistro);
 
-        btnFotoRegistro.setOnClickListener(new View.OnClickListener() {
+        ibFotoRegistro = view.findViewById(R.id.ibFotoRegistro);
+        ibEnviarRegistro = view.findViewById(R.id.ibEnviarRegistro);
+        ibFotoRegistro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                tomarFoto();
+            }
+        });
+        ibEnviarRegistro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(etNombre.getText().toString().trim().isEmpty()){
+                    Toast.makeText(context, "Debe ingresar un nombre", Toast.LENGTH_SHORT).show();
+                }else if (etApellido.getText().toString().trim().isEmpty()){
+                    Toast.makeText(context, "Debe ingresar un apellido", Toast.LENGTH_SHORT).show();
+                }else if(etMotivo.getText().toString().trim().isEmpty()){
+                    Toast.makeText(context, "Debe ingresar un motivo", Toast.LENGTH_SHORT).show();
+                }else {
+                    ingresarVisitas();
+                }
+
+
+            }
+        });
+    /*    btnFotoRegistro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 tomarFoto();
@@ -126,7 +159,7 @@ public class RegistroFragment extends Fragment {
             public void onClick(View view) {
                 ingresarVisitas();
             }
-        });
+        });*/
         return view;
 
     }
@@ -154,26 +187,44 @@ public class RegistroFragment extends Fragment {
         mListener = null;
     }
     private void ingresarVisitas(){
+        progressDialog=new ProgressDialog(context);
+        progressDialog.setMessage("Cargando...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
         String url = "http://192.168.0.14/seguridad/registrarVisita.php?";
         stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 
+                etNombre.setText("");
+                etApellido.setText("");
+                etMotivo.setText("");
+                ivFotoRegistro.setImageResource(R.drawable.img_base);
+                progressDialog.hide();
+                Toast.makeText(context, "Se registro correctamente", Toast.LENGTH_SHORT).show();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                Toast.makeText(context, "Error al registrar", Toast.LENGTH_SHORT).show();
+            progressDialog.hide();
             }
         }){
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 String idIngresos = "a";
-                String idGuardia = "1";
-                String nombre = "Marcelo";
-                String apellido = "Martinez";
-                String motivo = "Nada";
-                String foto = convertirImgString(bitmap);
+                String idGuardia = String.valueOf(idguardia);
+                String nombre = etNombre.getText().toString();
+                String apellido = etApellido.getText().toString();
+                String motivo = etMotivo.getText().toString();
+                String foto = null;
+                if (bitmap==null){
+                    Bitmap bitmap2= BitmapFactory.decodeResource(context.getResources(),
+                            R.drawable.img_base);
+                    foto=convertirImgString(bitmap2);
+                }else {
+                    foto=convertirImgString(bitmap);
+                }
                 Map<String,String>para = new HashMap<>();
                 para.put("idIngresos",idIngresos);
                 para.put("idGuardia",idGuardia);
@@ -302,4 +353,5 @@ public class RegistroFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
 }

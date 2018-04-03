@@ -5,24 +5,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".InformesActivity">
+    tools:context=".InformesActivity"
+   >
 
     <EditText
         android:id="@+id/etInforme"
         android:layout_width="match_parent"
         android:layout_height="95dp"
         android:ems="10"
-        android:inputType="textMultiLine" />
-
+        android:layout_margin="10dp"
+        android:inputType="textMultiLine"
+        android:hint="Escribir Informe"/>
+    <ImageButton
+        android:id="@+id/ibFoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_photo_camera_black_24dp"
+        android:theme="@style/MyButton"/>
+<!--
     <Button
         android:id="@+id/btnfoto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="foto"
         android:theme="@style/MyButton" />
+        -->
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+     >
 
         <LinearLayout
             android:id="@+id/linearfoto"
@@ -32,6 +43,7 @@
             android:orientation="vertical"
             android:padding="10dp"
             android:layout_above="@+id/linearbotones"
+
             >
 
             <ImageView
@@ -42,13 +54,20 @@
                 app:srcCompat="@drawable/img_base" />
         </LinearLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/linearbotones"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_alignParentBottom="true">
-
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorPrimaryDark">
+        <ImageButton
+            android:id="@+id/ibInsertarInforme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_note_add_black_24dp"
+            android:theme="@style/MyButton"/>
+<!--
             <Button
                 android:id="@+id/btnInsertarInforme"
                 android:layout_width="wrap_content"
@@ -57,7 +76,16 @@
                 android:text="enviar"
                 android:drawableLeft="@drawable/ic_note_add_black_24dp"
                 android:theme="@style/MyButton" />
-
+-->
+            <ImageButton
+                android:id="@+id/ibCancelar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_cancel_black_24dp"
+                android:theme="@style/MyButton"
+                android:layout_alignParentRight="true"
+                />
+            <!--
             <Button
                 android:id="@+id/btnCancelar"
                 android:layout_width="wrap_content"
@@ -67,7 +95,8 @@
                 android:text="Cancelar"
 
                 android:theme="@style/MyButton"/>
-        </LinearLayout>
+                -->
+        </RelativeLayout>
     </RelativeLayout>
 
 
