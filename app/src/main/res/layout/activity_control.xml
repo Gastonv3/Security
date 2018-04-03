@@ -45,7 +45,15 @@
         android:drawableLeft="@drawable/ic_assignment_turned_in_black_24dp"
         android:theme="@style/MyButton"
         android:layout_alignParentLeft="true"/>
-
+    <Button
+        android:id="@+id/btnPolicia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="Policia"
+        android:drawableLeft="@drawable/ic_police"
+        android:textColor="#D21"
+        android:theme="@style/MyButton"/>
     <Button
         android:id="@+id/btnInforme"
         android:layout_width="wrap_content"

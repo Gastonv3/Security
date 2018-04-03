@@ -109,7 +109,7 @@ public class LugarFragment extends Fragment implements Response.Listener<JSONObj
         progressDialog=new ProgressDialog(context);
         progressDialog.setMessage("Cargando...");
         progressDialog.setCancelable(false);
-        progressDialog.show();
+       progressDialog.show();
         String url = "http://192.168.0.14/seguridad/extraer3.php";
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
         //request.add(jsonObjectRequest);
@@ -163,9 +163,10 @@ public class LugarFragment extends Fragment implements Response.Listener<JSONObj
                 fuenteDatos.setEstado(jsonObject.optInt("estado"));
                 lista.add(fuenteDatos);
             }
+            progressDialog.hide();
             AdapterLugares adapter = new AdapterLugares(lista);
             contenedor.setAdapter(adapter);
-            progressDialog.hide();
+
         } catch (JSONException e) {
             e.printStackTrace();
         }

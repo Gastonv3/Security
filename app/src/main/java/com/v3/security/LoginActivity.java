@@ -34,6 +34,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+import static android.Manifest.permission.CALL_PHONE;
 import static android.Manifest.permission.CAMERA;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
@@ -148,7 +149,7 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
         switch (requestCode){
             case 1:{
                 if(grantResults.length>0&&grantResults[0]==PackageManager.PERMISSION_GRANTED && grantResults[1]==PackageManager.PERMISSION_GRANTED&&
-                        grantResults[2]==PackageManager.PERMISSION_GRANTED&&grantResults[3]==PackageManager.PERMISSION_GRANTED){
+                        grantResults[2]==PackageManager.PERMISSION_GRANTED&&grantResults[3]==PackageManager.PERMISSION_GRANTED&&grantResults[4]==PackageManager.PERMISSION_GRANTED){
 
                 }else {
                     cargarDialogoRecomendacion();
@@ -166,7 +167,7 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    requestPermissions(new String[]{ACCESS_FINE_LOCATION,WRITE_EXTERNAL_STORAGE,CAMERA,ACCESS_COARSE_LOCATION}, 1);
+                    requestPermissions(new String[]{ACCESS_FINE_LOCATION,WRITE_EXTERNAL_STORAGE,CAMERA,ACCESS_COARSE_LOCATION,CALL_PHONE}, 1);
                 }
             }
         });
@@ -180,18 +181,18 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
         }//en caso de que sea falso pregunto si los permisos estan activos
         //checkeo si los permisos estan aceptados
         if ((checkSelfPermission(CAMERA) == PackageManager.PERMISSION_GRANTED) &&
-                (checkSelfPermission(WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)&&
+                (checkSelfPermission(WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)&& (checkSelfPermission(CALL_PHONE)==PackageManager.PERMISSION_GRANTED)&&
                 (checkSelfPermission(ACCESS_FINE_LOCATION)==PackageManager.PERMISSION_GRANTED)&&(checkSelfPermission(ACCESS_COARSE_LOCATION)==PackageManager.PERMISSION_GRANTED)) {
             return true;
         }
         //en caso de que la version no sea menor y los permisos no se hayan dado debe solicitar los permisos
-        if ((shouldShowRequestPermissionRationale(CAMERA)) ||
+        if ((shouldShowRequestPermissionRationale(CAMERA)) || (shouldShowRequestPermissionRationale(CALL_PHONE))||
                 (shouldShowRequestPermissionRationale(WRITE_EXTERNAL_STORAGE))||(shouldShowRequestPermissionRationale(ACCESS_FINE_LOCATION))||(shouldShowRequestPermissionRationale(ACCESS_COARSE_LOCATION))) {
             cargarDialogoRecomendacion();
         }//solicita los permisos
         else {
 
-            requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE, CAMERA,ACCESS_FINE_LOCATION,ACCESS_COARSE_LOCATION}, 1);
+            requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE, CAMERA,ACCESS_FINE_LOCATION,ACCESS_COARSE_LOCATION,CALL_PHONE}, 1);
 
         }
         return false;
