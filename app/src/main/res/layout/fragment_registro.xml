@@ -93,6 +93,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_alignParentBottom="true"
+            android:gravity="center"
             android:background="@color/colorPrimaryDark">
             <ImageButton
                 android:id="@+id/ibEnviarRegistro"
@@ -100,14 +101,14 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_assignment_ind_black_24dp"
                 android:theme="@style/MyButton"/>
-            <ImageButton
+         <!--   <ImageButton
                 android:id="@+id/ibCancelarRegistro"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_cancel_black_24dp"
                 android:theme="@style/MyButton"
                 android:layout_alignParentRight="true"/>
-         <!--   <Button
+              <Button
                 android:id="@+id/btnEnviarRegistro"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

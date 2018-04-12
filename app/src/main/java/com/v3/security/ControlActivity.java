@@ -122,7 +122,7 @@ public class ControlActivity extends AppCompatActivity implements Response.Error
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Cargando...");
         progressDialog.setCancelable(false);
-        progressDialog.show();
+      //  progressDialog.show();
 
 
         //leer permiso y lo almacena en permission
@@ -158,7 +158,7 @@ public class ControlActivity extends AppCompatActivity implements Response.Error
                /* latitud = location.getLatitude();
                 longitud = location.getLongitude();*/
                 coordenadas = ("" + location.getLatitude() + " " + location.getLongitude());
-                progressDialog.hide();
+               // progressDialog.hide();
 
             }
 
@@ -199,6 +199,7 @@ public class ControlActivity extends AppCompatActivity implements Response.Error
             @Override
             public void onClick(View view) {
                 cargarWebservice();
+                finish();
             }
         });
         btninforme.setOnClickListener(new View.OnClickListener() {

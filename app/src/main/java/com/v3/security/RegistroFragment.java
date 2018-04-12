@@ -14,6 +14,8 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.FileProvider;
 import android.util.Base64;
 import android.util.Log;
@@ -60,7 +62,6 @@ public class RegistroFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     EditText etNombre,etApellido,etMotivo;
     ImageView ivFotoRegistro;
-    Button btnFotoRegistro, btnEnviarRegistro;
     Context context;
     Bitmap bitmap;
     String path;
@@ -120,12 +121,12 @@ public class RegistroFragment extends Fragment {
         etApellido= view.findViewById(R.id.etApellido);
         etMotivo= view.findViewById(R.id.etMotivo);
         idguardia = Preferencias.getInteger(context,Preferencias.getKeyGuardia());
-       // btnEnviarRegistro= view.findViewById(R.id.btnEnviarRegistro);
-      //  btnFotoRegistro= view.findViewById(R.id.btnFotoRegistro);
+
         ivFotoRegistro = view.findViewById(R.id.ivFotoRegistro);
 
         ibFotoRegistro = view.findViewById(R.id.ibFotoRegistro);
         ibEnviarRegistro = view.findViewById(R.id.ibEnviarRegistro);
+
         ibFotoRegistro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -148,6 +149,7 @@ public class RegistroFragment extends Fragment {
 
             }
         });
+
     /*    btnFotoRegistro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
