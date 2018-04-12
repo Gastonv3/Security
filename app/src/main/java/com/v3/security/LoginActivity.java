@@ -91,8 +91,8 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
         progressDialog.setMessage("Cargando...");
         progressDialog.setCancelable(false);
         progressDialog.show();
-
-        String url = "http://192.168.0.14/seguridad/login.php?login=" + etlogin.getText() + "&password=" + etpass.getText();
+        String ip = getString(R.string.ip_bd);
+        String url = ip+"/seguridad/login.php?login=" + etlogin.getText() + "&password=" + etpass.getText();
         //lee y procesa la informacion (Realiza el llamado a la url e intenta conectarse al webservis
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
         //permite establecer la cominicacion con los metodos response o error
@@ -109,7 +109,7 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
 
     @Override
     public void onResponse(JSONObject response) {
-        Toast.makeText(getApplicationContext(), "Casi pero si", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(), "Casi pero si", Toast.LENGTH_SHORT).show();
         Guardia guardia = null;
         JSONArray json = response.optJSONArray("datos");
         try {

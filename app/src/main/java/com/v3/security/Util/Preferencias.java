@@ -12,6 +12,11 @@ public class Preferencias {
     private static final String KEY_USER = "user";
     private static final String KEY_PASS = "pass";
     private static final String KEY_RECUERDAME = "recuerdame";
+    private static final String KEY_CONTROL = "control";
+
+    public static String getKeyControl() {
+        return KEY_CONTROL;
+    }
 
     public static String getKeyGuardiaNombre() {
         return KEY_GUARDIA_NOMBRE;
@@ -52,6 +57,7 @@ public class Preferencias {
         editor.putInt(key, i);
         editor.commit();
     }
+
     public static String getString(Context context, final String key) {
         android.content.SharedPreferences shaPref = PreferenceManager.getDefaultSharedPreferences(context);
         return shaPref.getString(key, "");
@@ -63,6 +69,7 @@ public class Preferencias {
         editor.putString(key, value);
         editor.commit();
     }
+
     public static boolean getBoolean(Context context, final String key, final boolean defaultValue) {
 
         android.content.SharedPreferences shaPref = PreferenceManager.getDefaultSharedPreferences(context);

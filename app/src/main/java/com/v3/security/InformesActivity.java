@@ -51,7 +51,7 @@ import java.util.Map;
 import static android.Manifest.permission.CAMERA;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
-public class InformesActivity extends AppCompatActivity implements Response.ErrorListener, Response.Listener<JSONObject> {
+public class InformesActivity extends AppCompatActivity  {
     EditText etinforme;
     Context context;
     ImageView imageView;
@@ -135,40 +135,9 @@ public class InformesActivity extends AppCompatActivity implements Response.Erro
         ibInsertarInforme = findViewById(R.id.ibInsertarInforme);
         ibCancelar = findViewById(R.id.ibCancelar);
         ibFoto= findViewById(R.id.ibFoto);
+
         extraerId();
-        if (validaPermisos()) {
-            ibFoto.setEnabled(true);
-        } else {
-            ibFoto.setEnabled(false);
-        }
-       /* btnFoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                tomarFoto();
-              /*  final CharSequence opciones[] = {"Tomar foto", "Cargar Imagen", "Cancelar"};
-                final AlertDialog.Builder alertaOpciones = new AlertDialog.Builder(context);
-                alertaOpciones.setTitle("Seleccione una Opción");
-                alertaOpciones.setItems(opciones, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        if (opciones[i].equals("Tomar foto")) {
-                            Toast.makeText(context, "a", Toast.LENGTH_SHORT).show();
-                            tomarFoto();
-                        } else {
-                            if (opciones[i].equals("Cargar Imagen")) {
-                                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                                intent.setType("image/");
-                                startActivityForResult(intent.createChooser(intent, "Seleccione la Aplicacion"), CODIGO_SELECCIONA);
-                            } else {
-                                dialogInterface.dismiss();
-                            }
-                        }
-                    }
-                });
-                alertaOpciones.show();*/
-  //
-       //     }
-   //     });
+
         ibCancelar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -179,12 +148,12 @@ public class InformesActivity extends AppCompatActivity implements Response.Erro
         ibInsertarInforme.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(etinforme.getText().toString().isEmpty()){
+              /*  if(etinforme.getText().toString().isEmpty()){
                     Toast.makeText(context, "Debe Ingresar un informe", Toast.LENGTH_SHORT).show();
                 }else{
                     cargarInforme();
-                }
-
+                }*/
+                cargarInforme();
             }
         });
         ibFoto.setOnClickListener(new View.OnClickListener() {
@@ -331,11 +300,37 @@ public class InformesActivity extends AppCompatActivity implements Response.Erro
     private void extraerId() {
         progressDialog=new ProgressDialog(context);
         progressDialog.setMessage("Cargando...");
-        progressDialog.setCancelable(false);
+        //progressDialog.setCancelable(false);
         progressDialog.show();
+
         String url = "http://192.168.0.14/seguridad/extraerMayorId.php";
         //lee y procesa la informacion (Realiza el llamado a la url e intenta conectarse al webservis
-        jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
+        jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Control control = null;
+                JSONArray json = response.optJSONArray("datos");
+                try {
+                    control = new Control();
+                    JSONObject jsonObject = null;
+                    jsonObject = json.getJSONObject(0);
+                    control.setIdControles(jsonObject.optInt("idControles"));
+                    control.setIdGuardia(jsonObject.optInt("idGuardia"));
+                    control.setIdLugares(jsonObject.getInt("idLugares"));
+                    control.setCoordenadas(jsonObject.getString("coordenadas"));
+                    control.setEstado(jsonObject.getInt("Estado"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                idControl = control.getIdControles();
+                progressDialog.hide();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                progressDialog.hide();
+            }
+        });
         //permite establecer la cominicacion con los metodos response o error
         // request.add(jsonObjectRequest);
         VolleySingleton.getInstanciaVolley(getApplicationContext()).addToRequestQueue(jsonObjectRequest);
@@ -435,30 +430,7 @@ public class InformesActivity extends AppCompatActivity implements Response.Erro
         return imagenString;
     }
 
-    @Override
-    public void onErrorResponse(VolleyError error) {
 
-    }
-
-    @Override
-    public void onResponse(JSONObject response) {
-        Control control = null;
-        JSONArray json = response.optJSONArray("datos");
-        try {
-            control = new Control();
-            JSONObject jsonObject = null;
-            jsonObject = json.getJSONObject(0);
-            control.setIdControles(jsonObject.optInt("idControles"));
-            control.setIdGuardia(jsonObject.optInt("idGuardia"));
-            control.setIdLugares(jsonObject.getInt("idLugares"));
-            control.setCoordenadas(jsonObject.getString("coordenadas"));
-            control.setEstado(jsonObject.getInt("Estado"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        idControl = control.getIdControles();
-        progressDialog.hide();
-    }
     private void rotateimagen (Bitmap bitmap){
         ExifInterface exifInterface = null;
         try {
