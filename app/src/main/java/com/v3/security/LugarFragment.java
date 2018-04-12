@@ -110,7 +110,8 @@ public class LugarFragment extends Fragment implements Response.Listener<JSONObj
         progressDialog.setMessage("Cargando...");
         progressDialog.setCancelable(false);
        progressDialog.show();
-        String url = "http://192.168.0.14/seguridad/extraer3.php";
+        String ip = getString(R.string.ip_bd);
+        String url = ip+"/seguridad/extraer3.php";
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
         //request.add(jsonObjectRequest);
         VolleySingleton.getInstanciaVolley(getContext()).addToRequestQueue(jsonObjectRequest);

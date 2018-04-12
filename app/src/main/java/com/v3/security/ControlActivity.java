@@ -215,8 +215,9 @@ public class ControlActivity extends AppCompatActivity implements Response.Error
     public void cargarWebservice() {
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Cargando...");
+        String ip = getString(R.string.ip_bd);
       //  progressDialog.setCancelable(false);
-        String url = "http://192.168.0.14/seguridad/insertarcontrol.php?idGuardia=" + idguardia + "&idLugares=" + idlugar + "&coordenadas=" + coordenadas +
+        String url = ip+"/seguridad/insertarcontrol.php?idGuardia=" + idguardia + "&idLugares=" + idlugar + "&coordenadas=" + coordenadas +
                 "&Estado=" + Estado;
         //lee y procesa la informacion (Realiza el llamado a la url e intenta conectarse al webservis
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);

@@ -191,7 +191,8 @@ public class RegistroFragment extends Fragment {
         progressDialog.setMessage("Cargando...");
         progressDialog.setCancelable(false);
         progressDialog.show();
-        String url = "http://192.168.0.14/seguridad/registrarVisita.php?";
+        String ip = getString(R.string.ip_bd);
+        String url = ip + "/seguridad/registrarVisita.php?";
         stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

@@ -302,8 +302,8 @@ public class InformesActivity extends AppCompatActivity  {
         progressDialog.setMessage("Cargando...");
         //progressDialog.setCancelable(false);
         progressDialog.show();
-
-        String url = "http://192.168.0.14/seguridad/extraerMayorId.php";
+        String ip = getString(R.string.ip_bd);
+        String url = ip+"/seguridad/extraerMayorId.php";
         //lee y procesa la informacion (Realiza el llamado a la url e intenta conectarse al webservis
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
@@ -340,7 +340,8 @@ public class InformesActivity extends AppCompatActivity  {
         progressDialog.setMessage("Cargando...");
         progressDialog.setCancelable(false);
         progressDialog.show();
-        String url = "http://192.168.0.14/seguridad/eliminarcontrol.php?idControles="+idControl;
+        String ip = getString(R.string.ip_bd);
+        String url = ip+"/seguridad/eliminarcontrol.php?idControles="+idControl;
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -363,7 +364,8 @@ public class InformesActivity extends AppCompatActivity  {
         progressDialog.setMessage("Cargando...");
         progressDialog.setCancelable(false);
         progressDialog.show();
-        String url = "http://192.168.0.14/seguridad/informe2.php?";
+        String ip = getString(R.string.ip_bd);
+        String url = ip+"/seguridad/informe2.php?";
         //lee y procesa la informacion (Realiza el llamado a la url e intenta conectarse al webservis
         stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
