@@ -122,7 +122,7 @@ public class ControlActivity extends AppCompatActivity implements Response.Error
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Cargando...");
         progressDialog.setCancelable(false);
-      //  progressDialog.show();
+        progressDialog.show();
 
 
         //leer permiso y lo almacena en permission
@@ -158,7 +158,7 @@ public class ControlActivity extends AppCompatActivity implements Response.Error
                /* latitud = location.getLatitude();
                 longitud = location.getLongitude();*/
                 coordenadas = ("" + location.getLatitude() + " " + location.getLongitude());
-               // progressDialog.hide();
+                progressDialog.hide();
 
             }
 
@@ -175,7 +175,7 @@ public class ControlActivity extends AppCompatActivity implements Response.Error
         // permissionCheck2 = ContextCompat.checkSelfPermission(this,ACCESS_COARSE_LOCATION);
 // Register the listener with the Location Manager to receive location updates
         // para que el proveedor sea internet LocationManager.NETWORK_PROVIDER,
-        locationManager.requestLocationUpdates("gps", 0, 0, locationListener);
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
         btnPolicia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -217,7 +217,7 @@ public class ControlActivity extends AppCompatActivity implements Response.Error
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Cargando...");
         String ip = getString(R.string.ip_bd);
-      //  progressDialog.setCancelable(false);
+        progressDialog.setCancelable(false);
         String url = ip+"/seguridad/insertarcontrol.php?idGuardia=" + idguardia + "&idLugares=" + idlugar + "&coordenadas=" + coordenadas +
                 "&Estado=" + Estado;
         //lee y procesa la informacion (Realiza el llamado a la url e intenta conectarse al webservis
