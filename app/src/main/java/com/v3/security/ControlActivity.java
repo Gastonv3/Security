@@ -157,7 +157,7 @@ public class ControlActivity extends AppCompatActivity implements Response.Error
 
                /* latitud = location.getLatitude();
                 longitud = location.getLongitude();*/
-                coordenadas = ("" + location.getLatitude() + " " + location.getLongitude());
+                coordenadas = ("" + location.getLatitude() + "" + location.getLongitude());
                 progressDialog.hide();
 
             }
@@ -199,7 +199,7 @@ public class ControlActivity extends AppCompatActivity implements Response.Error
             @Override
             public void onClick(View view) {
                 cargarWebservice();
-                finish();
+                //  finish();
             }
         });
         btninforme.setOnClickListener(new View.OnClickListener() {
@@ -218,7 +218,8 @@ public class ControlActivity extends AppCompatActivity implements Response.Error
         progressDialog.setMessage("Cargando...");
         String ip = getString(R.string.ip_bd);
         progressDialog.setCancelable(false);
-        String url = ip+"/seguridad/insertarcontrol.php?idGuardia=" + idguardia + "&idLugares=" + idlugar + "&coordenadas=" + coordenadas +
+        progressDialog.show();
+        String url = ip + "/seguridad/insertarcontrol.php?idGuardia=" + idguardia + "&idLugares=" + idlugar + "&coordenadas=" + coordenadas +
                 "&Estado=" + Estado;
         //lee y procesa la informacion (Realiza el llamado a la url e intenta conectarse al webservis
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
