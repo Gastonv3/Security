@@ -53,7 +53,7 @@ import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.Manifest.permission.CAMERA;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
-public class ControlActivity extends AppCompatActivity implements Response.ErrorListener, Response.Listener<JSONObject>, OnMapReadyCallback {
+public class ControlActivity extends AppCompatActivity implements Response.ErrorListener, Response.Listener<JSONObject>{
     private Location lastLocation;
 
     private Marker currentLocationMarker;
@@ -78,7 +78,7 @@ public class ControlActivity extends AppCompatActivity implements Response.Error
     Context context;
     ImageView imageView;
     TextView tvNombreLugar;
-
+/*
     @Override
     protected void onResume() {
         super.onResume();
@@ -96,7 +96,7 @@ public class ControlActivity extends AppCompatActivity implements Response.Error
         super.onDestroy();
         mapView.onDestroy();
     }
-
+*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,8 +105,8 @@ public class ControlActivity extends AppCompatActivity implements Response.Error
         context = this;
         tvNombreLugar = findViewById(R.id.tvNombreLugar);
         imageView = findViewById(R.id.ivControl);
-        mapView = findViewById(R.id.mapView);
-        mapView.onCreate(savedInstanceState);
+       // mapView = findViewById(R.id.mapView);
+        //mapView.onCreate(savedInstanceState);
         Estado = 1;
         btnPolicia = findViewById(R.id.btnPolicia);
         btninsertar = findViewById(R.id.btnInsertar);
@@ -137,7 +137,7 @@ public class ControlActivity extends AppCompatActivity implements Response.Error
             public void onLocationChanged(Location location) {
 
                 // Called when a new location is found by the network location provider.
-                lastLocation = location;
+            /*    lastLocation = location;
 
                 if (currentLocationMarker != null) {
                     currentLocationMarker.remove();
@@ -210,7 +210,7 @@ public class ControlActivity extends AppCompatActivity implements Response.Error
                 startActivity(intent);
             }
         });
-        mapView.getMapAsync(this);
+       // mapView.getMapAsync(this);
     }
 
     public void cargarWebservice() {
@@ -241,10 +241,10 @@ public class ControlActivity extends AppCompatActivity implements Response.Error
     }
 
 
-    @Override
+   /* @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
 
-    }
+    }*/
 }
