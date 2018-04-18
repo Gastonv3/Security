@@ -111,7 +111,7 @@ public class LugarFragment extends Fragment implements Response.Listener<JSONObj
         progressDialog.setCancelable(false);
        progressDialog.show();
         String ip = getString(R.string.ip_bd);
-        String url = ip+"/seguridad/extraer3.php";
+        String url = ip+"/security/extraerLugares.php";
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
         //request.add(jsonObjectRequest);
         VolleySingleton.getInstanciaVolley(getContext()).addToRequestQueue(jsonObjectRequest);
@@ -157,10 +157,10 @@ public class LugarFragment extends Fragment implements Response.Listener<JSONObj
                 jsonObject = json.getJSONObject(i);
 
                 fuenteDatos.setIdLugares(jsonObject.optInt("idLugares"));
-                fuenteDatos.setNombre_lugares(jsonObject.optString("nombre_lugar"));
+                fuenteDatos.setNombre_lugares(jsonObject.optString("nombreLugar"));
                 fuenteDatos.setUbicacion(jsonObject.optString("ubicacion"));
-                fuenteDatos.setCoordenadas(jsonObject.optString("coordenadas"));
-                fuenteDatos.setDato(jsonObject.optString("imagen"));
+                fuenteDatos.setEmails(jsonObject.optString("emails"));
+                fuenteDatos.setDato(jsonObject.optString("imagenLugar"));
                 fuenteDatos.setEstado(jsonObject.optInt("estado"));
                 lista.add(fuenteDatos);
             }

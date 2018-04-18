@@ -5,21 +5,23 @@ package com.v3.security.Clases;
  */
 
 public class Control {
-    private  int idControles;
-    private  int idGuardia;
-    private  int idLugares;
-    private String coordenadas;
-    private int Estado;
+    private int idControles;
+    private int idGuardia;
+    private int idLugares;
+    private String latitud;
+    private String longitud;
+
 
     public Control() {
     }
 
-    public Control(int idControles, int idGuardia, int idLugares, String coordenadas, int estado) {
+    public Control(int idControles, int idGuardia, int idLugares, String latitud, String longitud, int estado) {
         this.idControles = idControles;
         this.idGuardia = idGuardia;
         this.idLugares = idLugares;
-        this.coordenadas = coordenadas;
-        Estado = estado;
+        this.latitud = latitud;
+        this.longitud = longitud;
+
     }
 
     public int getIdControles() {
@@ -46,19 +48,19 @@ public class Control {
         this.idLugares = idLugares;
     }
 
-    public String getCoordenadas() {
-        return coordenadas;
+    public String getLatitud() {
+        return latitud;
     }
 
-    public void setCoordenadas(String coordenadas) {
-        this.coordenadas = coordenadas;
+    public void setLatitud(String latitud) {
+        this.latitud = latitud;
     }
 
-    public int getEstado() {
-        return Estado;
+    public String getLongitud() {
+        return longitud;
     }
 
-    public void setEstado(int estado) {
-        Estado = estado;
+    public void setLongitud(String longitud) {
+        this.longitud = longitud;
     }
 }

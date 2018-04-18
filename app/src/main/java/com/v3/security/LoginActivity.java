@@ -92,7 +92,7 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
         progressDialog.setCancelable(false);
         progressDialog.show();
         String ip = getString(R.string.ip_bd);
-        String url = ip+"/seguridad/login.php?login=" + etlogin.getText() + "&password=" + etpass.getText();
+        String url = ip+"/security/login.php?user=" + etlogin.getText() + "&pass=" + etpass.getText();
         //lee y procesa la informacion (Realiza el llamado a la url e intenta conectarse al webservis
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
         //permite establecer la cominicacion con los metodos response o error
@@ -117,9 +117,9 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
             JSONObject jsonObject = null;
             jsonObject = json.getJSONObject(0);
             guardia.setIdpersona(jsonObject.optInt("idpersona"));
-            guardia.setCodigo_guardia(jsonObject.optString("codigo_guardia"));
-            guardia.setLogin(jsonObject.getString("login"));
-            guardia.setPassword(jsonObject.getString("password"));
+            guardia.setCodigo_guardia(jsonObject.optString("codigoGuardia"));
+            guardia.setLogin(jsonObject.getString("user"));
+            guardia.setPassword(jsonObject.getString("pass"));
             guardia.setEstado(jsonObject.getString("estado"));
         } catch (JSONException e) {
             e.printStackTrace();

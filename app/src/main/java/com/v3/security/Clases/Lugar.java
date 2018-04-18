@@ -11,11 +11,11 @@ import java.io.Serializable;
  * Created by Skylake on 25/3/2018.
  */
 
-public class Lugar{
+public class Lugar {
     private Integer idLugares;
     private String nombre_lugares;
     private String ubicacion;
-    private String coordenadas;
+    private String emails;
     private Integer estado;
     private Bitmap imagen;
     private String dato;
@@ -27,10 +27,10 @@ public class Lugar{
     public void setDato(String dato) {
         this.dato = dato;
         try {
-            byte[] byteCode = Base64.decode(dato,Base64.DEFAULT);
-            this.imagen = BitmapFactory.decodeByteArray(byteCode,0,byteCode.length);
+            byte[] byteCode = Base64.decode(dato, Base64.DEFAULT);
+            this.imagen = BitmapFactory.decodeByteArray(byteCode, 0, byteCode.length);
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -48,11 +48,11 @@ public class Lugar{
 
     }
 
-    public Lugar(Integer idLugares, String nombre_lugares, String ubicacion, String coordenadas, Integer estado) {
+    public Lugar(Integer idLugares, String nombre_lugares, String ubicacion, String emails, Integer estado) {
         this.idLugares = idLugares;
         this.nombre_lugares = nombre_lugares;
         this.ubicacion = ubicacion;
-        this.coordenadas = coordenadas;
+        this.emails = emails;
         this.estado = estado;
     }
 
@@ -80,19 +80,19 @@ public class Lugar{
         this.ubicacion = ubicacion;
     }
 
-    public String getCoordenadas() {
-        return coordenadas;
-    }
-
-    public void setCoordenadas(String coordenadas) {
-        this.coordenadas = coordenadas;
-    }
-
     public Integer getEstado() {
         return estado;
     }
 
     public void setEstado(Integer estado) {
         this.estado = estado;
+    }
+
+    public String getEmails() {
+        return emails;
+    }
+
+    public void setEmails(String emails) {
+        this.emails = emails;
     }
 }

@@ -53,7 +53,7 @@ import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.Manifest.permission.CAMERA;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
-public class ControlActivity extends AppCompatActivity implements Response.ErrorListener, Response.Listener<JSONObject>{
+public class ControlActivity extends AppCompatActivity implements Response.ErrorListener, Response.Listener<JSONObject> {
     private Location lastLocation;
 
     private Marker currentLocationMarker;
@@ -71,32 +71,33 @@ public class ControlActivity extends AppCompatActivity implements Response.Error
     ProgressDialog progressDialog;
     //  RequestQueue request;
     JsonObjectRequest jsonObjectRequest;
-    String coordenadas;
+    String latitud, longitud;
     int idlugar, Estado, idguardia;
-    Double latitud, longitud;
+    //Double latitud, longitud;
 
     Context context;
     ImageView imageView;
     TextView tvNombreLugar;
-/*
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mapView.onResume();
-    }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        mapView.onPause();
-    }
+    /*
+        @Override
+        protected void onResume() {
+            super.onResume();
+            mapView.onResume();
+        }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mapView.onDestroy();
-    }
-*/
+        @Override
+        protected void onPause() {
+            super.onPause();
+            mapView.onPause();
+        }
+
+        @Override
+        protected void onDestroy() {
+            super.onDestroy();
+            mapView.onDestroy();
+        }
+    */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,9 +106,8 @@ public class ControlActivity extends AppCompatActivity implements Response.Error
         context = this;
         tvNombreLugar = findViewById(R.id.tvNombreLugar);
         imageView = findViewById(R.id.ivControl);
-       // mapView = findViewById(R.id.mapView);
+        // mapView = findViewById(R.id.mapView);
         //mapView.onCreate(savedInstanceState);
-        Estado = 1;
         btnPolicia = findViewById(R.id.btnPolicia);
         btninsertar = findViewById(R.id.btnInsertar);
         btninforme = findViewById(R.id.btnInforme);
@@ -157,7 +157,8 @@ public class ControlActivity extends AppCompatActivity implements Response.Error
 
                /* latitud = location.getLatitude();
                 longitud = location.getLongitude();*/
-                coordenadas = ("" + location.getLatitude() + "" + location.getLongitude());
+                latitud = ("" + location.getLatitude());
+                longitud = ("" + location.getLongitude());
                 progressDialog.hide();
 
             }
@@ -199,7 +200,7 @@ public class ControlActivity extends AppCompatActivity implements Response.Error
             @Override
             public void onClick(View view) {
                 cargarWebservice();
-                //  finish();
+                  finish();
             }
         });
         btninforme.setOnClickListener(new View.OnClickListener() {
@@ -210,7 +211,7 @@ public class ControlActivity extends AppCompatActivity implements Response.Error
                 startActivity(intent);
             }
         });
-       // mapView.getMapAsync(this);
+        // mapView.getMapAsync(this);
     }
 
     public void cargarWebservice() {
@@ -219,8 +220,8 @@ public class ControlActivity extends AppCompatActivity implements Response.Error
         String ip = getString(R.string.ip_bd);
         progressDialog.setCancelable(false);
         progressDialog.show();
-        String url = ip + "/seguridad/insertarcontrol.php?idGuardia=" + idguardia + "&idLugares=" + idlugar + "&coordenadas=" + coordenadas +
-                "&Estado=" + Estado;
+        String url = ip + "/security/insertarControl.php?idGuardia=" + idguardia + "&idLugares=" + idlugar + "&latitud=" + latitud +
+                "&longitud=" + longitud;
         //lee y procesa la informacion (Realiza el llamado a la url e intenta conectarse al webservis
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
         //permite establecer la cominicacion con los metodos response o error

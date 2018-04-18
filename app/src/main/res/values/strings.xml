@@ -8,5 +8,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_google_maps_security">Map</string>
-    <string name="ip_bd">https://securityunlar.000webhostapp.com</string>
+    <!--<string name="ip_bd">https://securityunlar.000webhostapp.com</string>-->
+    <string name="ip_bd">http://192.168.0.14</string>
+
 </resources>

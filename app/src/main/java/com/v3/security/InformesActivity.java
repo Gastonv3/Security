@@ -51,8 +51,8 @@ import java.util.Map;
 import static android.Manifest.permission.CAMERA;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
-public class InformesActivity extends AppCompatActivity  {
-    EditText etinforme;
+public class InformesActivity extends AppCompatActivity {
+    EditText etinforme, etTituloInforme;
     Context context;
     ImageView imageView;
     JsonObjectRequest jsonObjectRequest;
@@ -60,12 +60,12 @@ public class InformesActivity extends AppCompatActivity  {
     String path;
     StringRequest stringRequest;
     int idControl;
-    private final String CARPETA_RAIZ = "misImagenesPueba/";
+    private final String CARPETA_RAIZ = "misImagenesPrueba/";
     private final String RUTA_IMAGEN = CARPETA_RAIZ + "misFotos";
     final int CODIGO_FOTO = 20;
     final int CODIGO_SELECCIONA = 10;
     Bitmap bitmap;
-    ImageButton ibInsertarInforme, ibCancelar,ibFoto;
+    ImageButton ibInsertarInforme, ibCancelar, ibFoto;
     ProgressDialog progressDialog;
 
 
@@ -95,7 +95,7 @@ public class InformesActivity extends AppCompatActivity  {
                     bitmap = redimensionarImagen(bitmap, 1280, 960);
 
                     rotateimagen(bitmap);
-                   // imageView.setImageBitmap(bitmap);
+                    // imageView.setImageBitmap(bitmap);
 
                     break;
             }
@@ -127,14 +127,15 @@ public class InformesActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_informes);
         context = this;
+        etTituloInforme = findViewById(R.id.etTituloInforme);
         etinforme = findViewById(R.id.etInforme);
         imageView = findViewById(R.id.ivfoto);
-       // btnInsertarInforme = findViewById(R.id.btnInsertarInforme);
-       // btnFoto = findViewById(R.id.btnfoto);
-      //  btnCancelar = findViewById(R.id.btnCancelar);
+        // btnInsertarInforme = findViewById(R.id.btnInsertarInforme);
+        // btnFoto = findViewById(R.id.btnfoto);
+        //  btnCancelar = findViewById(R.id.btnCancelar);
         ibInsertarInforme = findViewById(R.id.ibInsertarInforme);
         ibCancelar = findViewById(R.id.ibCancelar);
-        ibFoto= findViewById(R.id.ibFoto);
+        ibFoto = findViewById(R.id.ibFoto);
 
         extraerId();
 
@@ -148,12 +149,12 @@ public class InformesActivity extends AppCompatActivity  {
         ibInsertarInforme.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              /*  if(etinforme.getText().toString().isEmpty()){
-                    Toast.makeText(context, "Debe Ingresar un informe", Toast.LENGTH_SHORT).show();
+               if(etinforme.getText().toString().isEmpty()|| etTituloInforme.getText().toString().isEmpty()){
+                    Toast.makeText(context, "Debe llernar todos los campos", Toast.LENGTH_SHORT).show();
                 }else{
                     cargarInforme();
-                }*/
-                cargarInforme();
+                }
+               // cargarInforme();
             }
         });
         ibFoto.setOnClickListener(new View.OnClickListener() {
@@ -298,12 +299,12 @@ public class InformesActivity extends AppCompatActivity  {
     }
 
     private void extraerId() {
-        progressDialog=new ProgressDialog(context);
+        progressDialog = new ProgressDialog(context);
         progressDialog.setMessage("Cargando...");
         //progressDialog.setCancelable(false);
         progressDialog.show();
         String ip = getString(R.string.ip_bd);
-        String url = ip+"/seguridad/extraerMayorId.php";
+        String url = ip + "/security/extraerControlMayorId.php";
         //lee y procesa la informacion (Realiza el llamado a la url e intenta conectarse al webservis
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
@@ -317,8 +318,8 @@ public class InformesActivity extends AppCompatActivity  {
                     control.setIdControles(jsonObject.optInt("idControles"));
                     control.setIdGuardia(jsonObject.optInt("idGuardia"));
                     control.setIdLugares(jsonObject.getInt("idLugares"));
-                    control.setCoordenadas(jsonObject.getString("coordenadas"));
-                    control.setEstado(jsonObject.getInt("Estado"));
+                    control.setLatitud(jsonObject.getString("latitud"));
+                    control.setLongitud(jsonObject.getString("longitud"));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -335,13 +336,14 @@ public class InformesActivity extends AppCompatActivity  {
         // request.add(jsonObjectRequest);
         VolleySingleton.getInstanciaVolley(getApplicationContext()).addToRequestQueue(jsonObjectRequest);
     }
-    private  void eliminarControl(){
-        progressDialog=new ProgressDialog(context);
+
+    private void eliminarControl() {
+        progressDialog = new ProgressDialog(context);
         progressDialog.setMessage("Cargando...");
         progressDialog.setCancelable(false);
         progressDialog.show();
         String ip = getString(R.string.ip_bd);
-        String url = ip+"/seguridad/eliminarcontrol.php?idControles="+idControl;
+        String url = ip + "/security/eliminarControl.php?idControles=" + idControl;
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -358,24 +360,26 @@ public class InformesActivity extends AppCompatActivity  {
 
         VolleySingleton.getInstanciaVolley(getApplicationContext()).addToRequestQueue(jsonObjectRequest);
     }
+
     //subir imagen
     public void cargarInforme() {
-        progressDialog=new ProgressDialog(context);
+        progressDialog = new ProgressDialog(context);
         progressDialog.setMessage("Cargando...");
         progressDialog.setCancelable(false);
         progressDialog.show();
         String ip = getString(R.string.ip_bd);
-        String url = ip+"/seguridad/informe2.php?";
+        String url = ip + "/security/insertarInforme.php?";
         //lee y procesa la informacion (Realiza el llamado a la url e intenta conectarse al webservis
         stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 if (response.trim().equalsIgnoreCase("registra")) {
+                    etTituloInforme.setText("");
                     etinforme.setText("");
-                   bitmap = null;
+                    bitmap = null;
                     imageView.setImageResource(R.drawable.img_base);
                     progressDialog.hide();
-                   // btnInsertarInforme.setText("Enviar Otro informe");
+                    // btnInsertarInforme.setText("Enviar Otro informe");
                     Toast.makeText(context, "Se ha registrado", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(context, "No ha registrado", Toast.LENGTH_SHORT).show();
@@ -394,27 +398,28 @@ public class InformesActivity extends AppCompatActivity  {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
 
-                String idinforme="a";
-                String idControles= String.valueOf(idControl);
-                String 	observacion=etinforme.getText().toString();
-               // String fecha_hora="2018-03-31 01:41:48"
-                String foto = null;
-                if (bitmap==null){
-                    Bitmap bitmap2= BitmapFactory.decodeResource(context.getResources(),
+                String idinforme = "a";
+                String idControles = String.valueOf(idControl);
+                String tituloInforme = etTituloInforme.getText().toString();
+                String informe = etinforme.getText().toString();
+                // String fecha_hora="2018-03-31 01:41:48"
+                String imagenInforme = null;
+                if (bitmap == null) {
+                    Bitmap bitmap2 = BitmapFactory.decodeResource(context.getResources(),
                             R.drawable.img_base);
-                    foto=convertirImgString(bitmap2);
-                }else {
-                    foto=convertirImgString(bitmap);
+                    imagenInforme = convertirImgString(bitmap2);
+                } else {
+                    imagenInforme = convertirImgString(bitmap);
                 }
 
 
-
-                Map<String,String> parametros=new HashMap<>();
-                parametros.put("idinforme",idinforme);
-                parametros.put("idControles",idControles);
-                parametros.put("observacion",observacion);
-              //  parametros.put("fecha_hora",fecha_hora);
-                parametros.put("foto",foto);
+                Map<String, String> parametros = new HashMap<>();
+                parametros.put("idinforme", idinforme);
+                parametros.put("idControles", idControles);
+                parametros.put("informe", informe);
+                parametros.put("tituloInforme", tituloInforme);
+                //  parametros.put("fecha_hora",fecha_hora);
+                parametros.put("imagenInforme", imagenInforme);
 
                 return parametros;
 
@@ -433,16 +438,16 @@ public class InformesActivity extends AppCompatActivity  {
     }
 
 
-    private void rotateimagen (Bitmap bitmap){
+    private void rotateimagen(Bitmap bitmap) {
         ExifInterface exifInterface = null;
         try {
-            exifInterface=new ExifInterface(path);
-        }catch (IOException e){
+            exifInterface = new ExifInterface(path);
+        } catch (IOException e) {
             e.printStackTrace();
         }
-        int orientation = exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION,ExifInterface.ORIENTATION_UNDEFINED);
+        int orientation = exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED);
         Matrix matrix = new Matrix();
-        switch (orientation){
+        switch (orientation) {
             case ExifInterface.ORIENTATION_ROTATE_90:
                 matrix.setRotate(90);
 
@@ -452,7 +457,7 @@ public class InformesActivity extends AppCompatActivity  {
                 break;
             default:
         }
-        Bitmap rotateBitmap = Bitmap.createBitmap(bitmap,0,0,bitmap.getWidth(),bitmap.getHeight(),matrix,true);
+        Bitmap rotateBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
         imageView.setImageBitmap(rotateBitmap);
     }
 
