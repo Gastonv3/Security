@@ -10,5 +10,9 @@
         android:id="@+id/navigation_dashboard"
         android:icon="@drawable/ic_person_add_black_24px"
         android:title="Registrar Ingresos" />
-
+    <item
+        android:id="@+id/personalAturizado"
+        android:icon="@drawable/ic_perm_identity_black_24dp"
+        android:title="Personal Autorizado"
+        />
 </menu>

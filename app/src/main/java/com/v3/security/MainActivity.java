@@ -1,5 +1,6 @@
 package com.v3.security;
 
+import android.hardware.Camera;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -12,7 +13,7 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity  {
 
     private TextView mTextMessage;
-
+    Camera camera;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -26,17 +27,22 @@ public class MainActivity extends AppCompatActivity  {
                     return true;
                 case R.id.navigation_dashboard:
                     transaction.replace(R.id.c, new RegistroFragment()).commit();
-                    return true;
 
+                    return true;
+                case R.id.personalAturizado:
+                    transaction.replace(R.id.c, new AutorizadoFragment()).commit();
+                    return true;
             }
             return false;
         }
     };
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
@@ -44,7 +50,12 @@ public class MainActivity extends AppCompatActivity  {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.c, new LugarFragment()).commit();
-
     }
-
+ public  void apagarFlash(){
+     camera = Camera.open();
+     Camera.Parameters parameters = camera.getParameters();
+     parameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
+     camera.setParameters(parameters);
+     camera.startPreview();
+ }
 }

@@ -200,13 +200,13 @@ public class ControlActivity extends AppCompatActivity implements Response.Error
             @Override
             public void onClick(View view) {
                 cargarWebservice();
-                  finish();
+                //  finish();
             }
         });
         btninforme.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                cargarWebservice();
+                cargarWebservice2();
                 Intent intent = new Intent(context, InformesActivity.class);
                 startActivity(intent);
             }
@@ -232,13 +232,15 @@ public class ControlActivity extends AppCompatActivity implements Response.Error
     @Override
     public void onErrorResponse(VolleyError error) {
         progressDialog.hide();
-        Toast.makeText(getApplicationContext(), "error", Toast.LENGTH_SHORT).show();
+        AlertaError();
     }
 
     @Override
     public void onResponse(JSONObject response) {
         progressDialog.hide();
-        Toast.makeText(getApplicationContext(), "Se registro correctamente", Toast.LENGTH_SHORT).show();
+
+        Toast.makeText(getApplicationContext(), "Se registró correctamente", Toast.LENGTH_SHORT).show();
+
     }
 
 
@@ -248,4 +250,42 @@ public class ControlActivity extends AppCompatActivity implements Response.Error
 
 
     }*/
+   private void AlertaError() {
+       android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(context, R.style.AlertDialogCustom);
+       builder.setTitle("Error");
+       builder.setMessage("Error al registrar, comprueba tu conexión");
+       builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+           @Override
+           public void onClick(DialogInterface dialogInterface, int i) {
+
+           }
+       });
+
+       builder.show();
+   }
+    public void cargarWebservice2() {
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Cargando...");
+        String ip = getString(R.string.ip_bd);
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+        String url = ip + "/security/insertarControl.php?idGuardia=" + idguardia + "&idLugares=" + idlugar + "&latitud=" + latitud +
+                "&longitud=" + longitud;
+        //lee y procesa la informacion (Realiza el llamado a la url e intenta conectarse al webservis
+        jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                progressDialog.hide();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                progressDialog.hide();
+            }
+        });
+        //permite establecer la cominicacion con los metodos response o error
+        // request.add(jsonObjectRequest);
+        VolleySingleton.getInstanciaVolley(getApplicationContext()).addToRequestQueue(jsonObjectRequest);
+    }
+
 }

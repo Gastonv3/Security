@@ -10,6 +10,7 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -104,12 +105,12 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
     @Override
     public void onErrorResponse(VolleyError error) {
         progressDialog.hide();
-        Toast.makeText(getApplicationContext(), "Casi pero no", Toast.LENGTH_SHORT).show();
+        AlertaError();
+
     }
 
     @Override
     public void onResponse(JSONObject response) {
-        //Toast.makeText(getApplicationContext(), "Casi pero si", Toast.LENGTH_SHORT).show();
         Guardia guardia = null;
         JSONArray json = response.optJSONArray("datos");
         try {
@@ -130,7 +131,7 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
         Preferencias.setString(context, Preferencias.getKeyPass(), guardia.getPassword());
         Preferencias.setBoolean(context, Preferencias.getKeyRecuerdame(), cbkrecuerdame.isChecked());
         //esto fue para salir de paso
-        Preferencias.setString(context,Preferencias.getKeyGuardiaNombre(),guardia.getCodigo_guardia());
+
         progressDialog.hide();
         Intent intent2 = new Intent(this, MainActivity.class);
         startActivity(intent2);
@@ -196,5 +197,17 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
 
         }
         return false;
+    }
+    private void AlertaError (){
+         AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this, R.style.AlertDialogCustom);
+         builder.setTitle("Error");
+         builder.setMessage("Comprueba tu cuenta y/o conexión");
+         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+             @Override
+             public void onClick(DialogInterface dialogInterface, int i) {
+
+             }
+         });
+         builder.show();
     }
 }

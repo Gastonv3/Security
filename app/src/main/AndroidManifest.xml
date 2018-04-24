@@ -5,11 +5,11 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.LOCATION_HARDWARE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_INTERNAL_STORAGE" />
 
@@ -36,9 +36,7 @@
             android:name=".ControlActivity"
             android:label="Control"
             android:theme="@style/Main" />
-
-
-        <activity android:name=".InformesActivity"></activity>
+        <activity android:name=".InformesActivity" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -64,7 +62,9 @@
 
         <activity
             android:name=".googleMapsSecurity"
-            android:label="@string/title_activity_google_maps_security"></activity>
+            android:label="@string/title_activity_google_maps_security" />
+        <activity android:name=".Scanner" />
+        <activity android:name=".ScannerActivity"></activity>
     </application>
 
 </manifest>

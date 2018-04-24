@@ -2,9 +2,11 @@ package com.v3.security;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -143,7 +145,7 @@ public class LugarFragment extends Fragment implements Response.Listener<JSONObj
     @Override
     public void onErrorResponse(VolleyError error) {
     progressDialog.hide();
-        Toast.makeText(context,"Error al extraer",Toast.LENGTH_SHORT).show();
+        AlertaError();
     }
 
     @Override
@@ -186,5 +188,23 @@ public class LugarFragment extends Fragment implements Response.Listener<JSONObj
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+    private void AlertaError (){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogCustom);
+        builder.setTitle("Error");
+        builder.setMessage("Comprueba tu conexión");
+        builder.setPositiveButton("REINTENTAR", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                cargarWebservice();
+            }
+        });
+        /*builder.setNegativeButton("CANCELAR", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });*/
+        builder.show();
     }
 }

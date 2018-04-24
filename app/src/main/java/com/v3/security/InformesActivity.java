@@ -11,6 +11,7 @@ import android.graphics.Matrix;
 import android.media.ExifInterface;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -36,6 +37,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.v3.security.Clases.Control;
+import com.v3.security.Clases.Email;
+import com.v3.security.Clases.Lugar;
 import com.v3.security.Util.VolleySingleton;
 
 import org.json.JSONArray;
@@ -47,19 +50,39 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
+
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
+import javax.mail.Authenticator;
+import javax.mail.BodyPart;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 
 import static android.Manifest.permission.CAMERA;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 public class InformesActivity extends AppCompatActivity {
+    Session session = null;
+    String to, subject, body;
+
+
     EditText etinforme, etTituloInforme;
     Context context;
     ImageView imageView;
     JsonObjectRequest jsonObjectRequest;
     Button btnInsertarInforme, btnFoto, btnCancelar;
-    String path;
+    String path = null;
     StringRequest stringRequest;
     int idControl;
+    String email;
     private final String CARPETA_RAIZ = "misImagenesPrueba/";
     private final String RUTA_IMAGEN = CARPETA_RAIZ + "misFotos";
     final int CODIGO_FOTO = 20;
@@ -149,12 +172,13 @@ public class InformesActivity extends AppCompatActivity {
         ibInsertarInforme.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               if(etinforme.getText().toString().isEmpty()|| etTituloInforme.getText().toString().isEmpty()){
+                if (etinforme.getText().toString().isEmpty() || etTituloInforme.getText().toString().isEmpty()) {
                     Toast.makeText(context, "Debe llernar todos los campos", Toast.LENGTH_SHORT).show();
-                }else{
+                } else {
+
                     cargarInforme();
                 }
-               // cargarInforme();
+
             }
         });
         ibFoto.setOnClickListener(new View.OnClickListener() {
@@ -304,15 +328,18 @@ public class InformesActivity extends AppCompatActivity {
         //progressDialog.setCancelable(false);
         progressDialog.show();
         String ip = getString(R.string.ip_bd);
-        String url = ip + "/security/extraerControlMayorId.php";
+        //String url = ip + "/security/extraerControlMayorId.php";
+        String url = ip + "/security/extraerEmail.php";
         //lee y procesa la informacion (Realiza el llamado a la url e intenta conectarse al webservis
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 Control control = null;
+                Lugar lugar = null;
                 JSONArray json = response.optJSONArray("datos");
                 try {
                     control = new Control();
+                    lugar = new Lugar();
                     JSONObject jsonObject = null;
                     jsonObject = json.getJSONObject(0);
                     control.setIdControles(jsonObject.optInt("idControles"));
@@ -320,10 +347,12 @@ public class InformesActivity extends AppCompatActivity {
                     control.setIdLugares(jsonObject.getInt("idLugares"));
                     control.setLatitud(jsonObject.getString("latitud"));
                     control.setLongitud(jsonObject.getString("longitud"));
+                    lugar.setEmails(jsonObject.getString("emails"));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
                 idControl = control.getIdControles();
+                email = lugar.getEmails();
                 progressDialog.hide();
             }
         }, new Response.ErrorListener() {
@@ -373,14 +402,20 @@ public class InformesActivity extends AppCompatActivity {
         stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                to = email;
+                subject = etTituloInforme.getText().toString();
+                body = etinforme.getText().toString();
+                EmailSender emailSender = new EmailSender();
+                emailSender.execute("seguridadunlar@gmail.com", "seguridadunlar18", to, subject, body, path);
+                //progressDialog = ProgressDialog.show(context, "", "Cargando...", true);
                 if (response.trim().equalsIgnoreCase("registra")) {
                     etTituloInforme.setText("");
                     etinforme.setText("");
                     bitmap = null;
                     imageView.setImageResource(R.drawable.img_base);
-                    progressDialog.hide();
+                    //progressDialog.hide();
                     // btnInsertarInforme.setText("Enviar Otro informe");
-                    Toast.makeText(context, "Se ha registrado", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Se registró correctamente", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(context, "No ha registrado", Toast.LENGTH_SHORT).show();
                     progressDialog.hide();
@@ -390,7 +425,7 @@ public class InformesActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 progressDialog.hide();
-                Toast.makeText(context, "No se ha podido conectar", Toast.LENGTH_SHORT).show();
+                AlertaError();
 
             }
         }) {
@@ -462,4 +497,58 @@ public class InformesActivity extends AppCompatActivity {
     }
 
 
+    private void AlertaError() {
+        android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(context, R.style.AlertDialogCustom);
+        builder.setTitle("Error");
+        builder.setMessage("Error al registrar, comprueba tu conexión");
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+
+        builder.show();
+    }
+
+    class EmailSender extends AsyncTask<String, Void, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(String... data) {
+            String emailSenderAddress = (String) data[0];
+            String emailSenderPassword = (String) data[1];
+            String recipients = (String) data[2];
+            String subject = (String) data[3];
+            String comments = (String) data[4];
+            String pictureFileName = (String) data[5];
+
+            Email m = new Email(emailSenderAddress, emailSenderPassword);
+
+            m.setTo(recipients);
+            m.setFrom(emailSenderAddress);
+            m.setSubject(subject);
+            m.setBody(comments);
+
+            try {
+                ///m.addAttachment("/sdcard/filelocation");
+                m.setPictureFileName(pictureFileName);
+                return m.send();
+            } catch (Exception e) {
+                //Toast.makeText(MainActivity.this, "There was a problem sending the email." + e.getMessage(), Toast.LENGTH_LONG).show();
+                //throw  new Exception("Error sending ")
+                throw new RuntimeException("Bang");
+                //throw new RuntimeException(e);
+
+
+            }
+
+
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+
+            progressDialog.dismiss();
+        }
+    }
 }

@@ -2,6 +2,7 @@ package com.v3.security;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -17,6 +18,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.FileProvider;
+import android.support.v7.app.AlertDialog;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -60,8 +62,9 @@ public class RegistroFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    EditText etNombre,etApellido,etMotivo;
+    EditText etNombre, etApellido, etMotivo, etDni;
     ImageView ivFotoRegistro;
+
     Context context;
     Bitmap bitmap;
     String path;
@@ -117,10 +120,11 @@ public class RegistroFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_registro, container, false);
         context = this.getContext();
-        etNombre= view.findViewById(R.id.etNombre);
-        etApellido= view.findViewById(R.id.etApellido);
-        etMotivo= view.findViewById(R.id.etMotivo);
-        idguardia = Preferencias.getInteger(context,Preferencias.getKeyGuardia());
+        etNombre = view.findViewById(R.id.etNombre);
+        etApellido = view.findViewById(R.id.etApellido);
+        etMotivo = view.findViewById(R.id.etMotivo);
+        etDni = view.findViewById(R.id.etDni);
+        idguardia = Preferencias.getInteger(context, Preferencias.getKeyGuardia());
 
         ivFotoRegistro = view.findViewById(R.id.ivFotoRegistro);
 
@@ -136,13 +140,16 @@ public class RegistroFragment extends Fragment {
         ibEnviarRegistro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(etNombre.getText().toString().trim().isEmpty()){
-                    Toast.makeText(context, "Debe ingresar un nombre", Toast.LENGTH_SHORT).show();
-                }else if (etApellido.getText().toString().trim().isEmpty()){
-                    Toast.makeText(context, "Debe ingresar un apellido", Toast.LENGTH_SHORT).show();
-                }else if(etMotivo.getText().toString().trim().isEmpty()){
-                    Toast.makeText(context, "Debe ingresar un motivo", Toast.LENGTH_SHORT).show();
-                }else {
+                if (etNombre.getText().toString().trim().isEmpty()) {
+                    camposVacios();
+                } else if (etApellido.getText().toString().trim().isEmpty()) {
+                    camposVacios();
+                } else if (etDni.getText().toString().trim().isEmpty()) {
+                    camposVacios();
+                } else if (etMotivo.getText().toString().trim().isEmpty()) {
+                    camposVacios();
+                } else {
+
                     ingresarVisitas();
                 }
 
@@ -188,8 +195,9 @@ public class RegistroFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
-    private void ingresarVisitas(){
-        progressDialog=new ProgressDialog(context);
+
+    private void ingresarVisitas() {
+        progressDialog = new ProgressDialog(context);
         progressDialog.setMessage("Cargando...");
         progressDialog.setCancelable(false);
         progressDialog.show();
@@ -201,46 +209,50 @@ public class RegistroFragment extends Fragment {
 
                 etNombre.setText("");
                 etApellido.setText("");
+                etDni.setText("");
                 etMotivo.setText("");
                 ivFotoRegistro.setImageResource(R.drawable.img_base);
                 progressDialog.hide();
-                Toast.makeText(context, "Se registro correctamente", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Se registró correctamente", Toast.LENGTH_SHORT).show();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(context, "Error al registrar", Toast.LENGTH_SHORT).show();
-            progressDialog.hide();
+                progressDialog.hide();
+                AlertaError();
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 String idIngresos = "a";
                 String idGuardia = String.valueOf(idguardia);
                 String nombre = etNombre.getText().toString();
                 String apellido = etApellido.getText().toString();
+                String dni = etDni.getText().toString();
                 String motivo = etMotivo.getText().toString();
-                String foto = null;
-                if (bitmap==null){
-                    Bitmap bitmap2= BitmapFactory.decodeResource(context.getResources(),
+                String imagenRegistro = null;
+                if (bitmap == null) {
+                    Bitmap bitmap2 = BitmapFactory.decodeResource(context.getResources(),
                             R.drawable.img_base);
-                    foto=convertirImgString(bitmap2);
-                }else {
-                    foto=convertirImgString(bitmap);
+                    imagenRegistro = convertirImgString(bitmap2);
+                } else {
+                    imagenRegistro = convertirImgString(bitmap);
                 }
-                Map<String,String>para = new HashMap<>();
-                para.put("idIngresos",idIngresos);
-                para.put("idGuardia",idGuardia);
-                para.put("nombre",nombre);
-                para.put("apellido",apellido);
-                para.put("motivo",motivo);
-                para.put("foto",foto);
+                Map<String, String> para = new HashMap<>();
+                para.put("idIngresos", idIngresos);
+                para.put("idGuardia", idGuardia);
+                para.put("nombre", nombre);
+                para.put("apellido", apellido);
+                para.put("dni", dni);
+                para.put("motivo", motivo);
+                para.put("imagenRegistro", imagenRegistro);
                 return para;
             }
         };
         VolleySingleton.getInstanciaVolley(getContext()).addToRequestQueue(stringRequest);
 
     }
+
     private String convertirImgString(Bitmap bitmap) {
         ByteArrayOutputStream array = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, array);
@@ -248,6 +260,7 @@ public class RegistroFragment extends Fragment {
         String imagenString = Base64.encodeToString(imagenByte, Base64.DEFAULT);
         return imagenString;
     }
+
     private void tomarFoto() {
         File fileImagen = new File(Environment.getExternalStorageDirectory(), RUTA_IMAGEN);
         boolean isCreada = fileImagen.exists();
@@ -330,16 +343,17 @@ public class RegistroFragment extends Fragment {
         }
 
     }
-    private void rotateimagen (Bitmap bitmap){
+
+    private void rotateimagen(Bitmap bitmap) {
         ExifInterface exifInterface = null;
         try {
-            exifInterface=new ExifInterface(path);
-        }catch (IOException e){
+            exifInterface = new ExifInterface(path);
+        } catch (IOException e) {
             e.printStackTrace();
         }
-        int orientation = exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION,ExifInterface.ORIENTATION_UNDEFINED);
+        int orientation = exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED);
         Matrix matrix = new Matrix();
-        switch (orientation){
+        switch (orientation) {
             case ExifInterface.ORIENTATION_ROTATE_90:
                 matrix.setRotate(90);
 
@@ -349,12 +363,40 @@ public class RegistroFragment extends Fragment {
                 break;
             default:
         }
-        Bitmap rotateBitmap = Bitmap.createBitmap(bitmap,0,0,bitmap.getWidth(),bitmap.getHeight(),matrix,true);
+        Bitmap rotateBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
         ivFotoRegistro.setImageBitmap(rotateBitmap);
     }
+
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 
+    private void AlertaError() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogCustom);
+        builder.setTitle("Error");
+        builder.setMessage("Error al registrar, comprueba tu conexión");
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+
+        builder.show();
+    }
+
+    private void camposVacios() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogCustom);
+        builder.setTitle("Error");
+        builder.setMessage("Debe rellenar todo el formulario");
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+
+        builder.show();
+    }
 }
