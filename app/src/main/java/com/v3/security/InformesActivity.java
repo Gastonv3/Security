@@ -417,8 +417,8 @@ public class InformesActivity extends AppCompatActivity {
                     // btnInsertarInforme.setText("Enviar Otro informe");
                     Toast.makeText(context, "Se registró correctamente", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(context, "No ha registrado", Toast.LENGTH_SHORT).show();
                     progressDialog.hide();
+                    AlertaError();
                 }
             }
         }, new Response.ErrorListener() {
