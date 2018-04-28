@@ -1,5 +1,7 @@
 package com.v3.security.Clases;
 
+import java.util.Date;
+
 /**
  * Created by Skylake on 26/3/2018.
  */
@@ -11,6 +13,15 @@ public class Control {
     private String latitud;
     private String longitud;
 
+    public String getFechaHora() {
+        return fechaHora;
+    }
+
+    public void setFechaHora(String fechaHora) {
+        this.fechaHora = fechaHora;
+    }
+
+    private String fechaHora;
 
     public Control() {
     }

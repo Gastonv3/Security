@@ -64,7 +64,11 @@
             android:name=".googleMapsSecurity"
             android:label="@string/title_activity_google_maps_security" />
         <activity android:name=".Scanner" />
-        <activity android:name=".ScannerActivity"></activity>
+        <activity android:name=".ScannerActivity" />
+        <activity
+            android:name=".SupervisorActivity"
+            android:label="@string/title_activity_supervisor" />
+        <activity android:name=".SupervisorControlActivity"></activity>
     </application>
 
 </manifest>

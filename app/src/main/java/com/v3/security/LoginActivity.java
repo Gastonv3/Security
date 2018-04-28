@@ -50,6 +50,7 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
     Context context;
     CheckBox cbkrecuerdame;
     int idguardia;
+    String tipouser;
     boolean estado;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,7 +119,7 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
             JSONObject jsonObject = null;
             jsonObject = json.getJSONObject(0);
             guardia.setIdpersona(jsonObject.optInt("idpersona"));
-            guardia.setCodigo_guardia(jsonObject.optString("codigoGuardia"));
+            guardia.setTipoUsuario(jsonObject.optString("tipoUsuario"));
             guardia.setLogin(jsonObject.getString("user"));
             guardia.setPassword(jsonObject.getString("pass"));
             guardia.setEstado(jsonObject.getString("estado"));
@@ -126,6 +127,7 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
             e.printStackTrace();
         }
         idguardia = guardia.getIdpersona();
+        tipouser = guardia.getTipoUsuario();
         Preferencias.setInteger(context, Preferencias.getKeyGuardia(), idguardia);
         Preferencias.setString(context, Preferencias.getKeyUser(), guardia.getLogin());
         Preferencias.setString(context, Preferencias.getKeyPass(), guardia.getPassword());
@@ -133,8 +135,14 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
         //esto fue para salir de paso
 
         progressDialog.hide();
-        Intent intent2 = new Intent(this, MainActivity.class);
-        startActivity(intent2);
+        if (tipouser.equals("guardia")){
+            Intent intent2 = new Intent(this, MainActivity.class);
+            startActivity(intent2);
+        }else {
+            Intent intent3 = new Intent(this, SupervisorActivity.class);
+            startActivity(intent3);
+        }
+
     }
 
     public void recordar() {

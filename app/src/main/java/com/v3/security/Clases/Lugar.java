@@ -11,7 +11,7 @@ import java.io.Serializable;
  * Created by Skylake on 25/3/2018.
  */
 
-public class Lugar {
+public class Lugar implements Serializable{
     private Integer idLugares;
     private String nombre_lugares;
     private String ubicacion;
