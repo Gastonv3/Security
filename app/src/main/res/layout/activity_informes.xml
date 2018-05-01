@@ -7,15 +7,62 @@
     android:orientation="vertical"
     tools:context=".InformesActivity">
 
-    <EditText
+  <!--  <EditText
         android:id="@+id/etTituloInforme"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:hint="Titulo Informe"/>
+        android:hint="Titulo Informe"/>-->
+<!--<RelativeLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp">
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Puerta Abierta"
+        android:layout_alignParentLeft="true"
 
+        />
+
+    <CheckBox
+        android:id="@+id/checkBox2"
+        android:layout_width="138dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:text="Puerta Forzada" />
+
+</RelativeLayout>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
+        <CheckBox
+            android:id="@+id/checkBox3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ventana Abierta"
+            android:layout_alignParentLeft="true"
+            />
+
+        <CheckBox
+            android:id="@+id/checkBox4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ventana Forzada"
+            android:layout_alignParentRight="true"
+
+            />
+
+    </RelativeLayout>
+-->
     <EditText
         android:id="@+id/etInforme"
         android:layout_width="match_parent"

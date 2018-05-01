@@ -26,6 +26,11 @@
         <item name="android:textColorPrimary">@color/primary_light</item>
     </style>
 
+    <style name="MyButtonBlanco" parent="Theme.AppCompat.Light">
+        <item name="colorControlHighlight">@color/primary_light</item>
+        <item name="colorButtonNormal">@color/blanco</item>
+        <item name="android:textColorPrimary">@color/primary_light</item>
+    </style>
     <style name="TransparentToolbar" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="android:windowActionBarOverlay">true</item>
         <!-- Support Library compability -->

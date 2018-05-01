@@ -150,7 +150,7 @@ public class InformesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_informes);
         context = this;
-        etTituloInforme = findViewById(R.id.etTituloInforme);
+        //etTituloInforme = findViewById(R.id.etTituloInforme);
         etinforme = findViewById(R.id.etInforme);
         imageView = findViewById(R.id.ivfoto);
         // btnInsertarInforme = findViewById(R.id.btnInsertarInforme);
@@ -172,7 +172,7 @@ public class InformesActivity extends AppCompatActivity {
         ibInsertarInforme.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (etinforme.getText().toString().isEmpty() || etTituloInforme.getText().toString().isEmpty()) {
+                if (etinforme.getText().toString().isEmpty()) {
                     Toast.makeText(context, "Debe llernar todos los campos", Toast.LENGTH_SHORT).show();
                 } else {
 
@@ -403,10 +403,10 @@ public class InformesActivity extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 to = email;
-                subject = etTituloInforme.getText().toString();
+             //   subject = etTituloInforme.getText().toString();
                 body = etinforme.getText().toString();
                 EmailSender emailSender = new EmailSender();
-                emailSender.execute("seguridadunlar@gmail.com", "seguridadunlar18", to, subject, body, path);
+                emailSender.execute("seguridadunlar@gmail.com", "seguridadunlar18", to, "Informe", body, path);
                 //progressDialog = ProgressDialog.show(context, "", "Cargando...", true);
                 if (response.trim().equalsIgnoreCase("registra")) {
                     etTituloInforme.setText("");

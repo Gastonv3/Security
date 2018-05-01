@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/blanco"
+    tools:context=".BuscarControlActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+
+            >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimaryDark"
+                android:src="@drawable/ic_lupa" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/colorPrimaryDark"
+                android:gravity="center"
+                android:text="BUSCAR ENTRE FECHAS"
+                android:textColor="@color/primary_light"
+                android:textSize="24dp" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:background="@color/blanco"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/ibBuscarIncio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_buscarfecha"
+                android:theme="@style/MyButtonBlanco" />
+
+            <TextView
+                android:id="@+id/tvDesde"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:hint="FECHA INICIAL"
+                android:textSize="24dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:background="@color/blanco"
+            android:orientation="horizontal"
+
+            >
+
+            <ImageButton
+                android:id="@+id/ibBuscarFinal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_buscarfecha"
+                android:theme="@style/MyButtonBlanco" />
+
+            <TextView
+                android:id="@+id/tvHasta"
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/blanco"
+                android:gravity="center"
+                android:hint="FECHA FINAL"
+                android:textSize="24dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:background="@color/blanco"
+
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/ibBuscarResultado"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_lupabuscardp"
+                    android:theme="@style/MyButtonBlanco" />
+
+                <ImageButton
+                    android:id="@+id/ibsalir1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/ic_cancelar_busqueda"
+                    android:theme="@style/MyButtonBlanco" />
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/colorPrimaryDark"
+
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+
+            >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimaryDark"
+                android:src="@drawable/ic_lupa" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/colorPrimaryDark"
+                android:gravity="center"
+                android:text="BUSCAR POR FECHA"
+                android:textColor="@color/primary_light"
+
+                android:textSize="24dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:background="@color/blanco"
+            android:orientation="horizontal"
+
+            >
+
+            <ImageButton
+                android:id="@+id/ibFechaUnica"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_buscarfecha"
+                android:theme="@style/MyButtonBlanco" />
+
+            <TextView
+                android:id="@+id/tvFechaUnica"
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/blanco"
+                android:gravity="center"
+                android:hint="FECHA"
+                android:textSize="24dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:background="@color/blanco"
+
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/ibBuscarResultadoFecha"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_lupabuscardp"
+                    android:theme="@style/MyButtonBlanco" />
+
+                <ImageButton
+                    android:id="@+id/ibsalir2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/ic_cancelar_busqueda"
+                    android:theme="@style/MyButtonBlanco" />
+            </RelativeLayout>
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

@@ -18,12 +18,14 @@ public class SupervisorActivity extends AppCompatActivity {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
             switch (item.getItemId()) {
                 case R.id.controlSupervisor:
-                    mTextMessage.setText(R.string.title_home);
+                    transaction.replace(R.id.cc, new SupervisorControlesFragment()).commit();
                     return true;
                 case R.id.informeSupervisor:
-                    mTextMessage.setText(R.string.title_dashboard);
+                    transaction.replace(R.id.cc, new SupervisorInformesFragment()).commit();
                     return true;
 
             }

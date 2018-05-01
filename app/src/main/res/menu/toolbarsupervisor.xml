@@ -3,9 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/flash"
-        android:title="flash"
-        android:icon="@drawable/ic_flash_on_black_24dp"
-
-        app:showAsAction="always"/>
+        android:id="@+id/buscar"
+        android:icon="@drawable/ic_lupa_toolbardp"
+        android:title="BUSCAR"
+        app:showAsAction="always" />
 </menu>

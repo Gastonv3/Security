@@ -1,6 +1,11 @@
 package com.v3.security;
 
+import android.Manifest;
+import android.content.Context;
 import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -17,11 +22,19 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.v3.security.Clases.Control2;
 import com.v3.security.R;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.ResourceBundle;
 
-public class SupervisorControlActivity extends AppCompatActivity implements OnMapReadyCallback{
+import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
+
+public class SupervisorControlActivity extends AppCompatActivity implements OnMapReadyCallback {
     TextView nombreguarda, nombrelugar, fechacontrol;
     private Location lastLocation;
+    Double latitud;
+    Double longitud;
 
     private Marker currentLocationMarker;
     private GoogleApiClient googleClient;
@@ -54,6 +67,7 @@ public class SupervisorControlActivity extends AppCompatActivity implements OnMa
         setContentView(R.layout.activity_supervisor_control);
         mapView = findViewById(R.id.map22);
         mapView.onCreate(savedInstanceState);
+        mapView.getMapAsync(this);
         nombreguarda = findViewById(R.id.nombreGuardia);
         nombrelugar = findViewById(R.id.nombreLugar);
         fechacontrol = findViewById(R.id.fecha);
@@ -63,35 +77,31 @@ public class SupervisorControlActivity extends AppCompatActivity implements OnMa
             control2 = (Control2) bundle.getSerializable("control");
             nombreguarda.setText("Guardia: " + (control2.getGuardia().getNombre()) + " " + (control2.getGuardia().getApellido()));
             nombrelugar.setText("Lugar: " + (control2.getLugar().getNombre_lugares()));
-            fechacontrol.setText("Fecha y Hora: " + (control2.getFechaHora()));
-            Double latitud = Double.valueOf(control2.getLatitud());
-            Double longitud = Double.valueOf(control2.getLongitud());
+           String a = "2018/04/28";
 
+            fechacontrol.setText("Fecha y Hora: " +control2.getFechaHora() );
+            latitud = Double.valueOf(control2.getLatitud());
+            longitud = Double.valueOf(control2.getLongitud());
 
-           if (currentLocationMarker != null) {
-                currentLocationMarker.remove();
-            }
-            LatLng latlng = new LatLng(latitud, longitud);
-            MarkerOptions markerOptions = new MarkerOptions();
-            markerOptions.position(latlng);
-            markerOptions.title("Ni ubicación");
-            markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
-            currentLocationMarker = mMap.addMarker(markerOptions);
-
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(latlng));
-            //   mMap.animateCamera(CameraUpdateFactory.zoomBy(00));
-            mMap.setMinZoomPreference(15);
-            mMap.setMaxZoomPreference(15);
-            mapView.getMapAsync( this);
-        }
 
         }
 
 
+    }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+
+        LatLng sydney = new LatLng(latitud, longitud);
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.position(sydney);
+        markerOptions.title("Ubicación");
+        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
+        mMap.addMarker(markerOptions);
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        mMap.setMinZoomPreference(18);
+        mMap.setMaxZoomPreference(18);
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
 }
-

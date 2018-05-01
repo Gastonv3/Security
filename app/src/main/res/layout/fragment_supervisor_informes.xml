@@ -8,17 +8,17 @@
     tools:context="com.v3.security.LugarFragment">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar2"
+        android:id="@+id/toolbar3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="top"
         android:background="@color/colorPrimaryDark"
         android:minHeight="?attr/actionBarSize"
-        app:title="Supervisar Controles"
+        app:title="Supervisar Informes"
         app:titleTextColor="@color/primary_light"/>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/contenedorSupervisorControles"
+        android:id="@+id/contenedorSupervisorInformes"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </LinearLayout>
