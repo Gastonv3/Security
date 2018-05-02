@@ -241,8 +241,8 @@ public class RegistroFragment extends Fragment {
                 Map<String, String> para = new HashMap<>();
                 para.put("idIngresos", idIngresos);
                 para.put("idGuardia", idGuardia);
-                para.put("nombre", nombre);
-                para.put("apellido", apellido);
+                para.put("nombreIngresante", nombre);
+                para.put("apellidoIngresante", apellido);
                 para.put("dni", dni);
                 para.put("motivo", motivo);
                 para.put("imagenRegistro", imagenRegistro);

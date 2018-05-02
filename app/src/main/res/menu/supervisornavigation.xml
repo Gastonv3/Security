@@ -9,4 +9,12 @@
         android:id="@+id/informeSupervisor"
         android:icon="@drawable/ic_informes_supervisor_24dp"
         android:title="Informes" />
+    <item
+        android:id="@+id/ingresosSupervisor"
+        android:icon="@drawable/ic_supervisor_ingresosdp"
+        android:title="Ingresos Externos" />
+   <item
+        android:id="@+id/autorizadosSupervisor"
+        android:icon="@drawable/ic_supervisor_ingresos_autorizadosdp"
+        android:title="Personal Autorizado" />
 </menu>

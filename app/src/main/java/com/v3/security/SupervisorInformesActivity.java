@@ -18,6 +18,9 @@ import com.v3.security.Clases.Informes;
 import com.v3.security.R;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class SupervisorInformesActivity extends AppCompatActivity {
     TextView nombreguardainforme, nombrelugarinforme, informe, fechaInforme;
@@ -39,10 +42,26 @@ public class SupervisorInformesActivity extends AppCompatActivity {
         Bitmap bmp = BitmapFactory.decodeByteArray(b, 0, b.length);
         imageninforme.setImageBitmap(bmp);
         nombrelugarinforme.setText("Lugar: "+extras.getString("lugar"));
-        fechaInforme.setText("Fecha y Hora: "+extras.getString("fechaHora"));
+        String fechastring2 = extras.getString("fechaHora");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try {
+            Date a = sdf.parse(fechastring2);
+            SimpleDateFormat fmtOut = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+            String c = fmtOut.format(a);
+            fechaInforme.setText("Fecha y Hora: "+c);
 
-        informe.setText(extras.getString("informe"));
-        informe.setMovementMethod(new ScrollingMovementMethod());
+            informe.setText(extras.getString("informe"));
+            informe.setMovementMethod(new ScrollingMovementMethod());
+            nombreguardainforme.setText("Guardia: "+(extras.getString("nombre"))+" "+(extras.getString("apellido")));
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
+
+
+
         ibrotar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -50,7 +69,6 @@ public class SupervisorInformesActivity extends AppCompatActivity {
             }
         });
 
-        nombreguardainforme.setText("Guardia: "+(extras.getString("nombre"))+" "+(extras.getString("apellido")));
 
     }
 

@@ -77,11 +77,21 @@ public class SupervisorControlActivity extends AppCompatActivity implements OnMa
             control2 = (Control2) bundle.getSerializable("control");
             nombreguarda.setText("Guardia: " + (control2.getGuardia().getNombre()) + " " + (control2.getGuardia().getApellido()));
             nombrelugar.setText("Lugar: " + (control2.getLugar().getNombre_lugares()));
-           String a = "2018/04/28";
+           String fechastring2 = control2.getFechaHora();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            try {
+                Date a = sdf.parse(fechastring2);
+                SimpleDateFormat fmtOut = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+                String b = fmtOut.format(a);
+                fechacontrol.setText("Fecha y Hora: "+b);
+                latitud = Double.valueOf(control2.getLatitud());
+                longitud = Double.valueOf(control2.getLongitud());
 
-            fechacontrol.setText("Fecha y Hora: " +control2.getFechaHora() );
-            latitud = Double.valueOf(control2.getLatitud());
-            longitud = Double.valueOf(control2.getLongitud());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+
 
 
         }
@@ -100,6 +110,7 @@ public class SupervisorControlActivity extends AppCompatActivity implements OnMa
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
         mMap.addMarker(markerOptions);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
         mMap.setMinZoomPreference(18);
         mMap.setMaxZoomPreference(18);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));

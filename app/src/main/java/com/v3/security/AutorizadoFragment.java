@@ -198,7 +198,7 @@ public class AutorizadoFragment extends Fragment implements Response.ErrorListen
         progressDialog.setCancelable(false);
         progressDialog.show();
         String ip = getString(R.string.ip_bd);
-        String url = ip + "/security/extraerPersonalAutorizado.php?codigo=" + a;
+        String url = ip + "/security/extraerPersonalAutorizado2.php?codigo=" + a;
         //lee y procesa la informacion (Realiza el llamado a la url e intenta conectarse al webservis
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
         //permite establecer la cominicacion con los metodos response o error
@@ -229,16 +229,17 @@ public class AutorizadoFragment extends Fragment implements Response.ErrorListen
             JSONObject jsonObject = null;
             jsonObject = json.getJSONObject(0);
             personalAutorizado.setIdPersonalAutorizado(jsonObject.optInt("idPersonalAutorizado"));
-            personalAutorizado.setNombre(jsonObject.optString("nombre"));
-            personalAutorizado.setApellido(jsonObject.getString("apellido"));
+            personalAutorizado.setNombrePersonalAutorizado(jsonObject.optString("nombrePersonalAutorizado"));
+            personalAutorizado.setApellidoPersonalAutorizado(jsonObject.getString("apellidoPersonalAutorizado"));
+            personalAutorizado.setDni(jsonObject.getString("dni"));
+            personalAutorizado.setCargo(jsonObject.getString("cargo"));
             personalAutorizado.setCodigo(jsonObject.getString("codigo"));
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
         idPersonalAutorizado = personalAutorizado.getIdPersonalAutorizado();
-        nombre = personalAutorizado.getNombre();
-        apellido= personalAutorizado.getApellido();
+        nombre = personalAutorizado.getNombrePersonalAutorizado();
+        apellido= personalAutorizado.getApellidoPersonalAutorizado();
         completo= nombre+" "+apellido;
         tvNombre.setText(completo);
         noatuorizado.setVisibility(View.INVISIBLE);

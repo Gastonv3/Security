@@ -12,43 +12,46 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class BuscarControlActivity extends AppCompatActivity {
-
-    private DatePickerDialog.OnDateSetListener dateSetListenerDesde, dateSetListenerHasta, dateSetListenerFecha;
-    ImageButton ibdesde , ibhasta, ibbuscarresultado, ibfecha,ibbuscarfecha, ibsalir1, ibsalir2;
-    TextView tvdesde , tvhasta, tvfecha;
-   private String desde = null;
-   private String hasta= null;
-   private String fecha = null;
-
+public class BuscarIngresosActivity extends AppCompatActivity {
+    private DatePickerDialog.OnDateSetListener dateSetListenerDesde, dateSetListenerHasta,
+            dateSetListenerFecha;
+    ImageButton ibBuscarIncioIngresos , ibBuscarFinalIngresos, ibBuscarResultadoIngresos, ibFechaUnicaIngresos,ibBuscarResultadoFechaIngresos,
+            ibsalirIngresos, ibsalirIngresos2, ibsalirIngresos3 ,ibBuscarDniIngresos;
+    TextView tvDesdeIngresos , tvHastaIngresos, tvFechaUnicaIngresos,tvDniIngresos;
+    private String dni = null;
+    private String desde = null;
+    private String hasta= null;
+    private String fecha = null;
     private String desdeMostrar = null;
     private String hastaMostrar= null;
     private String fechaMostrar = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_buscar_control);
-        ibdesde = findViewById(R.id.ibBuscarIncio);
-        ibhasta = findViewById(R.id.ibBuscarFinal);
-        ibbuscarresultado = findViewById(R.id.ibBuscarResultado);
-        ibsalir1 = findViewById(R.id.ibsalir1);
-        ibsalir2 = findViewById(R.id.ibsalir2);
-        ibfecha = findViewById(R.id.ibFechaUnica);
-        ibbuscarfecha = findViewById(R.id.ibBuscarResultadoFecha);
-        tvfecha = findViewById(R.id.tvFechaUnica);
+        setContentView(R.layout.activity_buscar_ingresos);
 
-        tvdesde = findViewById(R.id.tvDesde);
-        tvhasta = findViewById(R.id.tvHasta);
-        ibfecha.setOnClickListener(new View.OnClickListener() {
+        ibBuscarIncioIngresos = findViewById(R.id.ibBuscarIncioIngresos);
+        ibBuscarFinalIngresos = findViewById(R.id.ibBuscarFinalIngresos);
+        ibBuscarResultadoIngresos = findViewById(R.id.ibBuscarResultadoIngresos);
+        ibsalirIngresos = findViewById(R.id.ibsalirIngresos);
+        ibsalirIngresos2 = findViewById(R.id.ibsalirIngresos2);
+        ibsalirIngresos3 = findViewById(R.id.ibsalirIngresos3);
+        ibFechaUnicaIngresos = findViewById(R.id.ibFechaUnicaIngresos);
+        ibBuscarResultadoFechaIngresos = findViewById(R.id.ibBuscarResultadoFechaIngresos);
+        ibBuscarDniIngresos = findViewById(R.id.ibBuscarDniIngresos);
+        tvFechaUnicaIngresos = findViewById(R.id.tvFechaUnicaIngresos);
+        tvDniIngresos = findViewById(R.id.tvDniIngresos);
+        tvDesdeIngresos = findViewById(R.id.tvDesdeIngresos);
+        tvHastaIngresos = findViewById(R.id.tvHastaIngresos);
+
+        ibFechaUnicaIngresos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Calendar cal = Calendar.getInstance();
@@ -57,7 +60,7 @@ public class BuscarControlActivity extends AppCompatActivity {
                 int day = cal.get(Calendar.DAY_OF_MONTH);
 
                 DatePickerDialog dialog = new DatePickerDialog(
-                        BuscarControlActivity.this,
+                        BuscarIngresosActivity.this,
                         android.R.style.Theme_Holo_Light_Dialog_MinWidth,
                         dateSetListenerFecha,
                         year,month,day);
@@ -78,14 +81,14 @@ public class BuscarControlActivity extends AppCompatActivity {
                 }
                 fecha = year +"-"+ mes +"-"+dia;
                 fechaMostrar = dia +"-"+ mes +"-"+year;
-                tvfecha.setText(fechaMostrar);
+                tvFechaUnicaIngresos.setText(fechaMostrar);
 
 
                 //lista.clear();
                 // cargarWebservice();
             }
         };
-        ibdesde.setOnClickListener(new View.OnClickListener() {
+        ibBuscarIncioIngresos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Calendar cal = Calendar.getInstance();
@@ -94,7 +97,7 @@ public class BuscarControlActivity extends AppCompatActivity {
                 int day = cal.get(Calendar.DAY_OF_MONTH);
 
                 DatePickerDialog dialog = new DatePickerDialog(
-                        BuscarControlActivity.this,
+                        BuscarIngresosActivity.this,
                         android.R.style.Theme_Holo_Light_Dialog_MinWidth,
                         dateSetListenerDesde,
                         year,month,day);
@@ -117,14 +120,14 @@ public class BuscarControlActivity extends AppCompatActivity {
                 }
                 desde = year +"-"+ mes +"-"+dia;
                 desdeMostrar = dia +"-"+ mes +"-"+year;
-                tvdesde.setText(desdeMostrar);
+                tvDesdeIngresos.setText(desdeMostrar);
 
 
                 //lista.clear();
                 // cargarWebservice();
             }
         };
-        ibhasta.setOnClickListener(new View.OnClickListener() {
+        ibBuscarFinalIngresos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Calendar cal = Calendar.getInstance();
@@ -133,7 +136,7 @@ public class BuscarControlActivity extends AppCompatActivity {
                 int day = cal.get(Calendar.DAY_OF_MONTH);
 
                 DatePickerDialog dialog = new DatePickerDialog(
-                        BuscarControlActivity.this,
+                        BuscarIngresosActivity.this,
                         android.R.style.Theme_Holo_Light_Dialog_MinWidth,
                         dateSetListenerHasta,
                         year,month,day);
@@ -156,17 +159,17 @@ public class BuscarControlActivity extends AppCompatActivity {
                 }
                 hasta = year +"-"+ mes +"-"+dia;
                 hastaMostrar = dia +"-"+ mes +"-"+year;
-                tvhasta.setText(hastaMostrar);
+                tvHastaIngresos.setText(hastaMostrar);
 
 
                 //lista.clear();
                 // cargarWebservice();
             }
         };
-        ibbuscarresultado.setOnClickListener(new View.OnClickListener() {
+        ibBuscarResultadoIngresos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(tvdesde.getText().toString().isEmpty()||tvhasta.getText().toString().isEmpty()) {
+                if(tvDesdeIngresos.getText().toString().isEmpty()||tvHastaIngresos.getText().toString().isEmpty()) {
                     AlertaError();
                 }else {
                     String incio = desde;
@@ -175,7 +178,7 @@ public class BuscarControlActivity extends AppCompatActivity {
                     try {
                         Date a = sdf.parse(incio);
                         Date                                                                                                                                                                                                                                                                         b = sdf.parse(Final);
-                        if(tvdesde.getText().toString().isEmpty()||tvhasta.getText().toString().isEmpty()){
+                        if(tvDesdeIngresos.getText().toString().isEmpty()||tvHastaIngresos.getText().toString().isEmpty()){
                             AlertaError();
                         }if(a.after(b)) {
                             AlertaError3();
@@ -192,37 +195,58 @@ public class BuscarControlActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
-
-
             }
         });
-        ibbuscarfecha.setOnClickListener(new View.OnClickListener() {
+        ibBuscarResultadoFechaIngresos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(tvfecha.getText().toString().isEmpty()){
+                if(tvFechaUnicaIngresos.getText().toString().isEmpty()){
                     AlertaError2();
                 }else{
                     Intent returnIntent = new Intent();
                     returnIntent.putExtra("unica",fecha);
                     setResult(Activity.RESULT_OK,returnIntent); finish();
                 }
+
             }
         });
-        ibsalir1.setOnClickListener(new View.OnClickListener() {
+        ibsalirIngresos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
-        ibsalir2.setOnClickListener(new View.OnClickListener() {
+        ibsalirIngresos2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
+        ibsalirIngresos3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+        ibBuscarDniIngresos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(tvDniIngresos.getText().toString().isEmpty()){
+                    AlertaErrorDni();
+                }else {
+                    dni = String.valueOf(tvDniIngresos.getText());
+                    Intent returnIntent = new Intent();
+                    returnIntent.putExtra("dni",dni);
+                    setResult(Activity.RESULT_OK,returnIntent);
+                    finish();
+                }
+            }
+        });
+
+
     }
     private void AlertaError (){
-        AlertDialog.Builder builder = new AlertDialog.Builder(BuscarControlActivity.this, R.style.AlertDialogCustom);
+        AlertDialog.Builder builder = new AlertDialog.Builder(BuscarIngresosActivity.this, R.style.AlertDialogCustom);
         builder.setTitle("Error");
         builder.setMessage("Debe seleccionar 2 fechas");
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -234,7 +258,7 @@ public class BuscarControlActivity extends AppCompatActivity {
         builder.show();
     }
     private void AlertaError2 (){
-        AlertDialog.Builder builder = new AlertDialog.Builder(BuscarControlActivity.this, R.style.AlertDialogCustom);
+        AlertDialog.Builder builder = new AlertDialog.Builder(BuscarIngresosActivity.this, R.style.AlertDialogCustom);
         builder.setTitle("Error");
         builder.setMessage("Debe seleccionar una fecha");
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -246,7 +270,7 @@ public class BuscarControlActivity extends AppCompatActivity {
         builder.show();
     }
     private void AlertaError3 (){
-        AlertDialog.Builder builder = new AlertDialog.Builder(BuscarControlActivity.this, R.style.AlertDialogCustom);
+        AlertDialog.Builder builder = new AlertDialog.Builder(BuscarIngresosActivity.this, R.style.AlertDialogCustom);
         builder.setTitle("Error");
         builder.setMessage("La fecha inicial es mayor que la final");
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -258,7 +282,7 @@ public class BuscarControlActivity extends AppCompatActivity {
         builder.show();
     }
     private void AlertaError4 (){
-        AlertDialog.Builder builder = new AlertDialog.Builder(BuscarControlActivity.this, R.style.AlertDialogCustom);
+        AlertDialog.Builder builder = new AlertDialog.Builder(BuscarIngresosActivity.this, R.style.AlertDialogCustom);
         builder.setTitle("Error");
         builder.setMessage("La fecha final es menor que la incial");
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -269,6 +293,16 @@ public class BuscarControlActivity extends AppCompatActivity {
         });
         builder.show();
     }
+    private void AlertaErrorDni (){
+        AlertDialog.Builder builder = new AlertDialog.Builder(BuscarIngresosActivity.this, R.style.AlertDialogCustom);
+        builder.setTitle("Error");
+        builder.setMessage("Debe ingresas un DNI");
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+        builder.show();
     }
-
-
+}

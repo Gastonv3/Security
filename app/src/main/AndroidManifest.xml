@@ -71,7 +71,11 @@
         <activity android:name=".SupervisorControlActivity" />
         <activity android:name=".BuscarControlActivity" />
         <activity android:name=".SupervisorInformesActivity" />
-        <activity android:name=".BuscarInformeActivity"></activity>
+        <activity android:name=".BuscarInformeActivity" />
+        <activity android:name=".SupervisorIngresosActivity" />
+        <activity android:name=".BuscarIngresosActivity" />
+        <activity android:name=".BuscarAutorizadosActivity" />
+        <activity android:name=".SupervisorAutorizadoActivity"></activity>
     </application>
 
 </manifest>

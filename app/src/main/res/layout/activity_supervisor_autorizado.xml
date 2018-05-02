@@ -9,7 +9,7 @@
     tools:context=".SupervisorControlActivity">
 
     <TextView
-        android:id="@+id/nombreGuardiaInforme"
+        android:id="@+id/nombreGuardiaAutorizado"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="@color/colorPrimaryDark"
@@ -21,7 +21,7 @@
         android:textSize="20dp" />
 
     <TextView
-        android:id="@+id/nombreLugarInforme"
+        android:id="@+id/personaAutorizada"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="@color/colorPrimaryDark"
@@ -31,7 +31,7 @@
         android:textSize="20dp" />
 
     <TextView
-        android:id="@+id/fechaInforme"
+        android:id="@+id/dniAutorizado"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="@color/colorPrimaryDark"
@@ -40,6 +40,7 @@
         android:textColor="@color/primary_light"
         android:textSize="20dp" />
     <TextView
+        android:id="@+id/cargoAutorizado"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="@color/colorPrimaryDark"
@@ -48,9 +49,9 @@
         android:textColor="@color/primary_light"
         android:textSize="20dp" />
     <TextView
-        android:id="@+id/informe"
+        android:id="@+id/fechaAutorizado"
         android:layout_width="match_parent"
-        android:layout_height="90dp"
+        android:layout_height="40dp"
         android:background="@color/colorPrimaryDark"
         android:gravity="center"
         android:hint="PERSONA"
@@ -60,7 +61,7 @@
 
         android:textSize="20dp" />
 
-    <RelativeLayout
+    <!--<RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorPrimaryDark"
@@ -104,6 +105,6 @@
 
 
         </RelativeLayout>
-    </RelativeLayout>
+    </RelativeLayout>-->
 
 </LinearLayout>

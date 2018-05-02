@@ -10,6 +10,9 @@ import com.v3.security.Clases.Control2;
 import com.v3.security.Clases.Lugar;
 import com.v3.security.R;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class AdapterSupervisorControles extends RecyclerView.Adapter<viewHolderSupervisorControles> {
@@ -29,8 +32,23 @@ public class AdapterSupervisorControles extends RecyclerView.Adapter<viewHolderS
     @Override
     public void onBindViewHolder(viewHolderSupervisorControles holder, int position) {
         holder.id.setText(ListaObjetos.get(position).getLugar().getNombre_lugares());
-        holder.hora.setText(ListaObjetos.get(position).getFechaHora());
-        holder.setOnclickListener();
+        String fechastring2 = ListaObjetos.get(position).getFechaHora();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try {
+            Date a = sdf.parse(fechastring2);
+            SimpleDateFormat fmtOut = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+            String b = fmtOut.format(a);
+            holder.hora.setText(b);
+            holder.setOnclickListener();
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
+
+
+
 
     }
 

@@ -27,7 +27,12 @@ public class SupervisorActivity extends AppCompatActivity {
                 case R.id.informeSupervisor:
                     transaction.replace(R.id.cc, new SupervisorInformesFragment()).commit();
                     return true;
-
+                case R.id.ingresosSupervisor:
+                    transaction.replace(R.id.cc, new SupervisorIngresosFragment()).commit();
+                    return true;
+                case R.id.autorizadosSupervisor:
+                    transaction.replace(R.id.cc, new SupervisorAutorizadosFragment()).commit();
+                    return true;
             }
             return false;
         }

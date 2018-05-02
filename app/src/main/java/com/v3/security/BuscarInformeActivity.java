@@ -25,7 +25,9 @@ public class BuscarInformeActivity extends AppCompatActivity {
     private String desde = null;
     private String hasta= null;
     private String fecha = null;
-
+    private String desdeMostrar = null;
+    private String hastaMostrar= null;
+    private String fechaMostrar = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,8 +74,8 @@ public class BuscarInformeActivity extends AppCompatActivity {
                     dia = "0" + day;
                 }
                 fecha = year +"-"+ mes +"-"+dia;
-
-                tvfechainforme.setText(fecha);
+                fechaMostrar = dia +"-"+ mes +"-"+year;
+                tvfechainforme.setText(fechaMostrar);
 
 
                 //lista.clear();
@@ -111,8 +113,8 @@ public class BuscarInformeActivity extends AppCompatActivity {
                     dia = "0" + day;
                 }
                 desde = year +"-"+ mes +"-"+dia;
-
-                tvdesdeinforme.setText(desde);
+                desdeMostrar = dia +"-"+ mes +"-"+year;
+                tvdesdeinforme.setText(desdeMostrar);
 
 
                 //lista.clear();
@@ -150,8 +152,8 @@ public class BuscarInformeActivity extends AppCompatActivity {
                     dia = "0" + day;
                 }
                 hasta = year +"-"+ mes +"-"+dia;
-
-                tvhastainforme.setText(hasta);
+                hastaMostrar = dia +"-"+ mes +"-"+year;
+                tvhastainforme.setText(hastaMostrar);
 
 
                 //lista.clear();

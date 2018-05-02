@@ -9,7 +9,7 @@
     tools:context=".SupervisorControlActivity">
 
     <TextView
-        android:id="@+id/nombreGuardiaInforme"
+        android:id="@+id/nombreGuardiaIngresos"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="@color/colorPrimaryDark"
@@ -21,7 +21,7 @@
         android:textSize="20dp" />
 
     <TextView
-        android:id="@+id/nombreLugarInforme"
+        android:id="@+id/nombreIngreso"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="@color/colorPrimaryDark"
@@ -31,7 +31,7 @@
         android:textSize="20dp" />
 
     <TextView
-        android:id="@+id/fechaInforme"
+        android:id="@+id/dniIngreso"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="@color/colorPrimaryDark"
@@ -40,6 +40,7 @@
         android:textColor="@color/primary_light"
         android:textSize="20dp" />
     <TextView
+        android:id="@+id/fechaIngreso"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="@color/colorPrimaryDark"
@@ -48,9 +49,9 @@
         android:textColor="@color/primary_light"
         android:textSize="20dp" />
     <TextView
-        android:id="@+id/informe"
+        android:id="@+id/motivoIngreso"
         android:layout_width="match_parent"
-        android:layout_height="90dp"
+        android:layout_height="100dp"
         android:background="@color/colorPrimaryDark"
         android:gravity="center"
         android:hint="PERSONA"
@@ -78,7 +79,7 @@
             >
 
             <ImageView
-                android:id="@+id/informeImagen"
+                android:id="@+id/ingresoImagen"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
