@@ -255,7 +255,7 @@ public class RegistroFragment extends Fragment {
 
     private String convertirImgString(Bitmap bitmap) {
         ByteArrayOutputStream array = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, array);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 95, array);
         byte[] imagenByte = array.toByteArray();
         String imagenString = Base64.encodeToString(imagenByte, Base64.DEFAULT);
         return imagenString;
