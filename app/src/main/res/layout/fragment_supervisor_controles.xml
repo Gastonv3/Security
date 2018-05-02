@@ -14,7 +14,7 @@
         android:layout_gravity="top"
         android:background="@color/colorPrimaryDark"
         android:minHeight="?attr/actionBarSize"
-        app:title="Supervisar Controles"
+        app:title="Controles"
         app:titleTextColor="@color/primary_light"/>
 
     <android.support.v7.widget.RecyclerView

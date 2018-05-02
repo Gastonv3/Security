@@ -14,7 +14,7 @@
         android:layout_gravity="top"
         android:background="@color/colorPrimaryDark"
         android:minHeight="?attr/actionBarSize"
-        app:title="Supervisar ingresos no autorizados"
+        app:title="Ingresos no autorizados"
         app:titleTextColor="@color/primary_light"/>
 
     <android.support.v7.widget.RecyclerView
