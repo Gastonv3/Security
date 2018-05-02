@@ -409,7 +409,7 @@ public class InformesActivity extends AppCompatActivity {
                 emailSender.execute("seguridadunlar@gmail.com", "seguridadunlar18", to, "Informe", body, path);
                 //progressDialog = ProgressDialog.show(context, "", "Cargando...", true);
                 if (response.trim().equalsIgnoreCase("registra")) {
-                    etTituloInforme.setText("");
+//                    etTituloInforme.setText("");
                     etinforme.setText("");
                     bitmap = null;
                     imageView.setImageResource(R.drawable.img_base);
@@ -435,7 +435,7 @@ public class InformesActivity extends AppCompatActivity {
 
                 String idinforme = "a";
                 String idControles = String.valueOf(idControl);
-                String tituloInforme = etTituloInforme.getText().toString();
+                String tituloInforme = "Informe";
                 String informe = etinforme.getText().toString();
                 // String fecha_hora="2018-03-31 01:41:48"
                 String imagenInforme = null;
