@@ -22,11 +22,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import uk.co.senab.photoview.PhotoViewAttacher;
+
 public class SupervisorInformesActivity extends AppCompatActivity {
     TextView nombreguardainforme, nombrelugarinforme, informe, fechaInforme;
     EditText prueba;
     ImageView imageninforme;
     ImageButton ibrotar;
+    PhotoViewAttacher photoViewAttacher;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +44,7 @@ public class SupervisorInformesActivity extends AppCompatActivity {
         byte[] b = extras.getByteArray("imagenInforme");
         Bitmap bmp = BitmapFactory.decodeByteArray(b, 0, b.length);
         imageninforme.setImageBitmap(bmp);
+        photoViewAttacher = new PhotoViewAttacher(imageninforme);
         nombrelugarinforme.setText("Lugar: "+extras.getString("lugar"));
         String fechastring2 = extras.getString("fechaHora");
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -50,7 +54,7 @@ public class SupervisorInformesActivity extends AppCompatActivity {
             String c = fmtOut.format(a);
             fechaInforme.setText("Fecha y Hora: "+c);
 
-            informe.setText(extras.getString("informe"));
+            informe.setText("Informe: "+(extras.getString("informe")));
             informe.setMovementMethod(new ScrollingMovementMethod());
             nombreguardainforme.setText("Guardia: "+(extras.getString("nombre"))+" "+(extras.getString("apellido")));
 

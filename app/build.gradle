@@ -37,4 +37,5 @@ dependencies {
     implementation files('libs/mail.jar')
     implementation 'me.dm7.barcodescanner:zxing:1.8.4'
     implementation 'me.dm7.barcodescanner:zbar:1.9.8'
+    implementation 'com.commit451:PhotoView:1.2.4'
 }

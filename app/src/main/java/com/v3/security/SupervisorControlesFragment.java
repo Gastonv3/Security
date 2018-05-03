@@ -90,7 +90,7 @@ public class SupervisorControlesFragment extends Fragment implements Response.Er
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    String desde = null , hasta = null, unicafecha = null;
+    String desde = null, hasta = null, unicafecha = null;
     ImageButton imageButton;
     TextView textView, textView2;
 
@@ -134,7 +134,7 @@ public class SupervisorControlesFragment extends Fragment implements Response.Er
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View vista = inflater.inflate(R.layout.fragment_supervisor_controles, container, false);
-      setHasOptionsMenu(true);
+        setHasOptionsMenu(true);
         context = this.getContext();
         lista = new ArrayList<>();
 
@@ -142,12 +142,13 @@ public class SupervisorControlesFragment extends Fragment implements Response.Er
         contenedorsupervisorcontroles.setLayoutManager(new LinearLayoutManager(context));
         contenedorsupervisorcontroles.setHasFixedSize(true);//indico que el recycler no va a reprensetar variables en lo que es el tamaño
         //   request = Volley.newRequestQueue(context);
-        Toolbar toolbar =  vista.findViewById(R.id.toolbar2);
-        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+        Toolbar toolbar = vista.findViewById(R.id.toolbar2);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
-      cargarWebservice();
+        cargarWebservice();
         return vista;
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -156,12 +157,12 @@ public class SupervisorControlesFragment extends Fragment implements Response.Er
                 desde = data.getStringExtra("desde");
                 hasta = data.getStringExtra("hasta");
                 unicafecha = data.getStringExtra("unica");
-                if (desde ==null || hasta==null){
+                if (desde == null || hasta == null) {
                     lista.clear();
                     cargarPorFecha(unicafecha);
-                }else{
+                } else {
                     lista.clear();
-                    cargarRangoFecha(desde,hasta);
+                    cargarRangoFecha(desde, hasta);
                 }
 
             }
@@ -170,10 +171,11 @@ public class SupervisorControlesFragment extends Fragment implements Response.Er
 
 
     }
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 
-        inflater.inflate(R.menu.toolbarsupervisor,menu);
+        inflater.inflate(R.menu.toolbarsupervisor, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -187,20 +189,21 @@ public class SupervisorControlesFragment extends Fragment implements Response.Er
             default:
                 return super.onOptionsItemSelected(item);
         }
-}
+    }
 
 
     private void cargarWebservice() {
-        progressDialog=new ProgressDialog(context);
+        progressDialog = new ProgressDialog(context);
         progressDialog.setMessage("Cargando...");
         progressDialog.setCancelable(false);
         progressDialog.show();
         String ip = getString(R.string.ip_bd);
-        String url = ip+"/security/extraerControles.php";
+        String url = ip + "/security/extraerControles.php";
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
         //request.add(jsonObjectRequest);
         VolleySingleton.getInstanciaVolley(getContext()).addToRequestQueue(jsonObjectRequest);
     }
+
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
@@ -238,33 +241,40 @@ public class SupervisorControlesFragment extends Fragment implements Response.Er
         Lugar fuentedeDatos2 = null;
         Guardia2 fuenteDatos3 = null;
         JSONArray json = response.optJSONArray("controles");
-        try {
-            for (int i = 0; i < json.length(); i++) {
-                fuenteDatos = new Control2();
-                fuentedeDatos2 = new Lugar();
-                fuenteDatos3 = new Guardia2();
-                JSONObject jsonObject = null;
-                jsonObject = json.getJSONObject(i);
-
-                fuenteDatos.setIdControles(jsonObject.optInt("idControles"));
-                fuenteDatos3.setNombre(jsonObject.optString("nombre"));
-                fuenteDatos3.setApellido(jsonObject.optString("apellido"));
-                fuentedeDatos2.setNombre_lugares(jsonObject.optString("nombreLugar"));
-                fuenteDatos.setLugar(fuentedeDatos2);
-                fuenteDatos.setGuardia(fuenteDatos3);
-                fuenteDatos.setLatitud(jsonObject.optString("latitud"));
-                fuenteDatos.setLongitud(jsonObject.optString("longitud"));
-                fuenteDatos.setFechaHora(jsonObject.optString("fechaHora"));
-                lista.add(fuenteDatos);
-            }
+        if (json.length() == 0) {
             progressDialog.dismiss();
+            erroSinRegistros();
+        } else {
+            try {
+                for (int i = 0; i < json.length(); i++) {
+                    fuenteDatos = new Control2();
+                    fuentedeDatos2 = new Lugar();
+                    fuenteDatos3 = new Guardia2();
+                    JSONObject jsonObject = null;
+                    jsonObject = json.getJSONObject(i);
 
-            AdapterSupervisorControles adapterSupervisorControles = new AdapterSupervisorControles(lista);
+                    fuenteDatos.setIdControles(jsonObject.optInt("idControles"));
+                    fuenteDatos3.setNombre(jsonObject.optString("nombre"));
+                    fuenteDatos3.setApellido(jsonObject.optString("apellido"));
+                    fuentedeDatos2.setNombre_lugares(jsonObject.optString("nombreLugar"));
+                    fuenteDatos.setLugar(fuentedeDatos2);
+                    fuenteDatos.setGuardia(fuenteDatos3);
+                    fuenteDatos.setLatitud(jsonObject.optString("latitud"));
+                    fuenteDatos.setLongitud(jsonObject.optString("longitud"));
+                    fuenteDatos.setFechaHora(jsonObject.optString("fechaHora"));
+                    lista.add(fuenteDatos);
+                }
+                int Eliminador = ((lista.size())-1);
+                lista.remove(Eliminador);
+                progressDialog.dismiss();
 
-            contenedorsupervisorcontroles.setAdapter(adapterSupervisorControles);
+                AdapterSupervisorControles adapterSupervisorControles = new AdapterSupervisorControles(lista);
 
-        } catch (JSONException e) {
-            e.printStackTrace();
+                contenedorsupervisorcontroles.setAdapter(adapterSupervisorControles);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -284,13 +294,13 @@ public class SupervisorControlesFragment extends Fragment implements Response.Er
     }
 
 
-    private void cargarRangoFecha(String a , String b) {
-        progressDialog=new ProgressDialog(context);
+    private void cargarRangoFecha(String a, String b) {
+        progressDialog = new ProgressDialog(context);
         progressDialog.setMessage("Cargando...");
         progressDialog.setCancelable(false);
         progressDialog.show();
         String ip = getString(R.string.ip_bd);
-        String url = ip+"/security/buscarControlRango.php?desde="+a+"%2000:00:00&hasta="+b+"%2023:59:59";
+        String url = ip + "/security/buscarControlRango.php?desde=" + a + "%2000:00:00&hasta=" + b + "%2023:59:59";
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -336,13 +346,14 @@ public class SupervisorControlesFragment extends Fragment implements Response.Er
         //request.add(jsonObjectRequest);
         VolleySingleton.getInstanciaVolley(getContext()).addToRequestQueue(jsonObjectRequest);
     }
+
     private void cargarPorFecha(String a) {
-        progressDialog=new ProgressDialog(context);
+        progressDialog = new ProgressDialog(context);
         progressDialog.setMessage("Cargando...");
         progressDialog.setCancelable(false);
         progressDialog.show();
         String ip = getString(R.string.ip_bd);
-        String url = ip+"/security/buscarControlFecha.php?fecha="+a+"%";
+        String url = ip + "/security/buscarControlFecha.php?fecha=" + a + "%";
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -388,10 +399,11 @@ public class SupervisorControlesFragment extends Fragment implements Response.Er
         //request.add(jsonObjectRequest);
         VolleySingleton.getInstanciaVolley(getContext()).addToRequestQueue(jsonObjectRequest);
     }
-    private void errorFecha (){
+
+    private void errorFecha() {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogCustom);
         builder.setTitle("Error");
-        builder.setMessage("No se realizadron controles en esta fecha: "+unicafecha);
+        builder.setMessage("No se realizadron controles en esta fecha: " + unicafecha);
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -400,10 +412,11 @@ public class SupervisorControlesFragment extends Fragment implements Response.Er
         });
         builder.show();
     }
-    private void errorRango (){
+
+    private void errorRango() {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogCustom);
         builder.setTitle("Error");
-        builder.setMessage("No se realizadron controles entre:"+desde+ " y "+hasta);
+        builder.setMessage("No se realizadron controles entre:" + desde + " y " + hasta);
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -412,7 +425,8 @@ public class SupervisorControlesFragment extends Fragment implements Response.Er
         });
         builder.show();
     }
-    private void AlertaError (){
+
+    private void AlertaError() {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogCustom);
         builder.setTitle("Error");
         builder.setMessage("Comprueba tu conexión");
@@ -420,6 +434,24 @@ public class SupervisorControlesFragment extends Fragment implements Response.Er
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 cargarWebservice();
+            }
+        });
+        /*builder.setNegativeButton("CANCELAR", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });*/
+        builder.show();
+    }
+
+    private void erroSinRegistros() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogCustom);
+        builder.setTitle("Error");
+        builder.setMessage("No se realizaron Controles");
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
             }
         });
         /*builder.setNegativeButton("CANCELAR", new DialogInterface.OnClickListener() {

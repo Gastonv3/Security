@@ -15,11 +15,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import uk.co.senab.photoview.PhotoViewAttacher;
+
 public class SupervisorAutorizadoActivity extends AppCompatActivity {
     TextView nombreGuardiaAutorizado, personaAutorizada, dniAutorizado, cargoAutorizado, fechaAutorizado;
     EditText prueba;
    /* ImageView imageninforme;
     ImageButton ibrotar;*/
+   PhotoViewAttacher photoViewAttacher;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +38,7 @@ public class SupervisorAutorizadoActivity extends AppCompatActivity {
         byte[] b = extras.getByteArray("imagenInforme");
         Bitmap bmp = BitmapFactory.decodeByteArray(b, 0, b.length);
         imageninforme.setImageBitmap(bmp);*/
+
         personaAutorizada.setText("Ingresante: "+(extras.getString("nombrePersonalAutorizado"))+" "+(extras.getString("apellidoPersonalAutorizado")));
         String fechastring2 = extras.getString("fechaHora");
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

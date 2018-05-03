@@ -61,7 +61,7 @@ public class SupervisorAutorizadosFragment extends Fragment {
     int idguardia;
     Context context;
     ProgressDialog progressDialog;
-    String desde = null , hasta = null, unicafecha = null, dni = null;
+    String desde = null, hasta = null, unicafecha = null, dni = null;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -104,12 +104,13 @@ public class SupervisorAutorizadosFragment extends Fragment {
         contenedorSupervisorAutorizados.setLayoutManager(new LinearLayoutManager(context));
         contenedorSupervisorAutorizados.setHasFixedSize(true);//indico que el recycler no va a reprensetar variables en lo que es el tamaño
         //   request = Volley.newRequestQueue(context);
-        Toolbar toolbar =  view.findViewById(R.id.toolbarAutorizados);
-        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+        Toolbar toolbar = view.findViewById(R.id.toolbarAutorizados);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         cargarWebservice();
 
         return view;
     }
+
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
@@ -118,13 +119,13 @@ public class SupervisorAutorizadosFragment extends Fragment {
                 hasta = data.getStringExtra("hasta");
                 unicafecha = data.getStringExtra("unica");
                 dni = data.getStringExtra("dni");
-                if (desde ==null && hasta==null&&dni==null){
+                if (desde == null && hasta == null && dni == null) {
                     lista.clear();
                     cargarPorFecha(unicafecha);
-                }else if(dni==null&&unicafecha==null){
+                } else if (dni == null && unicafecha == null) {
                     lista.clear();
-                    cargarRangoFecha(desde,hasta);
-                }else {
+                    cargarRangoFecha(desde, hasta);
+                } else {
                     lista.clear();
                     cargarPorDni(dni);
                 }
@@ -136,13 +137,14 @@ public class SupervisorAutorizadosFragment extends Fragment {
 
 
     }
+
     private void cargarPorDni(String a) {
-        progressDialog=new ProgressDialog(context);
+        progressDialog = new ProgressDialog(context);
         progressDialog.setMessage("Cargando...");
         progressDialog.setCancelable(false);
         progressDialog.show();
         String ip = getString(R.string.ip_bd);
-        String url = ip+"/security/buscarAutorizadosDni.php?dni="+a;
+        String url = ip + "/security/buscarAutorizadosDni.php?dni=" + a;
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -193,13 +195,14 @@ public class SupervisorAutorizadosFragment extends Fragment {
         //request.add(jsonObjectRequest);
         VolleySingleton.getInstanciaVolley(getContext()).addToRequestQueue(jsonObjectRequest);
     }
+
     private void cargarPorFecha(String a) {
-        progressDialog=new ProgressDialog(context);
+        progressDialog = new ProgressDialog(context);
         progressDialog.setMessage("Cargando...");
         progressDialog.setCancelable(false);
         progressDialog.show();
         String ip = getString(R.string.ip_bd);
-        String url = ip+"/security/BuscarAutorizadosFecha.php?fecha="+a+"%";
+        String url = ip + "/security/BuscarAutorizadosFecha.php?fecha=" + a + "%";
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -250,13 +253,14 @@ public class SupervisorAutorizadosFragment extends Fragment {
         //request.add(jsonObjectRequest);
         VolleySingleton.getInstanciaVolley(getContext()).addToRequestQueue(jsonObjectRequest);
     }
+
     private void cargarRangoFecha(String a, String b) {
-        progressDialog=new ProgressDialog(context);
+        progressDialog = new ProgressDialog(context);
         progressDialog.setMessage("Cargando...");
         progressDialog.setCancelable(false);
         progressDialog.show();
         String ip = getString(R.string.ip_bd);
-        String url = ip+"/security/buscarAutorizadosRango.php?desde="+a+"%2000:00:00&hasta="+b+"%2023:59:59";
+        String url = ip + "/security/buscarAutorizadosRango.php?desde=" + a + "%2000:00:00&hasta=" + b + "%2023:59:59";
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -285,6 +289,7 @@ public class SupervisorAutorizadosFragment extends Fragment {
 
                         lista.add(ingresosAutorizados);
                     }
+
                     progressDialog.dismiss();
 
                     AdapterSupervisorAutorizado adapterSupervisorAutorizado = new AdapterSupervisorAutorizado(lista);
@@ -307,13 +312,14 @@ public class SupervisorAutorizadosFragment extends Fragment {
         //request.add(jsonObjectRequest);
         VolleySingleton.getInstanciaVolley(getContext()).addToRequestQueue(jsonObjectRequest);
     }
+
     private void cargarWebservice() {
-        progressDialog=new ProgressDialog(context);
+        progressDialog = new ProgressDialog(context);
         progressDialog.setMessage("Cargando...");
         progressDialog.setCancelable(false);
         progressDialog.show();
         String ip = getString(R.string.ip_bd);
-        String url = ip+"/security/extraerIngresosAutorizados.php";
+        String url = ip + "/security/extraerIngresosAutorizados.php";
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -321,35 +327,42 @@ public class SupervisorAutorizadosFragment extends Fragment {
                 IngresosAutorizados ingresosAutorizados = null;
                 Guardia2 guardia = null;
                 JSONArray json = response.optJSONArray("ingresosautorizados");
-                try {
-                    for (int i = 0; i < json.length(); i++) {
-                        personalAutorizado = new PersonalAutorizado();
-                        ingresosAutorizados = new IngresosAutorizados();
-                        guardia = new Guardia2();
-                        JSONObject jsonObject = null;
-                        jsonObject = json.getJSONObject(i);
-                        ingresosAutorizados.setIdIngresosAutorizados(jsonObject.optInt("idIngresosAutorizados"));
-                        personalAutorizado.setNombrePersonalAutorizado(jsonObject.optString("nombrePersonalAutorizado"));
-                        personalAutorizado.setApellidoPersonalAutorizado(jsonObject.optString("apellidoPersonalAutorizado"));
-                        personalAutorizado.setDni(jsonObject.optString("dni"));
-                        personalAutorizado.setCargo(jsonObject.optString("cargo"));
-                        personalAutorizado.setCodigo(jsonObject.optString("codigo"));
-                        guardia.setNombre(jsonObject.optString("nombre"));
-                        guardia.setApellido(jsonObject.optString("apellido"));
-                        ingresosAutorizados.setFechaHora(jsonObject.optString("fechaHora"));
-                        ingresosAutorizados.setPersonalAutorizado(personalAutorizado);
-                        ingresosAutorizados.setGuardia(guardia);
-
-                        lista.add(ingresosAutorizados);
-                    }
+                if (json.length() == 0) {
                     progressDialog.dismiss();
+                    erroSinRegistros();
+                } else {
+                    try {
+                        for (int i = 0; i < json.length(); i++) {
+                            personalAutorizado = new PersonalAutorizado();
+                            ingresosAutorizados = new IngresosAutorizados();
+                            guardia = new Guardia2();
+                            JSONObject jsonObject = null;
+                            jsonObject = json.getJSONObject(i);
+                            ingresosAutorizados.setIdIngresosAutorizados(jsonObject.optInt("idIngresosAutorizados"));
+                            personalAutorizado.setNombrePersonalAutorizado(jsonObject.optString("nombrePersonalAutorizado"));
+                            personalAutorizado.setApellidoPersonalAutorizado(jsonObject.optString("apellidoPersonalAutorizado"));
+                            personalAutorizado.setDni(jsonObject.optString("dni"));
+                            personalAutorizado.setCargo(jsonObject.optString("cargo"));
+                            personalAutorizado.setCodigo(jsonObject.optString("codigo"));
+                            guardia.setNombre(jsonObject.optString("nombre"));
+                            guardia.setApellido(jsonObject.optString("apellido"));
+                            ingresosAutorizados.setFechaHora(jsonObject.optString("fechaHora"));
+                            ingresosAutorizados.setPersonalAutorizado(personalAutorizado);
+                            ingresosAutorizados.setGuardia(guardia);
 
-                    AdapterSupervisorAutorizado adapterSupervisorAutorizado = new AdapterSupervisorAutorizado(lista);
+                            lista.add(ingresosAutorizados);
+                        }
+                        int Eliminador = ((lista.size())-1);
+                        lista.remove(Eliminador);
+                        progressDialog.dismiss();
 
-                    contenedorSupervisorAutorizados.setAdapter(adapterSupervisorAutorizado);
+                        AdapterSupervisorAutorizado adapterSupervisorAutorizado = new AdapterSupervisorAutorizado(lista);
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                        contenedorSupervisorAutorizados.setAdapter(adapterSupervisorAutorizado);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }, new Response.ErrorListener() {
@@ -363,6 +376,7 @@ public class SupervisorAutorizadosFragment extends Fragment {
         //request.add(jsonObjectRequest);
         VolleySingleton.getInstanciaVolley(getContext()).addToRequestQueue(jsonObjectRequest);
     }
+
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
@@ -400,10 +414,11 @@ public class SupervisorAutorizadosFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
-    private void errorFecha (){
+
+    private void errorFecha() {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogCustom);
         builder.setTitle("Error");
-        builder.setMessage("No se realizadron controles en esta fecha: "+unicafecha);
+        builder.setMessage("No se realizadron controles en esta fecha: " + unicafecha);
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -412,10 +427,11 @@ public class SupervisorAutorizadosFragment extends Fragment {
         });
         builder.show();
     }
-    private void errorRango (){
+
+    private void errorRango() {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogCustom);
         builder.setTitle("Error");
-        builder.setMessage("No se realizadron controles entre:"+desde+ " y "+hasta);
+        builder.setMessage("No se realizadron controles entre:" + desde + " y " + hasta);
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -424,10 +440,11 @@ public class SupervisorAutorizadosFragment extends Fragment {
         });
         builder.show();
     }
-    private void errorDni (){
+
+    private void errorDni() {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogCustom);
         builder.setTitle("Error");
-        builder.setMessage("No se existen resultados con DNI: "+dni);
+        builder.setMessage("No se existen resultados con DNI: " + dni);
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -436,7 +453,8 @@ public class SupervisorAutorizadosFragment extends Fragment {
         });
         builder.show();
     }
-    private void AlertaError (){
+
+    private void AlertaError() {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogCustom);
         builder.setTitle("Error");
         builder.setMessage("Comprueba tu conexión");
@@ -454,10 +472,11 @@ public class SupervisorAutorizadosFragment extends Fragment {
         });*/
         builder.show();
     }
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 
-        inflater.inflate(R.menu.toolbarsupervisor,menu);
+        inflater.inflate(R.menu.toolbarsupervisor, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -471,6 +490,24 @@ public class SupervisorAutorizadosFragment extends Fragment {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void erroSinRegistros() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogCustom);
+        builder.setTitle("Error");
+        builder.setMessage("No se realizaron Ingresos Autorizados");
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+            }
+        });
+        /*builder.setNegativeButton("CANCELAR", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });*/
+        builder.show();
     }
 }
 

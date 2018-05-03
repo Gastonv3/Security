@@ -15,11 +15,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import uk.co.senab.photoview.PhotoViewAttacher;
+
 public class SupervisorIngresosActivity extends AppCompatActivity {
     TextView nombreGuardiaIngresos, nombreIngreso, dniIngreso, fechaIngreso, motivoIngreso;
     EditText prueba;
     ImageView ingresoImagen;
     ImageButton ibrotar;
+    PhotoViewAttacher photoViewAttacher;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +38,7 @@ public class SupervisorIngresosActivity extends AppCompatActivity {
         byte[] b = extras.getByteArray("imagenIngresos");
         Bitmap bmp = BitmapFactory.decodeByteArray(b, 0, b.length);
         ingresoImagen.setImageBitmap(bmp);
+        photoViewAttacher = new PhotoViewAttacher(ingresoImagen);
         dniIngreso.setText("Dni: "+(extras.getString("dni")));
         nombreIngreso.setText("Ingresante: "+(extras.getString("nombreIngreso"))+" "+(extras.getString("apellidoIngreso")));
         String fechastring2 = extras.getString("fechaHoraIngreso");

@@ -325,39 +325,48 @@ public class SupervisorIngresosFragment extends Fragment {
 
                 Guardia2 guardia = null;
                 JSONArray json = response.optJSONArray("ingresos");
-                try {
-                    for (int i = 0; i < json.length(); i++) {
-                        ingresos = new Ingresos();
-                        guardia = new Guardia2();
-                        JSONObject jsonObject = null;
-                        jsonObject = json.getJSONObject(i);
-                        ingresos.setIdIngresos(jsonObject.optInt("idIngresos"));
-                        ingresos.setNombreIngreso(jsonObject.optString("nombreIngresante"));
-                        ingresos.setApellidoIngreso(jsonObject.optString("apellidoIngresante"));
-                        ingresos.setDni(jsonObject.optString("dni"));
-                        ingresos.setMotivo(jsonObject.optString("motivo"));
-                        ingresos.setDato(jsonObject.optString("imagenRegistro"));
-                        ingresos.setFechaHoraIngreso(jsonObject.optString("fechaHora"));
-                        guardia.setNombre(jsonObject.optString("nombre"));
-                        guardia.setApellido(jsonObject.optString("apellido"));
-                        ingresos.setGuardia(guardia);
-
-                        lista.add(ingresos);
-                    }
+                if(json.length()==0){
                     progressDialog.dismiss();
+                    erroSinRegistros();
+                }else {
+                    try {
+                        for (int i = 0; i < json.length(); i++) {
+                            ingresos = new Ingresos();
+                            guardia = new Guardia2();
+                            JSONObject jsonObject = null;
+                            jsonObject = json.getJSONObject(i);
+                            ingresos.setIdIngresos(jsonObject.optInt("idIngresos"));
+                            ingresos.setNombreIngreso(jsonObject.optString("nombreIngresante"));
+                            ingresos.setApellidoIngreso(jsonObject.optString("apellidoIngresante"));
+                            ingresos.setDni(jsonObject.optString("dni"));
+                            ingresos.setMotivo(jsonObject.optString("motivo"));
+                            ingresos.setDato(jsonObject.optString("imagenRegistro"));
+                            ingresos.setFechaHoraIngreso(jsonObject.optString("fechaHora"));
+                            guardia.setNombre(jsonObject.optString("nombre"));
+                            guardia.setApellido(jsonObject.optString("apellido"));
+                            ingresos.setGuardia(guardia);
 
-                    AdapterSupervisorIngresos adapterSupervisorIngresos = new AdapterSupervisorIngresos(lista);
+                            lista.add(ingresos);
+                        }
+                        int Eliminador = ((lista.size())-1);
+                        lista.remove(Eliminador);
+                        progressDialog.dismiss();
 
-                    contenedorSupervisorIngresos.setAdapter(adapterSupervisorIngresos);
+                        AdapterSupervisorIngresos adapterSupervisorIngresos = new AdapterSupervisorIngresos(lista);
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                        contenedorSupervisorIngresos.setAdapter(adapterSupervisorIngresos);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
+
             }
         }, new Response.ErrorListener() {
 
             @Override
             public void onErrorResponse(VolleyError error) {
+
                 progressDialog.dismiss();
                 AlertaError();
             }
@@ -455,6 +464,22 @@ public class SupervisorIngresosFragment extends Fragment {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 cargarWebservice();
+            }
+        });
+        /*builder.setNegativeButton("CANCELAR", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });*/
+        builder.show();
+    }    private void erroSinRegistros (){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogCustom);
+        builder.setTitle("Error");
+        builder.setMessage("No se realizaron Ingresos");
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
             }
         });
         /*builder.setNegativeButton("CANCELAR", new DialogInterface.OnClickListener() {

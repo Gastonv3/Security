@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".SupervisorControlActivity"
-    android:padding="10dp">
+    android:padding="0dp">
 
     <TextView
         android:id="@+id/nombreGuardia"
