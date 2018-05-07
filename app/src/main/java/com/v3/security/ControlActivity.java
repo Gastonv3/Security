@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.hardware.Camera;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -58,7 +59,7 @@ public class ControlActivity extends AppCompatActivity implements Response.Error
 
     private Marker currentLocationMarker;
     private GoogleApiClient googleClient;
-
+    Camera camara;
     ////
     MapView mapView;
     GoogleMap mMap;
@@ -68,36 +69,58 @@ public class ControlActivity extends AppCompatActivity implements Response.Error
     Button btnPolicia;
     Button btninsertar;
     Button btninforme;
+    Button btnlinterna;
     ProgressDialog progressDialog;
     //  RequestQueue request;
     JsonObjectRequest jsonObjectRequest;
     String latitud, longitud;
     int idlugar, Estado, idguardia;
     //Double latitud, longitud;
-
+    boolean estado = false;
     Context context;
     ImageView imageView;
     TextView tvNombreLugar;
 
-    /*
+
         @Override
         protected void onResume() {
+            if(estado==true){
+                camara.stopPreview();
+                camara.release();
+                estado=false;
+            }
             super.onResume();
-            mapView.onResume();
+
         }
 
         @Override
         protected void onPause() {
+            if(estado==true){
+                camara.stopPreview();
+                camara.release();
+                estado=false;
+            }
             super.onPause();
-            mapView.onPause();
+
         }
 
         @Override
         protected void onDestroy() {
+            if(estado==true){
+                camara.stopPreview();
+                camara.release();
+                estado=false;
+            }
             super.onDestroy();
-            mapView.onDestroy();
+
         }
-    */
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,6 +134,7 @@ public class ControlActivity extends AppCompatActivity implements Response.Error
         btnPolicia = findViewById(R.id.btnPolicia);
         btninsertar = findViewById(R.id.btnInsertar);
         btninforme = findViewById(R.id.btnInforme);
+        btnlinterna = findViewById(R.id.btnLinterna);
         idguardia = Preferencias.getInteger(context, Preferencias.getKeyGuardia());
         Bundle extras = getIntent().getBundleExtra("picture");
         byte[] b = extras.getByteArray("imagen");
@@ -200,7 +224,7 @@ public class ControlActivity extends AppCompatActivity implements Response.Error
             @Override
             public void onClick(View view) {
                 cargarWebservice();
-                //  finish();
+                  finish();
             }
         });
         btninforme.setOnClickListener(new View.OnClickListener() {
@@ -212,6 +236,24 @@ public class ControlActivity extends AppCompatActivity implements Response.Error
             }
         });
         // mapView.getMapAsync(this);
+        btnlinterna.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (estado == false){
+                    camara = Camera.open();
+                    Camera.Parameters parameters = camara.getParameters();
+                    parameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
+                    camara.setParameters(parameters);
+                    camara.startPreview();
+                    estado = true;
+                }else {
+                    camara.stopPreview();
+                    camara.release();
+                    estado=false;
+                }
+
+            }
+        });
     }
 
     public void cargarWebservice() {

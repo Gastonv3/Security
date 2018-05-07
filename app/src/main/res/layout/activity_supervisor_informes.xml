@@ -1,102 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="5dp"
     android:orientation="vertical"
-    android:padding="0dp"
-    tools:context=".SupervisorControlActivity">
+    app:cardBackgroundColor="@color/colorPrimary"
+    app:cardCornerRadius="5dp">
 
-    <TextView
-        android:id="@+id/nombreGuardiaInforme"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@color/colorPrimaryDark"
-        android:gravity="center"
-
-        android:hint="PERSONA"
-
-        android:textColor="@color/primary_light"
-        android:textSize="20dp" />
-
-    <TextView
-        android:id="@+id/nombreLugarInforme"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@color/colorPrimaryDark"
-        android:gravity="center"
-        android:hint="PERSONA"
-        android:textColor="@color/primary_light"
-        android:textSize="20dp" />
-
-    <TextView
-        android:id="@+id/fechaInforme"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@color/colorPrimaryDark"
-        android:gravity="center"
-        android:hint="PERSONA"
-        android:textColor="@color/primary_light"
-        android:textSize="20dp" />
-
-    <TextView
-        android:id="@+id/informe"
-        android:layout_width="match_parent"
-        android:layout_height="90dp"
-        android:background="@color/colorPrimaryDark"
-        android:gravity="center"
-        android:hint="PERSONA"
-        android:scrollbarStyle="insideInset"
-        android:scrollbars="vertical"
-        android:textColor="@color/primary_light"
-
-        android:textSize="20dp" />
-
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorPrimaryDark"
-        >
+        android:orientation="vertical"
+        android:padding="0dp">
 
-        <LinearLayout
-            android:id="@+id/linearfoto"
+        <TextView
+            android:id="@+id/nombreGuardiaInforme"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@+id/linearbotones"
-            android:layout_gravity="center"
-            android:orientation="vertical"
-            android:padding="10dp"
+            android:layout_height="40dp"
+            android:background="@color/colorPrimaryDark"
+            android:gravity="center"
 
-            >
+            android:hint="PERSONA"
 
-            <ImageView
-                android:id="@+id/informeImagen"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:scaleType="fitCenter" />
-        </LinearLayout>
+            android:textColor="@color/primary_light"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/nombreLugarInforme"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/colorPrimaryDark"
+            android:gravity="center"
+            android:hint="PERSONA"
+            android:textColor="@color/primary_light"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/fechaInforme"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/colorPrimaryDark"
+            android:gravity="center"
+            android:hint="PERSONA"
+            android:textColor="@color/primary_light"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/informe"
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:background="@color/colorPrimaryDark"
+            android:gravity="center"
+            android:hint="PERSONA"
+            android:scrollbarStyle="insideInset"
+            android:scrollbars="vertical"
+            android:textColor="@color/primary_light"
+
+            android:textSize="20dp" />
 
         <RelativeLayout
-            android:id="@+id/linearbotones"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:background="@color/colorPrimaryDark"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimaryDark">
 
-            <ImageButton
-                android:id="@+id/ibRotarImagen"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/linearfoto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@+id/linearbotones"
+                android:layout_gravity="center"
+                android:orientation="vertical"
+                android:padding="10dp"
+
+                >
+
+                <ImageView
+                    android:id="@+id/informeImagen"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:scaleType="fitCenter" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/linearbotones"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_rotar_imagendp"
-                android:theme="@style/MyButton"
-                android:layout_centerHorizontal="true"/>
+                android:layout_alignParentBottom="true"
+                android:background="@color/colorPrimaryDark"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/ibRotarImagen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/ic_rotar_imagendp"
+                    android:theme="@style/MyButton" />
 
 
+            </RelativeLayout>
         </RelativeLayout>
-    </RelativeLayout>
 
-</LinearLayout>
+    </LinearLayout>
+</android.support.v7.widget.CardView>
