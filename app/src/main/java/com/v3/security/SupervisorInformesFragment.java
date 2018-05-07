@@ -23,10 +23,9 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.v3.security.Adapter.AdapterSupervisorControles;
 import com.v3.security.Adapter.AdapterSupervisorInformes;
-import com.v3.security.Clases.Control2;
-import com.v3.security.Clases.Guardia2;
+import com.v3.security.Clases.Control;
+import com.v3.security.Clases.Guardia;
 import com.v3.security.Clases.Informes;
 import com.v3.security.Clases.Lugar;
 import com.v3.security.Util.VolleySingleton;
@@ -154,16 +153,16 @@ public class SupervisorInformesFragment extends Fragment {
             @Override
             public void onResponse(JSONObject response) {
                 Informes informes = null;
-                Control2 control = null;
+                Control control = null;
                 Lugar lugar = null;
-                Guardia2 guardia = null;
+                Guardia guardia = null;
                 JSONArray json = response.optJSONArray("informes");
                 try {
                     for (int i = 0; i < json.length(); i++) {
                         informes = new Informes();
-                        control = new Control2();
+                        control = new Control();
                         lugar = new Lugar();
-                        guardia = new Guardia2();
+                        guardia = new Guardia();
                         JSONObject jsonObject = null;
                         jsonObject = json.getJSONObject(i);
                         informes.setIdInformes(jsonObject.optInt("idInformes"));
@@ -177,7 +176,7 @@ public class SupervisorInformesFragment extends Fragment {
                         guardia.setApellido(jsonObject.optString("apellido"));
                         control.setLugar(lugar);
                         control.setGuardia(guardia);
-                        informes.setControl2(control);
+                        informes.setControl(control);
                         lista.add(informes);
                     }
                     progressDialog.dismiss();
@@ -214,16 +213,16 @@ public class SupervisorInformesFragment extends Fragment {
             @Override
             public void onResponse(JSONObject response) {
                 Informes informes = null;
-                Control2 control = null;
+                Control control = null;
                 Lugar lugar = null;
-                Guardia2 guardia = null;
+                Guardia guardia = null;
                 JSONArray json = response.optJSONArray("informes");
                 try {
                     for (int i = 0; i < json.length(); i++) {
                         informes = new Informes();
-                        control = new Control2();
+                        control = new Control();
                         lugar = new Lugar();
-                        guardia = new Guardia2();
+                        guardia = new Guardia();
                         JSONObject jsonObject = null;
                         jsonObject = json.getJSONObject(i);
                         informes.setIdInformes(jsonObject.optInt("idInformes"));
@@ -237,7 +236,7 @@ public class SupervisorInformesFragment extends Fragment {
                         guardia.setApellido(jsonObject.optString("apellido"));
                         control.setLugar(lugar);
                         control.setGuardia(guardia);
-                        informes.setControl2(control);
+                        informes.setControl(control);
                         lista.add(informes);
                     }
                     progressDialog.dismiss();
@@ -274,9 +273,9 @@ public class SupervisorInformesFragment extends Fragment {
             @Override
             public void onResponse(JSONObject response) {
                 Informes informes = null;
-                Control2 control = null;
+                Control control = null;
                 Lugar lugar = null;
-                Guardia2 guardia = null;
+                Guardia guardia = null;
 
                 JSONArray json = response.optJSONArray("informes");
                 if (json.length() == 0) {
@@ -286,9 +285,9 @@ public class SupervisorInformesFragment extends Fragment {
                     try {
                         for (int i = 0; i < json.length(); i++) {
                             informes = new Informes();
-                            control = new Control2();
+                            control = new Control();
                             lugar = new Lugar();
-                            guardia = new Guardia2();
+                            guardia = new Guardia();
                             JSONObject jsonObject = null;
                             jsonObject = json.getJSONObject(i);
                             informes.setIdInformes(jsonObject.optInt("idInformes"));
@@ -302,7 +301,7 @@ public class SupervisorInformesFragment extends Fragment {
                             guardia.setApellido(jsonObject.optString("apellido"));
                             control.setLugar(lugar);
                             control.setGuardia(guardia);
-                            informes.setControl2(control);
+                            informes.setControl(control);
                             lista.add(informes);
                         }
                         int Eliminador = ((lista.size())-1);

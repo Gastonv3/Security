@@ -5,9 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+
 import com.v3.security.Clases.Control;
-import com.v3.security.Clases.Control2;
-import com.v3.security.Clases.Lugar;
+
 import com.v3.security.R;
 
 import java.text.ParseException;
@@ -16,9 +16,9 @@ import java.util.Date;
 import java.util.List;
 
 public class AdapterSupervisorControles extends RecyclerView.Adapter<viewHolderSupervisorControles> {
-    List<Control2> ListaObjetos;
+    List<Control> ListaObjetos;
 
-    public AdapterSupervisorControles(List<Control2> listaObjetos) {
+    public AdapterSupervisorControles(List<Control> listaObjetos) {
         ListaObjetos = listaObjetos;
 
     }

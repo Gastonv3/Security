@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 public class Informes implements Serializable  {
     private  Integer idInformes;
-    private Control2 control2;
+    private Control control;
     private  String tituloInforme;
     private  String informe;
     private Bitmap imagenInforme;
@@ -17,9 +17,9 @@ public class Informes implements Serializable  {
     public Informes() {
     }
 
-    public Informes(Integer idInformes, Control2 control2, String tituloInforme, String informe) {
+    public Informes(Integer idInformes, Control control, String tituloInforme, String informe) {
         this.idInformes = idInformes;
-        this.control2 = control2;
+        this.control = control;
         this.tituloInforme = tituloInforme;
         this.informe = informe;
     }
@@ -32,12 +32,12 @@ public class Informes implements Serializable  {
         this.idInformes = idInformes;
     }
 
-    public Control2 getControl2() {
-        return control2;
+    public Control getControl() {
+        return control;
     }
 
-    public void setControl2(Control2 control2) {
-        this.control2 = control2;
+    public void setControl(Control control) {
+        this.control = control;
     }
 
     public String getTituloInforme() {

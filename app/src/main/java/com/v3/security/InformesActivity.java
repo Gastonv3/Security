@@ -38,6 +38,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.v3.security.Clases.Control;
 import com.v3.security.Clases.Email;
+import com.v3.security.Clases.Guardia;
 import com.v3.security.Clases.Lugar;
 import com.v3.security.Util.VolleySingleton;
 
@@ -50,21 +51,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
 
-import javax.activation.DataHandler;
-import javax.activation.DataSource;
-import javax.activation.FileDataSource;
-import javax.mail.Authenticator;
-import javax.mail.BodyPart;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
 
 import static android.Manifest.permission.CAMERA;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
@@ -336,18 +324,22 @@ public class InformesActivity extends AppCompatActivity {
             public void onResponse(JSONObject response) {
                 Control control = null;
                 Lugar lugar = null;
+                Guardia guardia = null;
                 JSONArray json = response.optJSONArray("datos");
                 try {
                     control = new Control();
                     lugar = new Lugar();
+                    guardia = new Guardia();
                     JSONObject jsonObject = null;
                     jsonObject = json.getJSONObject(0);
                     control.setIdControles(jsonObject.optInt("idControles"));
-                    control.setIdGuardia(jsonObject.optInt("idGuardia"));
-                    control.setIdLugares(jsonObject.getInt("idLugares"));
+                    guardia.setIdPersona(jsonObject.optInt("idGuardia"));
+                    lugar.setIdLugares(jsonObject.getInt("idLugares"));
                     control.setLatitud(jsonObject.getString("latitud"));
                     control.setLongitud(jsonObject.getString("longitud"));
                     lugar.setEmails(jsonObject.getString("emails"));
+                    control.setLugar(lugar);
+                    control.setGuardia(guardia);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

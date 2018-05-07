@@ -5,13 +5,8 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -24,31 +19,17 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.DatePicker;
 import android.widget.ImageButton;
-import android.widget.TextView;
-import android.widget.Toast;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.app.DatePickerDialog;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.DatePicker;
 import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.v3.security.Adapter.AdapterLugares;
 import com.v3.security.Adapter.AdapterSupervisorControles;
+
 import com.v3.security.Clases.Control;
-import com.v3.security.Clases.Control2;
-import com.v3.security.Clases.Guardia2;
+import com.v3.security.Clases.Guardia;
 import com.v3.security.Clases.Lugar;
 import com.v3.security.Util.VolleySingleton;
 
@@ -56,11 +37,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collection;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -79,7 +56,7 @@ public class SupervisorControlesFragment extends Fragment implements Response.Er
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private DatePickerDialog.OnDateSetListener dateSetListener;
-    ArrayList<Control2> lista;
+    ArrayList<Control> lista;
     public static final int REQUEST_CODE = 900;
     RecyclerView contenedorsupervisorcontroles;
     // RequestQueue request;
@@ -237,9 +214,9 @@ public class SupervisorControlesFragment extends Fragment implements Response.Er
 
     @Override
     public void onResponse(JSONObject response) {
-        Control2 fuenteDatos = null;
+        Control fuenteDatos = null;
         Lugar fuentedeDatos2 = null;
-        Guardia2 fuenteDatos3 = null;
+        Guardia fuenteDatos3 = null;
         JSONArray json = response.optJSONArray("controles");
         if (json.length() == 0) {
             progressDialog.dismiss();
@@ -247,9 +224,9 @@ public class SupervisorControlesFragment extends Fragment implements Response.Er
         } else {
             try {
                 for (int i = 0; i < json.length(); i++) {
-                    fuenteDatos = new Control2();
+                    fuenteDatos = new Control();
                     fuentedeDatos2 = new Lugar();
-                    fuenteDatos3 = new Guardia2();
+                    fuenteDatos3 = new Guardia();
                     JSONObject jsonObject = null;
                     jsonObject = json.getJSONObject(i);
 
@@ -304,15 +281,15 @@ public class SupervisorControlesFragment extends Fragment implements Response.Er
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                Control2 fuenteDatos = null;
+                Control fuenteDatos = null;
                 Lugar fuentedeDatos2 = null;
-                Guardia2 fuenteDatos3 = null;
+                Guardia fuenteDatos3 = null;
                 JSONArray json = response.optJSONArray("controles");
                 try {
                     for (int i = 0; i < json.length(); i++) {
-                        fuenteDatos = new Control2();
+                        fuenteDatos = new Control();
                         fuentedeDatos2 = new Lugar();
-                        fuenteDatos3 = new Guardia2();
+                        fuenteDatos3 = new Guardia();
                         JSONObject jsonObject = null;
                         jsonObject = json.getJSONObject(i);
                         fuenteDatos.setIdControles(jsonObject.optInt("idControles"));
@@ -357,15 +334,15 @@ public class SupervisorControlesFragment extends Fragment implements Response.Er
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                Control2 fuenteDatos = null;
+                Control fuenteDatos = null;
                 Lugar fuentedeDatos2 = null;
-                Guardia2 fuenteDatos3 = null;
+                Guardia fuenteDatos3 = null;
                 JSONArray json = response.optJSONArray("controles");
                 try {
                     for (int i = 0; i < json.length(); i++) {
-                        fuenteDatos = new Control2();
+                        fuenteDatos = new Control();
                         fuentedeDatos2 = new Lugar();
-                        fuenteDatos3 = new Guardia2();
+                        fuenteDatos3 = new Guardia();
                         JSONObject jsonObject = null;
                         jsonObject = json.getJSONObject(i);
                         fuenteDatos.setIdControles(jsonObject.optInt("idControles"));

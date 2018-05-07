@@ -10,15 +10,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.v3.security.Clases.Control2;
 import com.v3.security.Clases.Informes;
-import com.v3.security.ControlActivity;
 import com.v3.security.R;
-import com.v3.security.SupervisorControlActivity;
 import com.v3.security.SupervisorInformesActivity;
 
 import java.io.ByteArrayOutputStream;
-import java.io.Serializable;
 import java.util.List;
 
 public class viewHolderSupervisorInformes extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -58,10 +54,10 @@ public class viewHolderSupervisorInformes extends RecyclerView.ViewHolder implem
             byte[] b = baos.toByteArray();
             Intent intent = new Intent(context, SupervisorInformesActivity.class);
             bundle.putByteArray("imagenInforme", b);
-            bundle.putString("nombre",informes.getControl2().getGuardia().getNombre());
-            bundle.putString("apellido",informes.getControl2().getGuardia().getApellido());
-            bundle.putString("lugar",informes.getControl2().getLugar().getNombre_lugares());
-            bundle.putString("fechaHora",informes.getControl2().getFechaHora());
+            bundle.putString("nombre",informes.getControl().getGuardia().getNombre());
+            bundle.putString("apellido",informes.getControl().getGuardia().getApellido());
+            bundle.putString("lugar",informes.getControl().getLugar().getNombre_lugares());
+            bundle.putString("fechaHora",informes.getControl().getFechaHora());
             bundle.putString("informe",informes.getInforme());
             intent.putExtra("suerte",bundle);
             context.startActivity(intent);

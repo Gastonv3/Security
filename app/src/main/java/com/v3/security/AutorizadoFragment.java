@@ -38,7 +38,6 @@ import me.dm7.barcodescanner.zbar.ZBarScannerView;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 import com.google.zxing.BarcodeFormat;
-import com.v3.security.Clases.Guardia;
 import com.v3.security.Clases.PersonalAutorizado;
 import com.v3.security.Util.Preferencias;
 import com.v3.security.Util.VolleySingleton;
