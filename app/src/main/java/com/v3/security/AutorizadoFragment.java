@@ -223,7 +223,7 @@ public class AutorizadoFragment extends Fragment implements Response.ErrorListen
     @Override
     public void onResponse(JSONObject response) {
         PersonalAutorizado personalAutorizado = null;
-        JSONArray json = response.optJSONArray("datos");
+        JSONArray json = response.optJSONArray("personalautorizado");
         try {
             personalAutorizado = new PersonalAutorizado();
             JSONObject jsonObject = null;
