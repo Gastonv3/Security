@@ -3,7 +3,7 @@ package com.v3.security.Clases;
 public class IngresosAutorizados {
     private Integer idIngresosAutorizados;
     private PersonalAutorizado personalAutorizado;
-    private Guardia2 guardia;
+    private Guardia guardia;
     private String fechaHora;
     private String fechaHoraSalida;
 
@@ -18,7 +18,7 @@ public class IngresosAutorizados {
     public IngresosAutorizados() {
     }
 
-    public IngresosAutorizados(Integer idIngresosAutorizados, PersonalAutorizado personalAutorizado, Guardia2 guardia, String fechaHora) {
+    public IngresosAutorizados(Integer idIngresosAutorizados, PersonalAutorizado personalAutorizado, Guardia guardia, String fechaHora) {
         this.idIngresosAutorizados = idIngresosAutorizados;
         this.personalAutorizado = personalAutorizado;
         this.guardia = guardia;
@@ -41,11 +41,11 @@ public class IngresosAutorizados {
         this.personalAutorizado = personalAutorizado;
     }
 
-    public Guardia2 getGuardia() {
+    public Guardia getGuardia() {
         return guardia;
     }
 
-    public void setGuardia(Guardia2 guardia) {
+    public void setGuardia(Guardia guardia) {
         this.guardia = guardia;
     }
 

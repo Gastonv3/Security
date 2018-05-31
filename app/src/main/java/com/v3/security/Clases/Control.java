@@ -1,17 +1,15 @@
 package com.v3.security.Clases;
 
-import java.util.Date;
 
-/**
- * Created by Skylake on 26/3/2018.
- */
+import java.io.Serializable;
 
-public class Control {
+public class Control implements Serializable {
     private int idControles;
-    private int idGuardia;
-    private int idLugares;
+    private Guardia guardia;
+    private Lugar lugar;
     private String latitud;
     private String longitud;
+    private String fechaHora;
 
     public String getFechaHora() {
         return fechaHora;
@@ -21,18 +19,15 @@ public class Control {
         this.fechaHora = fechaHora;
     }
 
-    private String fechaHora;
-
     public Control() {
     }
 
-    public Control(int idControles, int idGuardia, int idLugares, String latitud, String longitud, int estado) {
-        this.idControles = idControles;
-        this.idGuardia = idGuardia;
-        this.idLugares = idLugares;
-        this.latitud = latitud;
-        this.longitud = longitud;
+    public Guardia getGuardia() {
+        return guardia;
+    }
 
+    public void setGuardia(Guardia guardia) {
+        this.guardia = guardia;
     }
 
     public int getIdControles() {
@@ -43,20 +38,12 @@ public class Control {
         this.idControles = idControles;
     }
 
-    public int getIdGuardia() {
-        return idGuardia;
+    public Lugar getLugar() {
+        return lugar;
     }
 
-    public void setIdGuardia(int idGuardia) {
-        this.idGuardia = idGuardia;
-    }
-
-    public int getIdLugares() {
-        return idLugares;
-    }
-
-    public void setIdLugares(int idLugares) {
-        this.idLugares = idLugares;
+    public void setLugar(Lugar lugar) {
+        this.lugar = lugar;
     }
 
     public String getLatitud() {

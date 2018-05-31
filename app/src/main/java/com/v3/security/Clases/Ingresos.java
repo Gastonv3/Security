@@ -6,7 +6,7 @@ import android.util.Base64;
 
 public class Ingresos {
     private Integer idIngresos;
-    private Guardia2 guardia;
+    private Guardia guardia;
     private String nombreIngreso;
     private String apellidoIngreso;
     private String dni;
@@ -19,7 +19,7 @@ public class Ingresos {
     public Ingresos() {
     }
 
-    public Ingresos(Integer idIngresos, Guardia2 guardia, String nombreIngreso, String apellidoIngreso, String dni, String motivo, String fechaHoraIngreso) {
+    public Ingresos(Integer idIngresos, Guardia guardia, String nombreIngreso, String apellidoIngreso, String dni, String motivo, String fechaHoraIngreso) {
         this.idIngresos = idIngresos;
         this.guardia = guardia;
         this.nombreIngreso = nombreIngreso;
@@ -37,11 +37,11 @@ public class Ingresos {
         this.idIngresos = idIngresos;
     }
 
-    public Guardia2 getGuardia() {
+    public Guardia getGuardia() {
         return guardia;
     }
 
-    public void setGuardia(Guardia2 guardia) {
+    public void setGuardia(Guardia guardia) {
         this.guardia = guardia;
     }
 

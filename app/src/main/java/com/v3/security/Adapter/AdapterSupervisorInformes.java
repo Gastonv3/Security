@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.v3.security.Clases.Control2;
 import com.v3.security.Clases.Informes;
 import com.v3.security.R;
 
@@ -32,8 +31,8 @@ public class AdapterSupervisorInformes extends RecyclerView.Adapter<viewHolderSu
     @Override
     public void onBindViewHolder(viewHolderSupervisorInformes holder, int position) {
 
-        holder.lugarinforme.setText(ListaObjetos.get(position).getControl2().getLugar().getNombre_lugares());
-        String fechastring2 = ListaObjetos.get(position).getControl2().getFechaHora();
+        holder.lugarinforme.setText(ListaObjetos.get(position).getControl().getLugar().getNombre_lugares());
+        String fechastring2 = ListaObjetos.get(position).getControl().getFechaHora();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             Date a = sdf.parse(fechastring2);

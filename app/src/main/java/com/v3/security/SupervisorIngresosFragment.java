@@ -23,13 +23,9 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.v3.security.Adapter.AdapterSupervisorInformes;
 import com.v3.security.Adapter.AdapterSupervisorIngresos;
-import com.v3.security.Clases.Control2;
-import com.v3.security.Clases.Guardia2;
-import com.v3.security.Clases.Informes;
+import com.v3.security.Clases.Guardia;
 import com.v3.security.Clases.Ingresos;
-import com.v3.security.Clases.Lugar;
 import com.v3.security.Util.VolleySingleton;
 
 import org.json.JSONArray;
@@ -158,12 +154,12 @@ public class SupervisorIngresosFragment extends Fragment {
             public void onResponse(JSONObject response) {
                 Ingresos ingresos = null;
 
-                Guardia2 guardia = null;
+                Guardia guardia = null;
                 JSONArray json = response.optJSONArray("ingresos");
                 try {
                     for (int i = 0; i < json.length(); i++) {
                         ingresos = new Ingresos();
-                        guardia = new Guardia2();
+                        guardia = new Guardia();
                         JSONObject jsonObject = null;
                         jsonObject = json.getJSONObject(i);
                         ingresos.setIdIngresos(jsonObject.optInt("idIngresos"));
@@ -214,12 +210,12 @@ public class SupervisorIngresosFragment extends Fragment {
             public void onResponse(JSONObject response) {
                 Ingresos ingresos = null;
 
-                Guardia2 guardia = null;
+                Guardia guardia = null;
                 JSONArray json = response.optJSONArray("ingresos");
                 try {
                     for (int i = 0; i < json.length(); i++) {
                         ingresos = new Ingresos();
-                        guardia = new Guardia2();
+                        guardia = new Guardia();
                         JSONObject jsonObject = null;
                         jsonObject = json.getJSONObject(i);
                         ingresos.setIdIngresos(jsonObject.optInt("idIngresos"));
@@ -270,12 +266,12 @@ public class SupervisorIngresosFragment extends Fragment {
             public void onResponse(JSONObject response) {
                 Ingresos ingresos = null;
 
-                Guardia2 guardia = null;
+                Guardia guardia = null;
                 JSONArray json = response.optJSONArray("ingresos");
                 try {
                     for (int i = 0; i < json.length(); i++) {
                         ingresos = new Ingresos();
-                        guardia = new Guardia2();
+                        guardia = new Guardia();
                         JSONObject jsonObject = null;
                         jsonObject = json.getJSONObject(i);
                         ingresos.setIdIngresos(jsonObject.optInt("idIngresos"));
@@ -327,7 +323,7 @@ public class SupervisorIngresosFragment extends Fragment {
             public void onResponse(JSONObject response) {
                 Ingresos ingresos = null;
 
-                Guardia2 guardia = null;
+                Guardia guardia = null;
                 JSONArray json = response.optJSONArray("ingresos");
                 if(json.length()==0){
                     progressDialog.dismiss();
@@ -336,7 +332,7 @@ public class SupervisorIngresosFragment extends Fragment {
                     try {
                         for (int i = 0; i < json.length(); i++) {
                             ingresos = new Ingresos();
-                            guardia = new Guardia2();
+                            guardia = new Guardia();
                             JSONObject jsonObject = null;
                             jsonObject = json.getJSONObject(i);
                             ingresos.setIdIngresos(jsonObject.optInt("idIngresos"));
