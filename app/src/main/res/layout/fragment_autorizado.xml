@@ -15,7 +15,7 @@
         android:layout_gravity="top"
         android:background="@color/colorPrimaryDark"
         android:minHeight="?attr/actionBarSize"
-        app:title="INGRESOS"
+        app:title="Registrar Personal Autorizado"
         app:titleTextColor="@color/primary_light" />
 
 
