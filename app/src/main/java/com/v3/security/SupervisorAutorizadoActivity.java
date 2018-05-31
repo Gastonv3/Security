@@ -18,7 +18,7 @@ import java.util.Date;
 import uk.co.senab.photoview.PhotoViewAttacher;
 
 public class SupervisorAutorizadoActivity extends AppCompatActivity {
-    TextView nombreGuardiaAutorizado, personaAutorizada, dniAutorizado, cargoAutorizado, fechaAutorizado;
+    TextView nombreGuardiaAutorizado, personaAutorizada, dniAutorizado, cargoAutorizado, fechaAutorizado, fechasalida;
     EditText prueba;
    /* ImageView imageninforme;
     ImageButton ibrotar;*/
@@ -32,6 +32,7 @@ public class SupervisorAutorizadoActivity extends AppCompatActivity {
         dniAutorizado = findViewById(R.id.dniAutorizado);
         cargoAutorizado = findViewById(R.id.cargoAutorizado);
         fechaAutorizado = findViewById(R.id.fechaAutorizado);
+        fechasalida = findViewById(R.id.fechaSalidaAutorizado);
         Bundle extras = getIntent().getBundleExtra("ingresosAutorizados");
         /*ibrotar = findViewById(R.id.ibRotarImagen);
         Bundle extras = getIntent().getBundleExtra("suerte");
@@ -41,6 +42,7 @@ public class SupervisorAutorizadoActivity extends AppCompatActivity {
 
         personaAutorizada.setText("Ingresante: "+(extras.getString("nombrePersonalAutorizado"))+" "+(extras.getString("apellidoPersonalAutorizado")));
         String fechastring2 = extras.getString("fechaHora");
+        String fechaSalida = extras.getString("fechaHoraSalida");
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             Date a = sdf.parse(fechastring2);
@@ -55,6 +57,20 @@ public class SupervisorAutorizadoActivity extends AppCompatActivity {
 
         } catch (ParseException e) {
             e.printStackTrace();
+        }
+        if (fechaSalida.equals("1010-08-01 00:00:00")) {
+            fechasalida.setText("Salida: Sin Registrar");
+        } else {
+            try {
+                SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Date z = sdf2.parse(fechaSalida);
+                SimpleDateFormat fmtOut2 = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+                String v = fmtOut2.format(z);
+                fechasalida.setText("Salida: " + v);
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         }
 
 

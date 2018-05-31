@@ -5,6 +5,15 @@ public class IngresosAutorizados {
     private PersonalAutorizado personalAutorizado;
     private Guardia2 guardia;
     private String fechaHora;
+    private String fechaHoraSalida;
+
+    public String getFechaHoraSalida() {
+        return fechaHoraSalida;
+    }
+
+    public void setFechaHoraSalida(String fechaHoraSalida) {
+        this.fechaHoraSalida = fechaHoraSalida;
+    }
 
     public IngresosAutorizados() {
     }

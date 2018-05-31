@@ -38,6 +38,7 @@ import me.dm7.barcodescanner.zbar.ZBarScannerView;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 import com.google.zxing.BarcodeFormat;
+import com.v3.security.Adapter.RegistrarAutorizados;
 import com.v3.security.Clases.Guardia;
 import com.v3.security.Clases.PersonalAutorizado;
 import com.v3.security.Util.Preferencias;
@@ -59,26 +60,16 @@ import static android.app.Activity.RESULT_OK;
  * Use the {@link AutorizadoFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AutorizadoFragment extends Fragment implements Response.ErrorListener, Response.Listener<JSONObject> {
+public class AutorizadoFragment extends Fragment  {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     public static final int REQUEST_CODE = 800;
-    //rivate ZXingScannerView mScannerView;
-    TextView tvNombre, tvApellido;
+
     Context context;
-    ImageButton ibQrAutorizar, ibRegistrarPersonalAtuorizado;
-    ImageView siautorizado, noatuorizado;
-    String codigo, nombre, apellido, completo;
-    int idguardia;
-    int idPersonalAutorizado;
-    String s = null;
-    JsonObjectRequest jsonObjectRequest;
-
-
-    ProgressDialog progressDialog;
+    Button btnregistraringresosautorizados, btnregistraregresosautorizados;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -123,37 +114,24 @@ public class AutorizadoFragment extends Fragment implements Response.ErrorListen
         context = this.getContext();
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_autorizado, container, false);
-        idguardia = Preferencias.getInteger(context, Preferencias.getKeyGuardia());
-        siautorizado = view.findViewById(R.id.siAutorizado);
-        siautorizado.setVisibility(View.INVISIBLE);
-        noatuorizado = view.findViewById(R.id.noAutorizado);
-        ibQrAutorizar = view.findViewById(R.id.btn2);
-        tvNombre = view.findViewById(R.id.tvNombre);
-        tvNombre.setText(s);
-        codigo = Preferencias.getString(context, Preferencias.getKeyGuardiaNombre());
-        ibRegistrarPersonalAtuorizado = view.findViewById(R.id.ibEnviarRegistroPersonalAutorizado);
-        ibQrAutorizar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), ScannerActivity.class);
-                startActivityForResult(intent, REQUEST_CODE);
-            }
-        });
+        btnregistraringresosautorizados = view.findViewById(R.id.idRegistrarIngresanteAutorizados);
+        btnregistraregresosautorizados= view.findViewById(R.id.idRegistrarEgresosAutorizados);
 
-        ibRegistrarPersonalAtuorizado.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int visible = 4;
-                if (tvNombre.getText().toString().isEmpty()){
-                    errorNoScan();
-                }else{
-                    registrarPersonalAutorizado();
-                }
-
-            }
-        });
+    btnregistraringresosautorizados.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Intent intent = new Intent(context, RegistrarAutorizados.class);
+            startActivity(intent);
+        }
+    });
+    btnregistraregresosautorizados.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Intent intent = new Intent(context, pruebaAutorizados.class);
+            startActivity(intent);
+        }
+    });
         return view;
-
     }
 
 
@@ -174,38 +152,7 @@ public class AutorizadoFragment extends Fragment implements Response.ErrorListen
         }
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
-            if (data != null) {
-                String a = data.getStringExtra("result");
-                // tv1.setText(a);
-               /* tv1.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        tv1.setText(a);
-                    }
-                });*/
-                extraerPorCodigo(a);
-            }
-        }
-    }
 
-    private void extraerPorCodigo(String a) {
-        progressDialog = new ProgressDialog(context);
-        progressDialog.setMessage("Cargando...");
-        progressDialog.setCancelable(false);
-        progressDialog.show();
-        String ip = getString(R.string.ip_bd);
-        String url = ip + "/security/extraerPersonalAutorizado2.php?codigo=" + a;
-        //lee y procesa la informacion (Realiza el llamado a la url e intenta conectarse al webservis
-        jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
-        //permite establecer la cominicacion con los metodos response o error
-        //request.add(jsonObjectRequest);
-        VolleySingleton.getInstanciaVolley(getContext()).addToRequestQueue(jsonObjectRequest);
-
-    }
 
     @Override
     public void onDetach() {
@@ -214,70 +161,6 @@ public class AutorizadoFragment extends Fragment implements Response.ErrorListen
     }
 
 
-    @Override
-    public void onErrorResponse(VolleyError error) {
-        progressDialog.hide();
-        errorCodigo();
-    }
-
-    @Override
-    public void onResponse(JSONObject response) {
-        PersonalAutorizado personalAutorizado = null;
-        JSONArray json = response.optJSONArray("personalautorizado");
-        try {
-            personalAutorizado = new PersonalAutorizado();
-            JSONObject jsonObject = null;
-            jsonObject = json.getJSONObject(0);
-            personalAutorizado.setIdPersonalAutorizado(jsonObject.optInt("idPersonalAutorizado"));
-            personalAutorizado.setNombrePersonalAutorizado(jsonObject.optString("nombrePersonalAutorizado"));
-            personalAutorizado.setApellidoPersonalAutorizado(jsonObject.getString("apellidoPersonalAutorizado"));
-            personalAutorizado.setDni(jsonObject.getString("dni"));
-            personalAutorizado.setCargo(jsonObject.getString("cargo"));
-            personalAutorizado.setCodigo(jsonObject.getString("codigo"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        idPersonalAutorizado = personalAutorizado.getIdPersonalAutorizado();
-        nombre = personalAutorizado.getNombrePersonalAutorizado();
-        apellido= personalAutorizado.getApellidoPersonalAutorizado();
-        completo= nombre+" "+apellido;
-        tvNombre.setText(completo);
-        noatuorizado.setVisibility(View.INVISIBLE);
-        siautorizado.setVisibility(View.VISIBLE);
-        progressDialog.hide();
-    }
-    private void registrarPersonalAutorizado(){
-        progressDialog = new ProgressDialog(context);
-        progressDialog.setMessage("Cargando...");
-        progressDialog.setCancelable(false);
-        progressDialog.show();
-        String ip = getString(R.string.ip_bd);
-        String url = ip + "/security/registrarPersonalAutorizado.php?idPersonalAutorizado="+idPersonalAutorizado+"&idGuardia="+idguardia;
-        jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-
-                noatuorizado.setVisibility(View.VISIBLE);
-                siautorizado.setVisibility(View.INVISIBLE);
-                Toast.makeText(context,"Se registró correctamente",Toast.LENGTH_SHORT).show();
-                tvNombre.setText(s);
-                progressDialog.hide();
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                noatuorizado.setVisibility(View.VISIBLE);
-                siautorizado.setVisibility(View.INVISIBLE);
-                progressDialog.hide();
-                AlertaError();
-            }
-        });
-        VolleySingleton.getInstanciaVolley(getContext()).addToRequestQueue(jsonObjectRequest);
-    }
-    private boolean imagensi(){
-        noatuorizado.setVisibility(View.VISIBLE);
-        return true;
-    }
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -293,43 +176,4 @@ public class AutorizadoFragment extends Fragment implements Response.ErrorListen
         void onFragmentInteraction(Uri uri);
     }
 
-    private void AlertaError() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogCustom);
-        builder.setTitle("Error");
-        builder.setMessage("Error al registrar, comprueba tu conexión");
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-
-            }
-        });
-
-        builder.show();
-    }
-    private void errorCodigo() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogCustom);
-        builder.setTitle("Error");
-        builder.setMessage("Código incorrecto y/o error de conexión");
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-
-            }
-        });
-
-        builder.show();
-    }
-    private void errorNoScan() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogCustom);
-        builder.setTitle("Error");
-        builder.setMessage("Debe Scannear un código");
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-
-            }
-        });
-
-        builder.show();
-    }
 }

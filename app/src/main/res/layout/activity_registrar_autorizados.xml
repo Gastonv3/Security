@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_perm_identity_autorizado"
+            android:background="@color/colorPrimaryDark"/>
+
+        <TextView
+            android:id="@+id/tvNombre"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:hint="PERSONA"
+            android:textColor="@color/primary_light"
+            android:textSize="24dp"
+            android:gravity="center"
+            android:background="@color/colorPrimaryDark"/>
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="6dp"
+        >
+        <ImageButton
+            android:id="@+id/btn2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:theme="@style/MyButton"
+            android:src="@drawable/ic_photo_camera_black_24dp"/>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:id="@+id/linearfoto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:layout_above="@+id/linearbotones"
+            >
+            <ImageView
+                android:id="@+id/noAutorizado"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_noaturizado_24dp"
+                />
+            <ImageView
+                android:id="@+id/siAutorizado"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_done_black_24dp"/>
+
+        </FrameLayout>
+
+        <RelativeLayout
+            android:id="@+id/linearbotones"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_alignParentBottom="true"
+            android:gravity="center"
+            android:background="@color/colorPrimaryDark">
+            <ImageButton
+                android:id="@+id/ibEnviarRegistroPersonalAutorizado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_assignment_ind_black_24dp"
+                android:theme="@style/MyButton"/>
+
+            <!--   <ImageButton
+                   android:id="@+id/ibCancelarRegistro"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:src="@drawable/ic_cancel_black_24dp"
+                   android:theme="@style/MyButton"
+                   android:layout_alignParentRight="true"/>
+                 <Button
+                   android:id="@+id/btnEnviarRegistro"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_weight="1"
+                   android:text="enviar"
+                   android:theme="@style/MyButton" />
+
+               <Button
+                   android:id="@+id/btn"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_weight="1"
+                   android:text="Cancelar"
+                   android:theme="@style/MyButton"/>
+                   -->
+        </RelativeLayout>
+    </RelativeLayout>
+
+
+</LinearLayout>

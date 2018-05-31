@@ -13,6 +13,7 @@ public class Ingresos {
     private String motivo;
     private Bitmap imagenIngresos;
     private String fechaHoraIngreso;
+    private String fechaHoraSalida;
     private String dato;
 
     public Ingresos() {
@@ -90,6 +91,14 @@ public class Ingresos {
 
     public void setFechaHoraIngreso(String fechaHoraIngreso) {
         this.fechaHoraIngreso = fechaHoraIngreso;
+    }
+
+    public String getFechaHoraSalida() {
+        return fechaHoraSalida;
+    }
+
+    public void setFechaHoraSalida(String fechaHoraSalida) {
+        this.fechaHoraSalida = fechaHoraSalida;
     }
 
     public String getDato() {

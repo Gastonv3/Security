@@ -152,35 +152,43 @@ public class SupervisorAutorizadosFragment extends Fragment {
                 IngresosAutorizados ingresosAutorizados = null;
                 Guardia2 guardia = null;
                 JSONArray json = response.optJSONArray("ingresosautorizados");
-                try {
-                    for (int i = 0; i < json.length(); i++) {
-                        personalAutorizado = new PersonalAutorizado();
-                        ingresosAutorizados = new IngresosAutorizados();
-                        guardia = new Guardia2();
-                        JSONObject jsonObject = null;
-                        jsonObject = json.getJSONObject(i);
-                        ingresosAutorizados.setIdIngresosAutorizados(jsonObject.optInt("idIngresosAutorizados"));
-                        personalAutorizado.setNombrePersonalAutorizado(jsonObject.optString("nombrePersonalAutorizado"));
-                        personalAutorizado.setApellidoPersonalAutorizado(jsonObject.optString("apellidoPersonalAutorizado"));
-                        personalAutorizado.setDni(jsonObject.optString("dni"));
-                        personalAutorizado.setCargo(jsonObject.optString("cargo"));
-                        personalAutorizado.setCodigo(jsonObject.optString("codigo"));
-                        guardia.setNombre(jsonObject.optString("nombre"));
-                        guardia.setApellido(jsonObject.optString("apellido"));
-                        ingresosAutorizados.setFechaHora(jsonObject.optString("fechaHora"));
-                        ingresosAutorizados.setPersonalAutorizado(personalAutorizado);
-                        ingresosAutorizados.setGuardia(guardia);
-
-                        lista.add(ingresosAutorizados);
-                    }
+                if (json.length() == 0) {
                     progressDialog.dismiss();
+                    erroSinRegistros();
+                } else {
+                    try {
+                        for (int i = 0; i < json.length(); i++) {
+                            personalAutorizado = new PersonalAutorizado();
+                            ingresosAutorizados = new IngresosAutorizados();
+                            guardia = new Guardia2();
+                            JSONObject jsonObject = null;
+                            jsonObject = json.getJSONObject(i);
+                            ingresosAutorizados.setIdIngresosAutorizados(jsonObject.optInt("idIngresosAutorizados"));
+                            personalAutorizado.setNombrePersonalAutorizado(jsonObject.optString("nombrePersonalAutorizado"));
+                            personalAutorizado.setApellidoPersonalAutorizado(jsonObject.optString("apellidoPersonalAutorizado"));
+                            personalAutorizado.setDni(jsonObject.optString("dni"));
+                            personalAutorizado.setCargo(jsonObject.optString("cargo"));
+                            personalAutorizado.setCodigo(jsonObject.optString("codigo"));
+                            guardia.setNombre(jsonObject.optString("nombre"));
+                            guardia.setApellido(jsonObject.optString("apellido"));
+                            ingresosAutorizados.setFechaHora(jsonObject.optString("fechaHora"));
+                            ingresosAutorizados.setFechaHoraSalida(jsonObject.optString("fechaHoraSalida"));
+                            ingresosAutorizados.setPersonalAutorizado(personalAutorizado);
+                            ingresosAutorizados.setGuardia(guardia);
 
-                    AdapterSupervisorAutorizado adapterSupervisorAutorizado = new AdapterSupervisorAutorizado(lista);
+                            lista.add(ingresosAutorizados);
+                        }
+                        int Eliminador = ((lista.size()) - 1);
+                        lista.remove(Eliminador);
+                        progressDialog.dismiss();
 
-                    contenedorSupervisorAutorizados.setAdapter(adapterSupervisorAutorizado);
+                        AdapterSupervisorAutorizado adapterSupervisorAutorizado = new AdapterSupervisorAutorizado(lista);
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                        contenedorSupervisorAutorizados.setAdapter(adapterSupervisorAutorizado);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }, new Response.ErrorListener() {
@@ -210,35 +218,44 @@ public class SupervisorAutorizadosFragment extends Fragment {
                 IngresosAutorizados ingresosAutorizados = null;
                 Guardia2 guardia = null;
                 JSONArray json = response.optJSONArray("ingresosautorizados");
-                try {
-                    for (int i = 0; i < json.length(); i++) {
-                        personalAutorizado = new PersonalAutorizado();
-                        ingresosAutorizados = new IngresosAutorizados();
-                        guardia = new Guardia2();
-                        JSONObject jsonObject = null;
-                        jsonObject = json.getJSONObject(i);
-                        ingresosAutorizados.setIdIngresosAutorizados(jsonObject.optInt("idIngresosAutorizados"));
-                        personalAutorizado.setNombrePersonalAutorizado(jsonObject.optString("nombrePersonalAutorizado"));
-                        personalAutorizado.setApellidoPersonalAutorizado(jsonObject.optString("apellidoPersonalAutorizado"));
-                        personalAutorizado.setDni(jsonObject.optString("dni"));
-                        personalAutorizado.setCargo(jsonObject.optString("cargo"));
-                        personalAutorizado.setCodigo(jsonObject.optString("codigo"));
-                        guardia.setNombre(jsonObject.optString("nombre"));
-                        guardia.setApellido(jsonObject.optString("apellido"));
-                        ingresosAutorizados.setFechaHora(jsonObject.optString("fechaHora"));
-                        ingresosAutorizados.setPersonalAutorizado(personalAutorizado);
-                        ingresosAutorizados.setGuardia(guardia);
-
-                        lista.add(ingresosAutorizados);
-                    }
+                if (json.length() == 0) {
                     progressDialog.dismiss();
+                    erroSinRegistros();
+                } else {
+                    try {
+                        for (int i = 0; i < json.length(); i++) {
+                            personalAutorizado = new PersonalAutorizado();
+                            ingresosAutorizados = new IngresosAutorizados();
+                            guardia = new Guardia2();
+                            JSONObject jsonObject = null;
+                            jsonObject = json.getJSONObject(i);
+                            ingresosAutorizados.setIdIngresosAutorizados(jsonObject.optInt("idIngresosAutorizados"));
+                            personalAutorizado.setNombrePersonalAutorizado(jsonObject.optString("nombrePersonalAutorizado"));
+                            personalAutorizado.setApellidoPersonalAutorizado(jsonObject.optString("apellidoPersonalAutorizado"));
+                            personalAutorizado.setDni(jsonObject.optString("dni"));
+                            personalAutorizado.setCargo(jsonObject.optString("cargo"));
+                            personalAutorizado.setCodigo(jsonObject.optString("codigo"));
+                            guardia.setNombre(jsonObject.optString("nombre"));
+                            guardia.setApellido(jsonObject.optString("apellido"));
+                            ingresosAutorizados.setFechaHora(jsonObject.optString("fechaHora"));
+                            ingresosAutorizados.setFechaHoraSalida(jsonObject.optString("fechaHoraSalida"));
 
-                    AdapterSupervisorAutorizado adapterSupervisorAutorizado = new AdapterSupervisorAutorizado(lista);
+                            ingresosAutorizados.setPersonalAutorizado(personalAutorizado);
+                            ingresosAutorizados.setGuardia(guardia);
 
-                    contenedorSupervisorAutorizados.setAdapter(adapterSupervisorAutorizado);
+                            lista.add(ingresosAutorizados);
+                        }
+                        int Eliminador = ((lista.size()) - 1);
+                        lista.remove(Eliminador);
+                        progressDialog.dismiss();
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                        AdapterSupervisorAutorizado adapterSupervisorAutorizado = new AdapterSupervisorAutorizado(lista);
+
+                        contenedorSupervisorAutorizados.setAdapter(adapterSupervisorAutorizado);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }, new Response.ErrorListener() {
@@ -268,36 +285,43 @@ public class SupervisorAutorizadosFragment extends Fragment {
                 IngresosAutorizados ingresosAutorizados = null;
                 Guardia2 guardia = null;
                 JSONArray json = response.optJSONArray("ingresosautorizados");
-                try {
-                    for (int i = 0; i < json.length(); i++) {
-                        personalAutorizado = new PersonalAutorizado();
-                        ingresosAutorizados = new IngresosAutorizados();
-                        guardia = new Guardia2();
-                        JSONObject jsonObject = null;
-                        jsonObject = json.getJSONObject(i);
-                        ingresosAutorizados.setIdIngresosAutorizados(jsonObject.optInt("idIngresosAutorizados"));
-                        personalAutorizado.setNombrePersonalAutorizado(jsonObject.optString("nombrePersonalAutorizado"));
-                        personalAutorizado.setApellidoPersonalAutorizado(jsonObject.optString("apellidoPersonalAutorizado"));
-                        personalAutorizado.setDni(jsonObject.optString("dni"));
-                        personalAutorizado.setCargo(jsonObject.optString("cargo"));
-                        personalAutorizado.setCodigo(jsonObject.optString("codigo"));
-                        guardia.setNombre(jsonObject.optString("nombre"));
-                        guardia.setApellido(jsonObject.optString("apellido"));
-                        ingresosAutorizados.setFechaHora(jsonObject.optString("fechaHora"));
-                        ingresosAutorizados.setPersonalAutorizado(personalAutorizado);
-                        ingresosAutorizados.setGuardia(guardia);
-
-                        lista.add(ingresosAutorizados);
-                    }
-
+                if (json.length() == 0) {
                     progressDialog.dismiss();
+                    erroSinRegistros();
+                } else {
+                    try {
+                        for (int i = 0; i < json.length(); i++) {
+                            personalAutorizado = new PersonalAutorizado();
+                            ingresosAutorizados = new IngresosAutorizados();
+                            guardia = new Guardia2();
+                            JSONObject jsonObject = null;
+                            jsonObject = json.getJSONObject(i);
+                            ingresosAutorizados.setIdIngresosAutorizados(jsonObject.optInt("idIngresosAutorizados"));
+                            personalAutorizado.setNombrePersonalAutorizado(jsonObject.optString("nombrePersonalAutorizado"));
+                            personalAutorizado.setApellidoPersonalAutorizado(jsonObject.optString("apellidoPersonalAutorizado"));
+                            personalAutorizado.setDni(jsonObject.optString("dni"));
+                            personalAutorizado.setCargo(jsonObject.optString("cargo"));
+                            personalAutorizado.setCodigo(jsonObject.optString("codigo"));
+                            guardia.setNombre(jsonObject.optString("nombre"));
+                            guardia.setApellido(jsonObject.optString("apellido"));
+                            ingresosAutorizados.setFechaHora(jsonObject.optString("fechaHora"));
+                            ingresosAutorizados.setFechaHoraSalida(jsonObject.optString("fechaHoraSalida"));
+                            ingresosAutorizados.setPersonalAutorizado(personalAutorizado);
+                            ingresosAutorizados.setGuardia(guardia);
 
-                    AdapterSupervisorAutorizado adapterSupervisorAutorizado = new AdapterSupervisorAutorizado(lista);
+                            lista.add(ingresosAutorizados);
+                        }
+                        int Eliminador = ((lista.size()) - 1);
+                        lista.remove(Eliminador);
+                        progressDialog.dismiss();
 
-                    contenedorSupervisorAutorizados.setAdapter(adapterSupervisorAutorizado);
+                        AdapterSupervisorAutorizado adapterSupervisorAutorizado = new AdapterSupervisorAutorizado(lista);
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                        contenedorSupervisorAutorizados.setAdapter(adapterSupervisorAutorizado);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }, new Response.ErrorListener() {
@@ -347,12 +371,13 @@ public class SupervisorAutorizadosFragment extends Fragment {
                             guardia.setNombre(jsonObject.optString("nombre"));
                             guardia.setApellido(jsonObject.optString("apellido"));
                             ingresosAutorizados.setFechaHora(jsonObject.optString("fechaHora"));
+                            ingresosAutorizados.setFechaHoraSalida(jsonObject.optString("fechaHoraSalida"));
                             ingresosAutorizados.setPersonalAutorizado(personalAutorizado);
                             ingresosAutorizados.setGuardia(guardia);
 
                             lista.add(ingresosAutorizados);
                         }
-                        int Eliminador = ((lista.size())-1);
+                        int Eliminador = ((lista.size()) - 1);
                         lista.remove(Eliminador);
                         progressDialog.dismiss();
 

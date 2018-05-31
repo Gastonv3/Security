@@ -173,6 +173,7 @@ public class SupervisorIngresosFragment extends Fragment {
                         ingresos.setMotivo(jsonObject.optString("motivo"));
                         ingresos.setDato(jsonObject.optString("imagenRegistro"));
                         ingresos.setFechaHoraIngreso(jsonObject.optString("fechaHora"));
+                        ingresos.setFechaHoraSalida(jsonObject.optString("fechaHoraSalida"));
                         guardia.setNombre(jsonObject.optString("nombre"));
                         guardia.setApellido(jsonObject.optString("apellido"));
                         ingresos.setGuardia(guardia);
@@ -228,6 +229,7 @@ public class SupervisorIngresosFragment extends Fragment {
                         ingresos.setMotivo(jsonObject.optString("motivo"));
                         ingresos.setDato(jsonObject.optString("imagenRegistro"));
                         ingresos.setFechaHoraIngreso(jsonObject.optString("fechaHora"));
+                        ingresos.setFechaHoraSalida(jsonObject.optString("fechaHoraSalida"));
                         guardia.setNombre(jsonObject.optString("nombre"));
                         guardia.setApellido(jsonObject.optString("apellido"));
                         ingresos.setGuardia(guardia);
@@ -283,6 +285,7 @@ public class SupervisorIngresosFragment extends Fragment {
                         ingresos.setMotivo(jsonObject.optString("motivo"));
                         ingresos.setDato(jsonObject.optString("imagenRegistro"));
                         ingresos.setFechaHoraIngreso(jsonObject.optString("fechaHora"));
+                        ingresos.setFechaHoraSalida(jsonObject.optString("fechaHoraSalida"));
                         guardia.setNombre(jsonObject.optString("nombre"));
                         guardia.setApellido(jsonObject.optString("apellido"));
                         ingresos.setGuardia(guardia);
@@ -317,6 +320,7 @@ public class SupervisorIngresosFragment extends Fragment {
         progressDialog.setCancelable(false);
         progressDialog.show();
         String ip = getString(R.string.ip_bd);
+       // String url = ip+"/security/extraerIngresos.php";
         String url = ip+"/security/extraerIngresos.php";
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
@@ -342,6 +346,7 @@ public class SupervisorIngresosFragment extends Fragment {
                             ingresos.setMotivo(jsonObject.optString("motivo"));
                             ingresos.setDato(jsonObject.optString("imagenRegistro"));
                             ingresos.setFechaHoraIngreso(jsonObject.optString("fechaHora"));
+                            ingresos.setFechaHoraSalida(jsonObject.optString("fechaHoraSalida"));
                             guardia.setNombre(jsonObject.optString("nombre"));
                             guardia.setApellido(jsonObject.optString("apellido"));
                             ingresos.setGuardia(guardia);
@@ -473,7 +478,8 @@ public class SupervisorIngresosFragment extends Fragment {
             }
         });*/
         builder.show();
-    }    private void erroSinRegistros (){
+    }
+    private void erroSinRegistros (){
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogCustom);
         builder.setTitle("Error");
         builder.setMessage("No se realizaron Ingresos");

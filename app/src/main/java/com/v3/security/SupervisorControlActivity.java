@@ -77,21 +77,19 @@ public class SupervisorControlActivity extends AppCompatActivity implements OnMa
             control2 = (Control2) bundle.getSerializable("control");
             nombreguarda.setText("Guardia: " + (control2.getGuardia().getNombre()) + " " + (control2.getGuardia().getApellido()));
             nombrelugar.setText("Lugar: " + (control2.getLugar().getNombre_lugares()));
-           String fechastring2 = control2.getFechaHora();
+            String fechastring2 = control2.getFechaHora();
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             try {
                 Date a = sdf.parse(fechastring2);
                 SimpleDateFormat fmtOut = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
                 String b = fmtOut.format(a);
-                fechacontrol.setText("Fecha y Hora: "+b);
+                fechacontrol.setText("Fecha y Hora: " + b);
                 latitud = Double.valueOf(control2.getLatitud());
                 longitud = Double.valueOf(control2.getLongitud());
 
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-
-
 
 
         }

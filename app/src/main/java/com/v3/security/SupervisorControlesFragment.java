@@ -264,7 +264,7 @@ public class SupervisorControlesFragment extends Fragment implements Response.Er
                     fuenteDatos.setFechaHora(jsonObject.optString("fechaHora"));
                     lista.add(fuenteDatos);
                 }
-                int Eliminador = ((lista.size())-1);
+                int Eliminador = ((lista.size()) - 1);
                 lista.remove(Eliminador);
                 progressDialog.dismiss();
 
@@ -308,31 +308,38 @@ public class SupervisorControlesFragment extends Fragment implements Response.Er
                 Lugar fuentedeDatos2 = null;
                 Guardia2 fuenteDatos3 = null;
                 JSONArray json = response.optJSONArray("controles");
-                try {
-                    for (int i = 0; i < json.length(); i++) {
-                        fuenteDatos = new Control2();
-                        fuentedeDatos2 = new Lugar();
-                        fuenteDatos3 = new Guardia2();
-                        JSONObject jsonObject = null;
-                        jsonObject = json.getJSONObject(i);
-                        fuenteDatos.setIdControles(jsonObject.optInt("idControles"));
-                        fuenteDatos3.setNombre(jsonObject.optString("nombre"));
-                        fuenteDatos3.setApellido(jsonObject.optString("apellido"));
-                        fuentedeDatos2.setNombre_lugares(jsonObject.optString("nombreLugar"));
-                        fuenteDatos.setLugar(fuentedeDatos2);
-                        fuenteDatos.setGuardia(fuenteDatos3);
-                        fuenteDatos.setLatitud(jsonObject.optString("latitud"));
-                        fuenteDatos.setLongitud(jsonObject.optString("longitud"));
-                        fuenteDatos.setFechaHora(jsonObject.optString("fechaHora"));
-                        lista.add(fuenteDatos);
-                    }
+                if (json.length() == 0) {
                     progressDialog.dismiss();
-                    AdapterSupervisorControles adapterSupervisorControles = new AdapterSupervisorControles(lista);
+                    erroSinRegistros();
+                } else {
+                    try {
+                        for (int i = 0; i < json.length(); i++) {
+                            fuenteDatos = new Control2();
+                            fuentedeDatos2 = new Lugar();
+                            fuenteDatos3 = new Guardia2();
+                            JSONObject jsonObject = null;
+                            jsonObject = json.getJSONObject(i);
+                            fuenteDatos.setIdControles(jsonObject.optInt("idControles"));
+                            fuenteDatos3.setNombre(jsonObject.optString("nombre"));
+                            fuenteDatos3.setApellido(jsonObject.optString("apellido"));
+                            fuentedeDatos2.setNombre_lugares(jsonObject.optString("nombreLugar"));
+                            fuenteDatos.setLugar(fuentedeDatos2);
+                            fuenteDatos.setGuardia(fuenteDatos3);
+                            fuenteDatos.setLatitud(jsonObject.optString("latitud"));
+                            fuenteDatos.setLongitud(jsonObject.optString("longitud"));
+                            fuenteDatos.setFechaHora(jsonObject.optString("fechaHora"));
+                            lista.add(fuenteDatos);
+                        }
+                        int Eliminador = ((lista.size()) - 1);
+                        lista.remove(Eliminador);
+                        progressDialog.dismiss();
+                        AdapterSupervisorControles adapterSupervisorControles = new AdapterSupervisorControles(lista);
 
-                    contenedorsupervisorcontroles.setAdapter(adapterSupervisorControles);
+                        contenedorsupervisorcontroles.setAdapter(adapterSupervisorControles);
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }, new Response.ErrorListener() {
@@ -361,31 +368,38 @@ public class SupervisorControlesFragment extends Fragment implements Response.Er
                 Lugar fuentedeDatos2 = null;
                 Guardia2 fuenteDatos3 = null;
                 JSONArray json = response.optJSONArray("controles");
-                try {
-                    for (int i = 0; i < json.length(); i++) {
-                        fuenteDatos = new Control2();
-                        fuentedeDatos2 = new Lugar();
-                        fuenteDatos3 = new Guardia2();
-                        JSONObject jsonObject = null;
-                        jsonObject = json.getJSONObject(i);
-                        fuenteDatos.setIdControles(jsonObject.optInt("idControles"));
-                        fuenteDatos3.setNombre(jsonObject.optString("nombre"));
-                        fuenteDatos3.setApellido(jsonObject.optString("apellido"));
-                        fuentedeDatos2.setNombre_lugares(jsonObject.optString("nombreLugar"));
-                        fuenteDatos.setLugar(fuentedeDatos2);
-                        fuenteDatos.setGuardia(fuenteDatos3);
-                        fuenteDatos.setLatitud(jsonObject.optString("latitud"));
-                        fuenteDatos.setLongitud(jsonObject.optString("longitud"));
-                        fuenteDatos.setFechaHora(jsonObject.optString("fechaHora"));
-                        lista.add(fuenteDatos);
-                    }
+                if (json.length() == 0) {
                     progressDialog.dismiss();
-                    AdapterSupervisorControles adapterSupervisorControles = new AdapterSupervisorControles(lista);
+                    erroSinRegistros();
+                } else {
+                    try {
+                        for (int i = 0; i < json.length(); i++) {
+                            fuenteDatos = new Control2();
+                            fuentedeDatos2 = new Lugar();
+                            fuenteDatos3 = new Guardia2();
+                            JSONObject jsonObject = null;
+                            jsonObject = json.getJSONObject(i);
+                            fuenteDatos.setIdControles(jsonObject.optInt("idControles"));
+                            fuenteDatos3.setNombre(jsonObject.optString("nombre"));
+                            fuenteDatos3.setApellido(jsonObject.optString("apellido"));
+                            fuentedeDatos2.setNombre_lugares(jsonObject.optString("nombreLugar"));
+                            fuenteDatos.setLugar(fuentedeDatos2);
+                            fuenteDatos.setGuardia(fuenteDatos3);
+                            fuenteDatos.setLatitud(jsonObject.optString("latitud"));
+                            fuenteDatos.setLongitud(jsonObject.optString("longitud"));
+                            fuenteDatos.setFechaHora(jsonObject.optString("fechaHora"));
+                            lista.add(fuenteDatos);
+                        }
+                        int Eliminador = ((lista.size()) - 1);
+                        lista.remove(Eliminador);
+                        progressDialog.dismiss();
+                        AdapterSupervisorControles adapterSupervisorControles = new AdapterSupervisorControles(lista);
 
-                    contenedorsupervisorcontroles.setAdapter(adapterSupervisorControles);
+                        contenedorsupervisorcontroles.setAdapter(adapterSupervisorControles);
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }, new Response.ErrorListener() {

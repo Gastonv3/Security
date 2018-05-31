@@ -62,6 +62,7 @@ public class viewHolderSupervisorInformes extends RecyclerView.ViewHolder implem
             bundle.putString("apellido",informes.getControl2().getGuardia().getApellido());
             bundle.putString("lugar",informes.getControl2().getLugar().getNombre_lugares());
             bundle.putString("fechaHora",informes.getControl2().getFechaHora());
+
             bundle.putString("informe",informes.getInforme());
             intent.putExtra("suerte",bundle);
             context.startActivity(intent);

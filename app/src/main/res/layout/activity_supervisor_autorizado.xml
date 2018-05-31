@@ -67,7 +67,18 @@
         android:textColor="@color/primary_light"
 
         android:textSize="20dp" />
+        <TextView
+            android:id="@+id/fechaSalidaAutorizado"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/colorPrimaryDark"
+            android:gravity="center"
+            android:hint="PERSONA"
+            android:scrollbarStyle="insideInset"
+            android:scrollbars="vertical"
+            android:textColor="@color/primary_light"
 
+            android:textSize="20dp" />
     <!--<RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

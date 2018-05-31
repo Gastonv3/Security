@@ -62,6 +62,7 @@ public class viewHolderSupervisorAutorizados extends RecyclerView.ViewHolder imp
             bundle.putString("dni", ingresosAutorizados.getPersonalAutorizado().getDni());
             bundle.putString("cargo", ingresosAutorizados.getPersonalAutorizado().getCargo());
             bundle.putString("fechaHora", ingresosAutorizados.getFechaHora());
+            bundle.putString("fechaHoraSalida", ingresosAutorizados.getFechaHoraSalida());
             bundle.putString("nombre", ingresosAutorizados.getGuardia().getNombre());
             bundle.putString("apellido", ingresosAutorizados.getGuardia().getApellido());
             intent.putExtra("ingresosAutorizados", bundle);

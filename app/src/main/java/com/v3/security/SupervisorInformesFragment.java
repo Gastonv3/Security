@@ -158,36 +158,43 @@ public class SupervisorInformesFragment extends Fragment {
                 Lugar lugar = null;
                 Guardia2 guardia = null;
                 JSONArray json = response.optJSONArray("informes");
-                try {
-                    for (int i = 0; i < json.length(); i++) {
-                        informes = new Informes();
-                        control = new Control2();
-                        lugar = new Lugar();
-                        guardia = new Guardia2();
-                        JSONObject jsonObject = null;
-                        jsonObject = json.getJSONObject(i);
-                        informes.setIdInformes(jsonObject.optInt("idInformes"));
-                        control.setIdControles(jsonObject.optInt("idControles"));
-                        lugar.setNombre_lugares(jsonObject.optString("nombreLugar"));
-                        informes.setTituloInforme(jsonObject.optString("tituloInforme"));
-                        informes.setInforme(jsonObject.optString("informe"));
-                        informes.setDato(jsonObject.optString("imagenInforme"));
-                        control.setFechaHora(jsonObject.optString("fechaHora"));
-                        guardia.setNombre(jsonObject.optString("nombre"));
-                        guardia.setApellido(jsonObject.optString("apellido"));
-                        control.setLugar(lugar);
-                        control.setGuardia(guardia);
-                        informes.setControl2(control);
-                        lista.add(informes);
-                    }
+                if (json.length() == 0) {
                     progressDialog.dismiss();
+                    erroSinRegistros();
+                } else {
+                    try {
+                        for (int i = 0; i < json.length(); i++) {
+                            informes = new Informes();
+                            control = new Control2();
+                            lugar = new Lugar();
+                            guardia = new Guardia2();
+                            JSONObject jsonObject = null;
+                            jsonObject = json.getJSONObject(i);
+                            informes.setIdInformes(jsonObject.optInt("idInformes"));
+                            control.setIdControles(jsonObject.optInt("idControles"));
+                            lugar.setNombre_lugares(jsonObject.optString("nombreLugar"));
+                            informes.setTituloInforme(jsonObject.optString("tituloInforme"));
+                            informes.setInforme(jsonObject.optString("informe"));
+                            informes.setDato(jsonObject.optString("imagenInforme"));
+                            control.setFechaHora(jsonObject.optString("fechaHora"));
+                            guardia.setNombre(jsonObject.optString("nombre"));
+                            guardia.setApellido(jsonObject.optString("apellido"));
+                            control.setLugar(lugar);
+                            control.setGuardia(guardia);
+                            informes.setControl2(control);
+                            lista.add(informes);
+                        }
+                        int Eliminador = ((lista.size()) - 1);
+                        lista.remove(Eliminador);
+                        progressDialog.dismiss();
 
-                    AdapterSupervisorInformes adapterSupervisorInformes = new AdapterSupervisorInformes(lista);
+                        AdapterSupervisorInformes adapterSupervisorInformes = new AdapterSupervisorInformes(lista);
 
-                    contenedorsupervisorinformes.setAdapter(adapterSupervisorInformes);
+                        contenedorsupervisorinformes.setAdapter(adapterSupervisorInformes);
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }, new Response.ErrorListener() {
@@ -218,36 +225,43 @@ public class SupervisorInformesFragment extends Fragment {
                 Lugar lugar = null;
                 Guardia2 guardia = null;
                 JSONArray json = response.optJSONArray("informes");
-                try {
-                    for (int i = 0; i < json.length(); i++) {
-                        informes = new Informes();
-                        control = new Control2();
-                        lugar = new Lugar();
-                        guardia = new Guardia2();
-                        JSONObject jsonObject = null;
-                        jsonObject = json.getJSONObject(i);
-                        informes.setIdInformes(jsonObject.optInt("idInformes"));
-                        control.setIdControles(jsonObject.optInt("idControles"));
-                        lugar.setNombre_lugares(jsonObject.optString("nombreLugar"));
-                        informes.setTituloInforme(jsonObject.optString("tituloInforme"));
-                        informes.setInforme(jsonObject.optString("informe"));
-                        informes.setDato(jsonObject.optString("imagenInforme"));
-                        control.setFechaHora(jsonObject.optString("fechaHora"));
-                        guardia.setNombre(jsonObject.optString("nombre"));
-                        guardia.setApellido(jsonObject.optString("apellido"));
-                        control.setLugar(lugar);
-                        control.setGuardia(guardia);
-                        informes.setControl2(control);
-                        lista.add(informes);
-                    }
+                if (json.length() == 0) {
                     progressDialog.dismiss();
+                    erroSinRegistros();
+                } else {
+                    try {
+                        for (int i = 0; i < json.length(); i++) {
+                            informes = new Informes();
+                            control = new Control2();
+                            lugar = new Lugar();
+                            guardia = new Guardia2();
+                            JSONObject jsonObject = null;
+                            jsonObject = json.getJSONObject(i);
+                            informes.setIdInformes(jsonObject.optInt("idInformes"));
+                            control.setIdControles(jsonObject.optInt("idControles"));
+                            lugar.setNombre_lugares(jsonObject.optString("nombreLugar"));
+                            informes.setTituloInforme(jsonObject.optString("tituloInforme"));
+                            informes.setInforme(jsonObject.optString("informe"));
+                            informes.setDato(jsonObject.optString("imagenInforme"));
+                            control.setFechaHora(jsonObject.optString("fechaHora"));
+                            guardia.setNombre(jsonObject.optString("nombre"));
+                            guardia.setApellido(jsonObject.optString("apellido"));
+                            control.setLugar(lugar);
+                            control.setGuardia(guardia);
+                            informes.setControl2(control);
+                            lista.add(informes);
+                        }
+                        int Eliminador = ((lista.size()) - 1);
+                        lista.remove(Eliminador);
+                        progressDialog.dismiss();
 
-                    AdapterSupervisorInformes adapterSupervisorInformes = new AdapterSupervisorInformes(lista);
+                        AdapterSupervisorInformes adapterSupervisorInformes = new AdapterSupervisorInformes(lista);
 
-                    contenedorsupervisorinformes.setAdapter(adapterSupervisorInformes);
+                        contenedorsupervisorinformes.setAdapter(adapterSupervisorInformes);
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }, new Response.ErrorListener() {
@@ -305,7 +319,7 @@ public class SupervisorInformesFragment extends Fragment {
                             informes.setControl2(control);
                             lista.add(informes);
                         }
-                        int Eliminador = ((lista.size())-1);
+                        int Eliminador = ((lista.size()) - 1);
                         lista.remove(Eliminador);
                         progressDialog.dismiss();
 

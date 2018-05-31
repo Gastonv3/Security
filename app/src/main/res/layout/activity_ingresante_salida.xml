@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:layout_margin="5dp"
     android:orientation="vertical"
-    app:cardBackgroundColor="@color/colorPrimary"
+    app:cardBackgroundColor="@color/colorPrimaryDark"
     app:cardCornerRadius="5dp">
 
     <LinearLayout
@@ -15,7 +15,7 @@
         android:padding="0dp">
 
         <TextView
-            android:id="@+id/nombreGuardiaIngresos"
+            android:id="@+id/nombreGuardiaIngresante"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:background="@color/colorPrimaryDark"
@@ -27,7 +27,7 @@
             android:textSize="20dp" />
 
         <TextView
-            android:id="@+id/nombreIngreso"
+            android:id="@+id/nombreIngreste"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:background="@color/colorPrimaryDark"
@@ -37,7 +37,7 @@
             android:textSize="20dp" />
 
         <TextView
-            android:id="@+id/dniIngreso"
+            android:id="@+id/dniIngresante"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:background="@color/colorPrimaryDark"
@@ -47,7 +47,7 @@
             android:textSize="20dp" />
 
         <TextView
-            android:id="@+id/fechaIngreso"
+            android:id="@+id/fechaIngresante"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:background="@color/colorPrimaryDark"
@@ -55,17 +55,9 @@
             android:text="Informe"
             android:textColor="@color/primary_light"
             android:textSize="20dp" />
+
         <TextView
-            android:id="@+id/fechaSalida"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:background="@color/colorPrimaryDark"
-            android:gravity="center"
-            android:text="Informe"
-            android:textColor="@color/primary_light"
-            android:textSize="20dp" />
-        <TextView
-            android:id="@+id/motivoIngreso"
+            android:id="@+id/motivoIngresante"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:background="@color/colorPrimaryDark"
@@ -76,6 +68,15 @@
             android:textColor="@color/primary_light"
 
             android:textSize="20dp" />
+
+        <Button
+            android:id="@+id/btnSalida"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="REGISTRAR SALIDA"
+            android:theme="@style/MyButton2"
+            android:layout_gravity="center"
+           />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -94,7 +95,7 @@
                 >
 
                 <ImageView
-                    android:id="@+id/ingresoImagen"
+                    android:id="@+id/ingresanteImagen"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -111,7 +112,7 @@
                 android:orientation="horizontal">
 
                 <ImageButton
-                    android:id="@+id/ibRotarImagen"
+                    android:id="@+id/ibRotarImagenIngresante"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"

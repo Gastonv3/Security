@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity  {
                     transaction.replace(R.id.c, new LugarFragment()).commit();
                     return true;
                 case R.id.navigation_dashboard:
-                    transaction.replace(R.id.c, new RegistroFragment()).commit();
+                    transaction.replace(R.id.c, new RegistrosFragment()).commit();
 
                     return true;
                 case R.id.personalAturizado:

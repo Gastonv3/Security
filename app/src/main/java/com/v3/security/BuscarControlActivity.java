@@ -24,15 +24,16 @@ import java.util.Date;
 public class BuscarControlActivity extends AppCompatActivity {
 
     private DatePickerDialog.OnDateSetListener dateSetListenerDesde, dateSetListenerHasta, dateSetListenerFecha;
-    ImageButton ibdesde , ibhasta, ibbuscarresultado, ibfecha,ibbuscarfecha, ibsalir1, ibsalir2;
-    TextView tvdesde , tvhasta, tvfecha;
-   private String desde = null;
-   private String hasta= null;
-   private String fecha = null;
+    ImageButton ibdesde, ibhasta, ibbuscarresultado, ibfecha, ibbuscarfecha, ibsalir1, ibsalir2;
+    TextView tvdesde, tvhasta, tvfecha;
+    private String desde = null;
+    private String hasta = null;
+    private String fecha = null;
 
     private String desdeMostrar = null;
-    private String hastaMostrar= null;
+    private String hastaMostrar = null;
     private String fechaMostrar = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,24 +61,25 @@ public class BuscarControlActivity extends AppCompatActivity {
                         BuscarControlActivity.this,
                         android.R.style.Theme_Holo_Light_Dialog_MinWidth,
                         dateSetListenerFecha,
-                        year,month,day);
+                        year, month, day);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
             }
         });
         dateSetListenerFecha = new DatePickerDialog.OnDateSetListener() {
             @Override
-            public void onDateSet(DatePicker datePicker, int year , int month, int day) {
-                month = month +1;
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                month = month + 1;
                 String mes = String.valueOf(month);
                 String dia = String.valueOf(day);
-                if(month<10){
-                    mes = "0"+ month;
-                }if(day<10){
+                if (month < 10) {
+                    mes = "0" + month;
+                }
+                if (day < 10) {
                     dia = "0" + day;
                 }
-                fecha = year +"-"+ mes +"-"+dia;
-                fechaMostrar = dia +"-"+ mes +"-"+year;
+                fecha = year + "-" + mes + "-" + dia;
+                fechaMostrar = dia + "-" + mes + "-" + year;
                 tvfecha.setText(fechaMostrar);
 
 
@@ -97,7 +99,7 @@ public class BuscarControlActivity extends AppCompatActivity {
                         BuscarControlActivity.this,
                         android.R.style.Theme_Holo_Light_Dialog_MinWidth,
                         dateSetListenerDesde,
-                        year,month,day);
+                        year, month, day);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
             }
@@ -106,17 +108,18 @@ public class BuscarControlActivity extends AppCompatActivity {
 
         dateSetListenerDesde = new DatePickerDialog.OnDateSetListener() {
             @Override
-            public void onDateSet(DatePicker datePicker, int year , int month, int day) {
-                month = month +1;
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                month = month + 1;
                 String mes = String.valueOf(month);
                 String dia = String.valueOf(day);
-                if(month<10){
-                    mes = "0"+ month;
-                }if(day<10){
+                if (month < 10) {
+                    mes = "0" + month;
+                }
+                if (day < 10) {
                     dia = "0" + day;
                 }
-                desde = year +"-"+ mes +"-"+dia;
-                desdeMostrar = dia +"-"+ mes +"-"+year;
+                desde = year + "-" + mes + "-" + dia;
+                desdeMostrar = dia + "-" + mes + "-" + year;
                 tvdesde.setText(desdeMostrar);
 
 
@@ -136,7 +139,7 @@ public class BuscarControlActivity extends AppCompatActivity {
                         BuscarControlActivity.this,
                         android.R.style.Theme_Holo_Light_Dialog_MinWidth,
                         dateSetListenerHasta,
-                        year,month,day);
+                        year, month, day);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
             }
@@ -145,17 +148,18 @@ public class BuscarControlActivity extends AppCompatActivity {
 
         dateSetListenerHasta = new DatePickerDialog.OnDateSetListener() {
             @Override
-            public void onDateSet(DatePicker datePicker, int year , int month, int day) {
-                month = month +1;
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                month = month + 1;
                 String mes = String.valueOf(month);
                 String dia = String.valueOf(day);
-                if(month<10){
-                    mes = "0"+ month;
-                }if(day<10){
+                if (month < 10) {
+                    mes = "0" + month;
+                }
+                if (day < 10) {
                     dia = "0" + day;
                 }
-                hasta = year +"-"+ mes +"-"+dia;
-                hastaMostrar = dia +"-"+ mes +"-"+year;
+                hasta = year + "-" + mes + "-" + dia;
+                hastaMostrar = dia + "-" + mes + "-" + year;
                 tvhasta.setText(hastaMostrar);
 
 
@@ -166,26 +170,28 @@ public class BuscarControlActivity extends AppCompatActivity {
         ibbuscarresultado.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(tvdesde.getText().toString().isEmpty()||tvhasta.getText().toString().isEmpty()) {
+                if (tvdesde.getText().toString().isEmpty() || tvhasta.getText().toString().isEmpty()) {
                     AlertaError();
-                }else {
+                } else {
                     String incio = desde;
                     String Final = hasta;
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                     try {
                         Date a = sdf.parse(incio);
-                        Date                                                                                                                                                                                                                                                                         b = sdf.parse(Final);
-                        if(tvdesde.getText().toString().isEmpty()||tvhasta.getText().toString().isEmpty()){
+                        Date b = sdf.parse(Final);
+                        if (tvdesde.getText().toString().isEmpty() || tvhasta.getText().toString().isEmpty()) {
                             AlertaError();
-                        }if(a.after(b)) {
+                        }
+                        if (a.after(b)) {
                             AlertaError3();
-                        }else if(b.before(a)) {
+                        } else if (b.before(a)) {
                             AlertaError4();
-                        }else {
+                        } else {
                             Intent returnIntent = new Intent();
-                            returnIntent.putExtra("desde",desde);
-                            returnIntent.putExtra("hasta",hasta);
-                            setResult(Activity.RESULT_OK,returnIntent); finish();
+                            returnIntent.putExtra("desde", desde);
+                            returnIntent.putExtra("hasta", hasta);
+                            setResult(Activity.RESULT_OK, returnIntent);
+                            finish();
                         }
 
                     } catch (ParseException e) {
@@ -199,12 +205,13 @@ public class BuscarControlActivity extends AppCompatActivity {
         ibbuscarfecha.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(tvfecha.getText().toString().isEmpty()){
+                if (tvfecha.getText().toString().isEmpty()) {
                     AlertaError2();
-                }else{
+                } else {
                     Intent returnIntent = new Intent();
-                    returnIntent.putExtra("unica",fecha);
-                    setResult(Activity.RESULT_OK,returnIntent); finish();
+                    returnIntent.putExtra("unica", fecha);
+                    setResult(Activity.RESULT_OK, returnIntent);
+                    finish();
                 }
             }
         });
@@ -221,7 +228,8 @@ public class BuscarControlActivity extends AppCompatActivity {
             }
         });
     }
-    private void AlertaError (){
+
+    private void AlertaError() {
         AlertDialog.Builder builder = new AlertDialog.Builder(BuscarControlActivity.this, R.style.AlertDialogCustom);
         builder.setTitle("Error");
         builder.setMessage("Debe seleccionar 2 fechas");
@@ -233,7 +241,8 @@ public class BuscarControlActivity extends AppCompatActivity {
         });
         builder.show();
     }
-    private void AlertaError2 (){
+
+    private void AlertaError2() {
         AlertDialog.Builder builder = new AlertDialog.Builder(BuscarControlActivity.this, R.style.AlertDialogCustom);
         builder.setTitle("Error");
         builder.setMessage("Debe seleccionar una fecha");
@@ -245,7 +254,8 @@ public class BuscarControlActivity extends AppCompatActivity {
         });
         builder.show();
     }
-    private void AlertaError3 (){
+
+    private void AlertaError3() {
         AlertDialog.Builder builder = new AlertDialog.Builder(BuscarControlActivity.this, R.style.AlertDialogCustom);
         builder.setTitle("Error");
         builder.setMessage("La fecha inicial es mayor que la final");
@@ -257,7 +267,8 @@ public class BuscarControlActivity extends AppCompatActivity {
         });
         builder.show();
     }
-    private void AlertaError4 (){
+
+    private void AlertaError4() {
         AlertDialog.Builder builder = new AlertDialog.Builder(BuscarControlActivity.this, R.style.AlertDialogCustom);
         builder.setTitle("Error");
         builder.setMessage("La fecha final es menor que la incial");
@@ -269,6 +280,6 @@ public class BuscarControlActivity extends AppCompatActivity {
         });
         builder.show();
     }
-    }
+}
 
 

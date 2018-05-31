@@ -75,7 +75,14 @@
         <activity android:name=".SupervisorIngresosActivity" />
         <activity android:name=".BuscarIngresosActivity" />
         <activity android:name=".BuscarAutorizadosActivity" />
-        <activity android:name=".SupervisorAutorizadoActivity"></activity>
+        <activity android:name=".SupervisorAutorizadoActivity" />
+        <activity android:name=".IngresanteSalidaActivity" />
+        <activity android:name=".RegistrarIngresosActivity" />
+        <activity android:name=".RegistrarEgresosActivity" />
+        <activity android:name=".Adapter.RegistrarAutorizados" />
+        <activity android:name=".RegistrarEgresosAutorizados" />
+        <activity android:name=".AutorizadosSalidaActivity" />
+        <activity android:name=".pruebaAutorizados"></activity>
     </application>
 
 </manifest>
