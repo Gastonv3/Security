@@ -19,7 +19,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.v3.security.Clases.Control2;
+import com.v3.security.Clases.Control;
 import com.v3.security.R;
 
 import java.text.ParseException;
@@ -72,9 +72,9 @@ public class SupervisorControlActivity extends AppCompatActivity implements OnMa
         nombrelugar = findViewById(R.id.nombreLugar);
         fechacontrol = findViewById(R.id.fecha);
         Bundle bundle = getIntent().getExtras();
-        Control2 control2 = null;
+        Control control2 = null;
         if (bundle != null) {
-            control2 = (Control2) bundle.getSerializable("control");
+            control2 = (Control) bundle.getSerializable("control");
             nombreguarda.setText("Guardia: " + (control2.getGuardia().getNombre()) + " " + (control2.getGuardia().getApellido()));
             nombrelugar.setText("Lugar: " + (control2.getLugar().getNombre_lugares()));
             String fechastring2 = control2.getFechaHora();

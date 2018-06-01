@@ -47,8 +47,8 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.v3.security.Adapter.AdapterLugares;
 import com.v3.security.Adapter.AdapterSupervisorControles;
 import com.v3.security.Clases.Control;
-import com.v3.security.Clases.Control2;
-import com.v3.security.Clases.Guardia2;
+import com.v3.security.Clases.Control;
+import com.v3.security.Clases.Guardia;
 import com.v3.security.Clases.Lugar;
 import com.v3.security.Util.VolleySingleton;
 
@@ -79,7 +79,7 @@ public class SupervisorControlesFragment extends Fragment implements Response.Er
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private DatePickerDialog.OnDateSetListener dateSetListener;
-    ArrayList<Control2> lista;
+    ArrayList<Control> lista;
     public static final int REQUEST_CODE = 900;
     RecyclerView contenedorsupervisorcontroles;
     // RequestQueue request;
@@ -237,9 +237,9 @@ public class SupervisorControlesFragment extends Fragment implements Response.Er
 
     @Override
     public void onResponse(JSONObject response) {
-        Control2 fuenteDatos = null;
+        Control fuenteDatos = null;
         Lugar fuentedeDatos2 = null;
-        Guardia2 fuenteDatos3 = null;
+        Guardia fuenteDatos3 = null;
         JSONArray json = response.optJSONArray("controles");
         if (json.length() == 0) {
             progressDialog.dismiss();
@@ -247,9 +247,9 @@ public class SupervisorControlesFragment extends Fragment implements Response.Er
         } else {
             try {
                 for (int i = 0; i < json.length(); i++) {
-                    fuenteDatos = new Control2();
+                    fuenteDatos = new Control();
                     fuentedeDatos2 = new Lugar();
-                    fuenteDatos3 = new Guardia2();
+                    fuenteDatos3 = new Guardia();
                     JSONObject jsonObject = null;
                     jsonObject = json.getJSONObject(i);
 
@@ -304,9 +304,9 @@ public class SupervisorControlesFragment extends Fragment implements Response.Er
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                Control2 fuenteDatos = null;
+                Control fuenteDatos = null;
                 Lugar fuentedeDatos2 = null;
-                Guardia2 fuenteDatos3 = null;
+                Guardia fuenteDatos3 = null;
                 JSONArray json = response.optJSONArray("controles");
                 if (json.length() == 0) {
                     progressDialog.dismiss();
@@ -314,9 +314,9 @@ public class SupervisorControlesFragment extends Fragment implements Response.Er
                 } else {
                     try {
                         for (int i = 0; i < json.length(); i++) {
-                            fuenteDatos = new Control2();
+                            fuenteDatos = new Control();
                             fuentedeDatos2 = new Lugar();
-                            fuenteDatos3 = new Guardia2();
+                            fuenteDatos3 = new Guardia();
                             JSONObject jsonObject = null;
                             jsonObject = json.getJSONObject(i);
                             fuenteDatos.setIdControles(jsonObject.optInt("idControles"));
@@ -364,9 +364,9 @@ public class SupervisorControlesFragment extends Fragment implements Response.Er
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                Control2 fuenteDatos = null;
+                Control fuenteDatos = null;
                 Lugar fuentedeDatos2 = null;
-                Guardia2 fuenteDatos3 = null;
+                Guardia fuenteDatos3 = null;
                 JSONArray json = response.optJSONArray("controles");
                 if (json.length() == 0) {
                     progressDialog.dismiss();
@@ -374,9 +374,9 @@ public class SupervisorControlesFragment extends Fragment implements Response.Er
                 } else {
                     try {
                         for (int i = 0; i < json.length(); i++) {
-                            fuenteDatos = new Control2();
+                            fuenteDatos = new Control();
                             fuentedeDatos2 = new Lugar();
-                            fuenteDatos3 = new Guardia2();
+                            fuenteDatos3 = new Guardia();
                             JSONObject jsonObject = null;
                             jsonObject = json.getJSONObject(i);
                             fuenteDatos.setIdControles(jsonObject.optInt("idControles"));

@@ -18,7 +18,7 @@
             android:layout_height="200dp"
             android:layout_weight="1"
             android:scaleType="fitCenter"
-            app:srcCompat="@drawable/logo_security" />
+            app:srcCompat="@drawable/logo" />
 
     </LinearLayout>
 
