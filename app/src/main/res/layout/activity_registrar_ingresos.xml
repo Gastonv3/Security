@@ -68,7 +68,7 @@
 
             <LinearLayout
                 android:id="@+id/fotoimagen"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
 
@@ -82,13 +82,18 @@
                 <Space
                     android:layout_width="15dp"
                     android:layout_height="wrap_content" />
+
                 <ImageView
                     android:id="@+id/ivFotoRegistroIngresante"
-                    android:layout_width="match_parent"
+                    android:layout_width="295dp"
                     android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:scaleType="center"
+
+                    android:scaleType="fitCenter"
                     app:srcCompat="@drawable/img_base" />
+
+                <Space
+                    android:layout_width="15dp"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
         </RelativeLayout>
 

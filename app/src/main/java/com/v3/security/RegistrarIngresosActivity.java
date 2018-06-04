@@ -44,7 +44,7 @@ import java.util.Map;
 public class RegistrarIngresosActivity extends AppCompatActivity {
     EditText etNombre, etApellido, etMotivo, etDni;
     ImageView ivFotoRegistro;
-
+    float rotador;
     Context context;
     Bitmap bitmap;
     String path;
@@ -246,7 +246,7 @@ public class RegistrarIngresosActivity extends AppCompatActivity {
                         }
                     });
                     bitmap = BitmapFactory.decodeFile(path);
-                    bitmap = redimensionarImagen(bitmap, 1280, 960);
+                    bitmap = redimensionarImagen(bitmap, 1600, 1200);
 
                     rotateimagen(bitmap);
                     // imageView.setImageBitmap(bitmap);
@@ -257,16 +257,37 @@ public class RegistrarIngresosActivity extends AppCompatActivity {
     }
 
     private Bitmap redimensionarImagen(Bitmap bitmap, float anchoNuevo, float altoNuevo) {
+        ExifInterface exifInterface = null;
+        try {
+            exifInterface = new ExifInterface(path);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        float rotador = 0;
+        int orientation = exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED);
+        switch (orientation) {
+            case ExifInterface.ORIENTATION_ROTATE_90:
+                rotador = 90;
+
+                break;
+            case ExifInterface.ORIENTATION_ROTATE_180:
+                rotador = 180;
+                break;
+            case ExifInterface.ORIENTATION_ROTATE_270:
+                rotador = 270;
+                break;
+            default:
+        }
         int ancho = bitmap.getWidth();
         int alto = bitmap.getHeight();
-
+        //float a = 0.0;
         if (ancho > anchoNuevo || alto > altoNuevo) {
             float escalaAncho = anchoNuevo / ancho;
             float escalaAlto = altoNuevo / alto;
 
             Matrix matrix = new Matrix();
             matrix.postScale(escalaAncho, escalaAlto);
-
+            matrix.postRotate(rotador);
             return Bitmap.createBitmap(bitmap, 0, 0, ancho, alto, matrix, false);
 
         } else {
@@ -291,6 +312,9 @@ public class RegistrarIngresosActivity extends AppCompatActivity {
                 break;
             case ExifInterface.ORIENTATION_ROTATE_180:
                 matrix.setRotate(180);
+                break;
+            case ExifInterface.ORIENTATION_ROTATE_270:
+                matrix.setRotate(270);
                 break;
             default:
         }
