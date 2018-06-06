@@ -114,6 +114,27 @@ public class InformesActivity extends AppCompatActivity {
     }
 
     private Bitmap redimensionarImagen(Bitmap bitmap, float anchoNuevo, float altoNuevo) {
+        ExifInterface exifInterface = null;
+        try {
+            exifInterface = new ExifInterface(path);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        float rotador = 0;
+        int orientation = exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED);
+        switch (orientation) {
+            case ExifInterface.ORIENTATION_ROTATE_90:
+                rotador = 90;
+
+                break;
+            case ExifInterface.ORIENTATION_ROTATE_180:
+                rotador = 180;
+                break;
+            case ExifInterface.ORIENTATION_ROTATE_270:
+                rotador = 270;
+                break;
+            default:
+        }
         int ancho = bitmap.getWidth();
         int alto = bitmap.getHeight();
 
@@ -123,6 +144,7 @@ public class InformesActivity extends AppCompatActivity {
 
             Matrix matrix = new Matrix();
             matrix.postScale(escalaAncho, escalaAlto);
+            matrix.postRotate(rotador);
 
             return Bitmap.createBitmap(bitmap, 0, 0, ancho, alto, matrix, false);
 
@@ -481,6 +503,9 @@ public class InformesActivity extends AppCompatActivity {
                 break;
             case ExifInterface.ORIENTATION_ROTATE_180:
                 matrix.setRotate(180);
+                break;
+            case ExifInterface.ORIENTATION_ROTATE_270:
+                matrix.setRotate(270);
                 break;
             default:
         }
