@@ -307,14 +307,14 @@ public class RegistrarIngresosActivity extends AppCompatActivity {
         Matrix matrix = new Matrix();
         switch (orientation) {
             case ExifInterface.ORIENTATION_ROTATE_90:
-                matrix.setRotate(90);
+                matrix.setRotate(0);
 
                 break;
             case ExifInterface.ORIENTATION_ROTATE_180:
-                matrix.setRotate(180);
+                matrix.setRotate(0);
                 break;
             case ExifInterface.ORIENTATION_ROTATE_270:
-                matrix.setRotate(270);
+                matrix.setRotate(0);
                 break;
             default:
         }
