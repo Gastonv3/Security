@@ -186,7 +186,7 @@ public class RegistrarIngresosActivity extends AppCompatActivity {
 
     private String convertirImgString(Bitmap bitmap) {
         ByteArrayOutputStream array = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 95, array);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 80, array);
         byte[] imagenByte = array.toByteArray();
         String imagenString = Base64.encodeToString(imagenByte, Base64.DEFAULT);
         return imagenString;

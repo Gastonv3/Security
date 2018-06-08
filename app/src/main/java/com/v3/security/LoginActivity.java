@@ -112,7 +112,7 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
             guardia = new Guardia();
             JSONObject jsonObject = null;
             jsonObject = json.getJSONObject(0);
-            guardia.setIdPersona(jsonObject.optInt("idpersona"));
+            guardia.setIdPersona(jsonObject.optInt("idPersona"));
             guardia.setTipoUsuario(jsonObject.optString("tipoUsuario"));
             guardia.setLogin(jsonObject.getString("user"));
             guardia.setPassword(jsonObject.getString("pass"));

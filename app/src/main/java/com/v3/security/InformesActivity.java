@@ -103,7 +103,7 @@ public class InformesActivity extends AppCompatActivity {
                         }
                     });
                     bitmap = BitmapFactory.decodeFile(path);
-                    bitmap = redimensionarImagen(bitmap, 1280, 960);
+                    bitmap = redimensionarImagen(bitmap, 1600, 1200);
 
                     rotateimagen(bitmap);
                     // imageView.setImageBitmap(bitmap);
@@ -480,7 +480,7 @@ public class InformesActivity extends AppCompatActivity {
 
     private String convertirImgString(Bitmap bitmap) {
         ByteArrayOutputStream array = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 95, array);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 80, array);
         byte[] imagenByte = array.toByteArray();
         String imagenString = Base64.encodeToString(imagenByte, Base64.DEFAULT);
         return imagenString;
