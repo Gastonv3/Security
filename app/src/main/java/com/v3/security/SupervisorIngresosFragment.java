@@ -424,6 +424,8 @@ public class SupervisorIngresosFragment extends Fragment {
     private void errorFecha (){
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogCustom);
         builder.setTitle("Error");
+        builder.setCancelable(false);
+
         builder.setMessage("No se realizadron controles en esta fecha: "+unicafecha);
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
@@ -436,6 +438,8 @@ public class SupervisorIngresosFragment extends Fragment {
     private void errorRango (){
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogCustom);
         builder.setTitle("Error");
+        builder.setCancelable(false);
+
         builder.setMessage("No se realizadron controles entre:"+desde+ " y "+hasta);
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
@@ -448,6 +452,8 @@ public class SupervisorIngresosFragment extends Fragment {
     private void errorDni (){
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogCustom);
         builder.setTitle("Error");
+        builder.setCancelable(false);
+
         builder.setMessage("No se existen resultados con DNI: "+dni);
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
@@ -459,26 +465,29 @@ public class SupervisorIngresosFragment extends Fragment {
     }
     private void AlertaError (){
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogCustom);
+        builder.setCancelable(false);
         builder.setTitle("Error");
-        builder.setMessage("Comprueba tu conexión");
+        builder.setMessage("Comprueba tu conexión.");
         builder.setPositiveButton("REINTENTAR", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 cargarWebservice();
             }
         });
-        /*builder.setNegativeButton("CANCELAR", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("SALIR", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-
+                getActivity().finish();
             }
-        });*/
+        });
         builder.show();
     }
     private void erroSinRegistros (){
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogCustom);
         builder.setTitle("Error");
-        builder.setMessage("No se realizaron Ingresos");
+        builder.setCancelable(false);
+
+        builder.setMessage("No se realizaron Ingresos.");
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {

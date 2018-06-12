@@ -224,15 +224,15 @@ public class ControlActivity extends AppCompatActivity implements Response.Error
             @Override
             public void onClick(View view) {
                 cargarWebservice();
-                  finish();
+
+
             }
         });
         btninforme.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 cargarWebservice2();
-                Intent intent = new Intent(context, InformesActivity.class);
-                startActivity(intent);
+
             }
         });
         // mapView.getMapAsync(this);
@@ -273,29 +273,25 @@ public class ControlActivity extends AppCompatActivity implements Response.Error
 
     @Override
     public void onErrorResponse(VolleyError error) {
-        progressDialog.hide();
+        progressDialog.dismiss();
         AlertaError();
     }
 
     @Override
     public void onResponse(JSONObject response) {
-        progressDialog.hide();
+        progressDialog.dismiss();
 
         Toast.makeText(getApplicationContext(), "Se registró correctamente", Toast.LENGTH_SHORT).show();
-
+        finish();
     }
 
 
-   /* @Override
-    public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
 
-
-    }*/
    private void AlertaError() {
        android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(context, R.style.AlertDialogCustom);
        builder.setTitle("Error");
-       builder.setMessage("Error al registrar, comprueba tu conexión");
+       builder.setCancelable(false);
+       builder.setMessage("Error al registrar, comprueba tu conexión.");
        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
            @Override
            public void onClick(DialogInterface dialogInterface, int i) {
@@ -317,17 +313,33 @@ public class ControlActivity extends AppCompatActivity implements Response.Error
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                progressDialog.hide();
+                progressDialog.dismiss();
+                Intent intent = new Intent(context, InformesActivity.class);
+                startActivity(intent);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                progressDialog.hide();
+                progressDialog.dismiss();
+                AlertaInforme();
             }
         });
         //permite establecer la cominicacion con los metodos response o error
         // request.add(jsonObjectRequest);
         VolleySingleton.getInstanciaVolley(getApplicationContext()).addToRequestQueue(jsonObjectRequest);
     }
+    private void AlertaInforme() {
+        android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(context, R.style.AlertDialogCustom);
+        builder.setTitle("Error");
+        builder.setCancelable(false);
+        builder.setMessage("Error comprueba tu conexión.");
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
 
+            }
+        });
+
+        builder.show();
+    }
 }

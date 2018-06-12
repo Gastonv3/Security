@@ -3,12 +3,14 @@ package com.v3.security;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -191,6 +193,7 @@ public class LugarFragment extends Fragment implements Response.Listener<JSONObj
     }
     private void AlertaError (){
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogCustom);
+        builder.setCancelable(false);
         builder.setTitle("Error");
         builder.setMessage("Comprueba tu conexión");
         builder.setPositiveButton("REINTENTAR", new DialogInterface.OnClickListener() {
@@ -199,12 +202,13 @@ public class LugarFragment extends Fragment implements Response.Listener<JSONObj
                 cargarWebservice();
             }
         });
-        /*builder.setNegativeButton("CANCELAR", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("SALIR", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-
+                getActivity().finish();
             }
-        });*/
+        });
         builder.show();
     }
+
 }

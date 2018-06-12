@@ -232,6 +232,7 @@ public class BuscarControlActivity extends AppCompatActivity {
     private void AlertaError() {
         AlertDialog.Builder builder = new AlertDialog.Builder(BuscarControlActivity.this, R.style.AlertDialogCustom);
         builder.setTitle("Error");
+        builder.setCancelable(false);
         builder.setMessage("Debe seleccionar 2 fechas");
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
@@ -245,6 +246,7 @@ public class BuscarControlActivity extends AppCompatActivity {
     private void AlertaError2() {
         AlertDialog.Builder builder = new AlertDialog.Builder(BuscarControlActivity.this, R.style.AlertDialogCustom);
         builder.setTitle("Error");
+        builder.setCancelable(false);
         builder.setMessage("Debe seleccionar una fecha");
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
@@ -258,6 +260,7 @@ public class BuscarControlActivity extends AppCompatActivity {
     private void AlertaError3() {
         AlertDialog.Builder builder = new AlertDialog.Builder(BuscarControlActivity.this, R.style.AlertDialogCustom);
         builder.setTitle("Error");
+        builder.setCancelable(false);
         builder.setMessage("La fecha inicial es mayor que la final");
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
@@ -271,6 +274,7 @@ public class BuscarControlActivity extends AppCompatActivity {
     private void AlertaError4() {
         AlertDialog.Builder builder = new AlertDialog.Builder(BuscarControlActivity.this, R.style.AlertDialogCustom);
         builder.setTitle("Error");
+        builder.setCancelable(false);
         builder.setMessage("La fecha final es menor que la incial");
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override

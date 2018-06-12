@@ -49,8 +49,8 @@ public class RegistrarIngresosActivity extends AppCompatActivity {
     Bitmap bitmap;
     String path;
     ImageButton ibFotoRegistro, ibEnviarRegistro;
-    private final String CARPETA_RAIZ = "misImagenesPueba/";
-    private final String RUTA_IMAGEN = CARPETA_RAIZ + "misFotos";
+    private final String CARPETA_RAIZ = "Security/";
+    private final String RUTA_IMAGEN = CARPETA_RAIZ + "SecurityImagenes";
     final int CODIGO_FOTO = 30;
     final int CODIGO_SELECCIONA = 40;
     int idguardia;
@@ -324,7 +324,8 @@ public class RegistrarIngresosActivity extends AppCompatActivity {
     private void AlertaError() {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogCustom);
         builder.setTitle("Error");
-        builder.setMessage("Error al registrar, comprueba tu conexión");
+        builder.setCancelable(false);
+        builder.setMessage("Error al registrar, comprueba tu conexión.");
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -338,7 +339,8 @@ public class RegistrarIngresosActivity extends AppCompatActivity {
     private void camposVacios() {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogCustom);
         builder.setTitle("Error");
-        builder.setMessage("Debe rellenar todo el formulario");
+        builder.setCancelable(false);
+        builder.setMessage("Debe rellenar todo el formulario.");
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {

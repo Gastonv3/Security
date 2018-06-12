@@ -114,7 +114,7 @@ public class RegistrarAutorizados extends AppCompatActivity implements Response.
 
     @Override
     public void onErrorResponse(VolleyError error) {
-        progressDialog.hide();
+        progressDialog.dismiss();
         errorCodigo();
     }
 
@@ -132,17 +132,25 @@ public class RegistrarAutorizados extends AppCompatActivity implements Response.
             personalAutorizado.setDni(jsonObject.getString("dni"));
             personalAutorizado.setCargo(jsonObject.getString("cargo"));
             personalAutorizado.setCodigo(jsonObject.getString("codigo"));
+            personalAutorizado.setEstado(jsonObject.getString("estado"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        idPersonalAutorizado = personalAutorizado.getIdPersonalAutorizado();
-        nombre = personalAutorizado.getNombrePersonalAutorizado();
-        apellido= personalAutorizado.getApellidoPersonalAutorizado();
-        completo= nombre+" "+apellido;
-        tvNombre.setText(completo);
-        noatuorizado.setVisibility(View.INVISIBLE);
-        siautorizado.setVisibility(View.VISIBLE);
-        progressDialog.hide();
+        progressDialog.dismiss();
+        String estado = personalAutorizado.getEstado();
+        if(estado.equals("0")){
+            AlertaPersonalBloqueado();
+        }else {
+            idPersonalAutorizado = personalAutorizado.getIdPersonalAutorizado();
+            nombre = personalAutorizado.getNombrePersonalAutorizado();
+            apellido= personalAutorizado.getApellidoPersonalAutorizado();
+            completo= nombre+" "+apellido;
+            tvNombre.setText(completo);
+            noatuorizado.setVisibility(View.INVISIBLE);
+            siautorizado.setVisibility(View.VISIBLE);
+        }
+
+
     }
     private void registrarPersonalAutorizado(){
         progressDialog = new ProgressDialog(context);
@@ -159,14 +167,14 @@ public class RegistrarAutorizados extends AppCompatActivity implements Response.
                 siautorizado.setVisibility(View.INVISIBLE);
                 Toast.makeText(context,"Se registró correctamente",Toast.LENGTH_SHORT).show();
                 tvNombre.setText(s);
-                progressDialog.hide();
+                progressDialog.dismiss();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 noatuorizado.setVisibility(View.VISIBLE);
                 siautorizado.setVisibility(View.INVISIBLE);
-                progressDialog.hide();
+                progressDialog.dismiss();
                 AlertaError();
             }
         });
@@ -179,7 +187,8 @@ public class RegistrarAutorizados extends AppCompatActivity implements Response.
     private void AlertaError() {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogCustom);
         builder.setTitle("Error");
-        builder.setMessage("Error al registrar, comprueba tu conexión");
+        builder.setCancelable(false);
+        builder.setMessage("Error al registrar, comprueba tu conexión.");
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -192,7 +201,22 @@ public class RegistrarAutorizados extends AppCompatActivity implements Response.
     private void errorCodigo() {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogCustom);
         builder.setTitle("Error");
-        builder.setMessage("Código incorrecto y/o error de conexión");
+        builder.setCancelable(false);
+        builder.setMessage("Código incorrecto y/o error de conexión.");
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+
+        builder.show();
+    }
+    private void AlertaPersonalBloqueado() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogCustom);
+        builder.setTitle("Error");
+        builder.setCancelable(false);
+        builder.setMessage("Código bloqueado, contacte al administrador.");
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -205,7 +229,8 @@ public class RegistrarAutorizados extends AppCompatActivity implements Response.
     private void errorNoScan() {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogCustom);
         builder.setTitle("Error");
-        builder.setMessage("Debe Scannear un código");
+        builder.setCancelable(false);
+        builder.setMessage("Debe Scannear un código.");
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {

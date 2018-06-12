@@ -7,7 +7,16 @@ public class PersonalAutorizado {
     private String codigo;
     private String dni;
     private String cargo;
+    private String estado;
     public PersonalAutorizado() {
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
     public PersonalAutorizado(Integer idPersonalAutorizado, String nombrePersonalAutorizado, String apellidoPersonalAutorizado, String codigo, String dni, String cargo) {

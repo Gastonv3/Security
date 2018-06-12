@@ -89,10 +89,14 @@ public class RegistrarEgresosActivity extends AppCompatActivity  implements Adap
                         int Eliminador = ((lista.size()) - 1);
                         lista.remove(Eliminador);
                         progressDialog.dismiss();
+                        if (lista.isEmpty()){
+                            AlertaSinIngresos();
+                        }else {
+                            AdapterHolderIngresos adapterIngresos = new AdapterHolderIngresos(lista, context);
 
-                        AdapterHolderIngresos adapterIngresos = new AdapterHolderIngresos(lista, context);
+                            contenedoringresos.setAdapter(adapterIngresos);
+                        }
 
-                        contenedoringresos.setAdapter(adapterIngresos);
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -152,6 +156,7 @@ public class RegistrarEgresosActivity extends AppCompatActivity  implements Adap
     }
     private void AlertaError (){
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogCustom);
+        builder.setCancelable(false);
         builder.setTitle("Error");
         builder.setMessage("Comprueba tu conexión");
         builder.setPositiveButton("REINTENTAR", new DialogInterface.OnClickListener() {
@@ -160,12 +165,26 @@ public class RegistrarEgresosActivity extends AppCompatActivity  implements Adap
                 cargarWebservice();
             }
         });
-        /*builder.setNegativeButton("CANCELAR", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("SALIR", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-
+                finish();
             }
-        });*/
+        });
+        builder.show();
+    }
+    private void AlertaSinIngresos (){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogCustom);
+        builder.setCancelable(false);
+        builder.setTitle("Sin Ingresos");
+        builder.setMessage("Sin Ingresos en las instalaciones");
+        builder.setPositiveButton("SALIR", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+               finish();
+            }
+        });
+
         builder.show();
     }
 }

@@ -278,16 +278,7 @@ public class SupervisorControlesFragment extends Fragment implements Response.Er
         }
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
+
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
@@ -330,8 +321,6 @@ public class SupervisorControlesFragment extends Fragment implements Response.Er
                             fuenteDatos.setFechaHora(jsonObject.optString("fechaHora"));
                             lista.add(fuenteDatos);
                         }
-                        int Eliminador = ((lista.size()) - 1);
-                        lista.remove(Eliminador);
                         progressDialog.dismiss();
                         AdapterSupervisorControles adapterSupervisorControles = new AdapterSupervisorControles(lista);
 
@@ -390,8 +379,7 @@ public class SupervisorControlesFragment extends Fragment implements Response.Er
                             fuenteDatos.setFechaHora(jsonObject.optString("fechaHora"));
                             lista.add(fuenteDatos);
                         }
-                        int Eliminador = ((lista.size()) - 1);
-                        lista.remove(Eliminador);
+
                         progressDialog.dismiss();
                         AdapterSupervisorControles adapterSupervisorControles = new AdapterSupervisorControles(lista);
 
@@ -417,6 +405,7 @@ public class SupervisorControlesFragment extends Fragment implements Response.Er
     private void errorFecha() {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogCustom);
         builder.setTitle("Error");
+        builder.setCancelable(false);
         builder.setMessage("No se realizadron controles en esta fecha: " + unicafecha);
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
@@ -430,6 +419,7 @@ public class SupervisorControlesFragment extends Fragment implements Response.Er
     private void errorRango() {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogCustom);
         builder.setTitle("Error");
+        builder.setCancelable(false);
         builder.setMessage("No se realizadron controles entre:" + desde + " y " + hasta);
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
@@ -440,29 +430,31 @@ public class SupervisorControlesFragment extends Fragment implements Response.Er
         builder.show();
     }
 
-    private void AlertaError() {
+    private void AlertaError (){
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogCustom);
+        builder.setCancelable(false);
         builder.setTitle("Error");
-        builder.setMessage("Comprueba tu conexión");
+        builder.setMessage("Comprueba tu conexión.");
         builder.setPositiveButton("REINTENTAR", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 cargarWebservice();
             }
         });
-        /*builder.setNegativeButton("CANCELAR", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("SALIR", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-
+                getActivity().finish();
             }
-        });*/
+        });
         builder.show();
     }
 
     private void erroSinRegistros() {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogCustom);
         builder.setTitle("Error");
-        builder.setMessage("No se realizaron Controles");
+        builder.setCancelable(false);
+        builder.setMessage("No se realizaron Controles.");
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {

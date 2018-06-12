@@ -102,30 +102,6 @@ public class IngresanteSalidaActivity extends AppCompatActivity {
     }
 
 
-    public void carga() {
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Cargando...");
-        String ip = getString(R.string.ip_bd);
-        progressDialog.setCancelable(false);
-        progressDialog.show();
-        String url = ip + "/security/registrarSalida.php?idIngresos=" + idingreso;
-        //lee y procesa la informacion (Realiza el llamado a la url e intenta conectarse al webservis
-        jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                progressDialog.hide();
-                    AlertaError();
-                }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                progressDialog.hide();
-            }
-        });
-        //permite establecer la cominicacion con los metodos response o error
-        // request.add(jsonObjectRequest);
-        VolleySingleton.getInstanciaVolley(getApplicationContext()).addToRequestQueue(jsonObjectRequest);
-    }
 
     /* @Override
      public void onMapReady(GoogleMap googleMap) {
@@ -158,13 +134,13 @@ public class IngresanteSalidaActivity extends AppCompatActivity {
             @Override
             public void onResponse(JSONObject response) {
                 progressDialog.hide();
-                Toast.makeText(getApplicationContext(), "Se registró correctamente", Toast.LENGTH_SHORT).show();
+               //Toast.makeText(getApplicationContext(), "Se registró hola", Toast.LENGTH_SHORT).show();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 progressDialog.hide();
-                Toast.makeText(getApplicationContext(), "Se registró correctamente", Toast.LENGTH_SHORT).show();
+             //  Toast.makeText(getApplicationContext(), "Se registró correctamente", Toast.LENGTH_SHORT).show();
 
             }
         });

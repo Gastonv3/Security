@@ -178,8 +178,7 @@ public class SupervisorAutorizadosFragment extends Fragment {
 
                             lista.add(ingresosAutorizados);
                         }
-                        int Eliminador = ((lista.size()) - 1);
-                        lista.remove(Eliminador);
+
                         progressDialog.dismiss();
 
                         AdapterSupervisorAutorizado adapterSupervisorAutorizado = new AdapterSupervisorAutorizado(lista);
@@ -245,8 +244,7 @@ public class SupervisorAutorizadosFragment extends Fragment {
 
                             lista.add(ingresosAutorizados);
                         }
-                        int Eliminador = ((lista.size()) - 1);
-                        lista.remove(Eliminador);
+
                         progressDialog.dismiss();
 
                         AdapterSupervisorAutorizado adapterSupervisorAutorizado = new AdapterSupervisorAutorizado(lista);
@@ -311,8 +309,7 @@ public class SupervisorAutorizadosFragment extends Fragment {
 
                             lista.add(ingresosAutorizados);
                         }
-                        int Eliminador = ((lista.size()) - 1);
-                        lista.remove(Eliminador);
+
                         progressDialog.dismiss();
 
                         AdapterSupervisorAutorizado adapterSupervisorAutorizado = new AdapterSupervisorAutorizado(lista);
@@ -425,16 +422,6 @@ public class SupervisorAutorizadosFragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
@@ -443,6 +430,7 @@ public class SupervisorAutorizadosFragment extends Fragment {
     private void errorFecha() {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogCustom);
         builder.setTitle("Error");
+        builder.setCancelable(false);
         builder.setMessage("No se realizadron controles en esta fecha: " + unicafecha);
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
@@ -456,6 +444,7 @@ public class SupervisorAutorizadosFragment extends Fragment {
     private void errorRango() {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogCustom);
         builder.setTitle("Error");
+        builder.setCancelable(false);
         builder.setMessage("No se realizadron controles entre:" + desde + " y " + hasta);
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
@@ -469,6 +458,7 @@ public class SupervisorAutorizadosFragment extends Fragment {
     private void errorDni() {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogCustom);
         builder.setTitle("Error");
+        builder.setCancelable(false);
         builder.setMessage("No se existen resultados con DNI: " + dni);
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
@@ -479,22 +469,23 @@ public class SupervisorAutorizadosFragment extends Fragment {
         builder.show();
     }
 
-    private void AlertaError() {
+    private void AlertaError (){
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogCustom);
+        builder.setCancelable(false);
         builder.setTitle("Error");
-        builder.setMessage("Comprueba tu conexión");
+        builder.setMessage("Comprueba tu conexión.");
         builder.setPositiveButton("REINTENTAR", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 cargarWebservice();
             }
         });
-        /*builder.setNegativeButton("CANCELAR", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("SALIR", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-
+                getActivity().finish();
             }
-        });*/
+        });
         builder.show();
     }
 
@@ -520,7 +511,8 @@ public class SupervisorAutorizadosFragment extends Fragment {
     private void erroSinRegistros() {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogCustom);
         builder.setTitle("Error");
-        builder.setMessage("No se realizaron Ingresos Autorizados");
+        builder.setCancelable(false);
+        builder.setMessage("No se realizaron Ingresos Autorizados.");
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {

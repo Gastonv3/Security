@@ -70,7 +70,15 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
         btnentrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                cargarWebServis();
+                if(etlogin.getText().toString().isEmpty()){
+                    AlertaCampoVacioUser();
+                }else if (etpass.getText().toString().isEmpty()){
+                    AlertaCampoVacioPass();
+                }else {
+                    cargarWebServis();
+                }
+
+
             }
         });
     }
@@ -122,19 +130,24 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
         }
         idguardia = guardia.getIdPersona();
         tipouser = guardia.getTipoUsuario();
+        String estado = guardia.getEstado();
         Preferencias.setInteger(context, Preferencias.getKeyGuardia(), idguardia);
         Preferencias.setString(context, Preferencias.getKeyUser(), guardia.getLogin());
         Preferencias.setString(context, Preferencias.getKeyPass(), guardia.getPassword());
         Preferencias.setBoolean(context, Preferencias.getKeyRecuerdame(), cbkrecuerdame.isChecked());
-        //esto fue para salir de paso
 
         progressDialog.hide();
-        if (tipouser.equals("guardia")){
+        if (estado.equals("0")){
+            AlertaCuentaBloqueada();
+        }
+        else if (tipouser.equals("guardia")){
             Intent intent2 = new Intent(this, MainActivity.class);
             startActivity(intent2);
+
         }else {
             Intent intent3 = new Intent(this, SupervisorActivity.class);
             startActivity(intent3);
+
         }
 
     }
@@ -203,7 +216,7 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
     private void AlertaError (){
          AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this, R.style.AlertDialogCustom);
          builder.setTitle("Error");
-         builder.setMessage("Comprueba tu cuenta y/o conexión");
+         builder.setMessage("Comprueba tu cuenta y/o conexión.");
          builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
              @Override
              public void onClick(DialogInterface dialogInterface, int i) {
@@ -211,5 +224,41 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
              }
          });
          builder.show();
+    }
+    private void AlertaCampoVacioUser (){
+        AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this, R.style.AlertDialogCustom);
+        builder.setTitle("Error");
+        builder.setMessage("Debe ingresas un usuario.");
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+        builder.show();
+    }
+    private void AlertaCampoVacioPass (){
+        AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this, R.style.AlertDialogCustom);
+        builder.setTitle("Error");
+        builder.setMessage("Debe ingresas una contraseña.");
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+        builder.show();
+    }
+    private void AlertaCuentaBloqueada (){
+        AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this, R.style.AlertDialogCustom);
+        builder.setTitle("Error");
+        builder.setMessage("Usuario bloqueado, contacte al administrador.");
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+        builder.show();
     }
 }

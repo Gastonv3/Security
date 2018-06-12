@@ -253,7 +253,8 @@ public class BuscarAutorizadosActivity extends AppCompatActivity {
     private void AlertaError (){
         AlertDialog.Builder builder = new AlertDialog.Builder(BuscarAutorizadosActivity.this, R.style.AlertDialogCustom);
         builder.setTitle("Error");
-        builder.setMessage("Debe seleccionar 2 fechas");
+        builder.setCancelable(false);
+        builder.setMessage("Debe seleccionar 2 fechas.");
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -265,7 +266,8 @@ public class BuscarAutorizadosActivity extends AppCompatActivity {
     private void AlertaError2 (){
         AlertDialog.Builder builder = new AlertDialog.Builder(BuscarAutorizadosActivity.this, R.style.AlertDialogCustom);
         builder.setTitle("Error");
-        builder.setMessage("Debe seleccionar una fecha");
+        builder.setCancelable(false);
+        builder.setMessage("Debe seleccionar una fecha.");
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -277,7 +279,8 @@ public class BuscarAutorizadosActivity extends AppCompatActivity {
     private void AlertaError3 (){
         AlertDialog.Builder builder = new AlertDialog.Builder(BuscarAutorizadosActivity.this, R.style.AlertDialogCustom);
         builder.setTitle("Error");
-        builder.setMessage("La fecha inicial es mayor que la final");
+        builder.setCancelable(false);
+        builder.setMessage("La fecha inicial es mayor que la final.");
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -289,7 +292,8 @@ public class BuscarAutorizadosActivity extends AppCompatActivity {
     private void AlertaError4 (){
         AlertDialog.Builder builder = new AlertDialog.Builder(BuscarAutorizadosActivity.this, R.style.AlertDialogCustom);
         builder.setTitle("Error");
-        builder.setMessage("La fecha final es menor que la incial");
+        builder.setCancelable(false);
+        builder.setMessage("La fecha final es menor que la incial.");
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -301,7 +305,8 @@ public class BuscarAutorizadosActivity extends AppCompatActivity {
     private void AlertaErrorDni (){
         AlertDialog.Builder builder = new AlertDialog.Builder(BuscarAutorizadosActivity.this, R.style.AlertDialogCustom);
         builder.setTitle("Error");
-        builder.setMessage("Debe ingresas un DNI");
+        builder.setCancelable(false);
+        builder.setMessage("Debe ingresas un DNI.");
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {

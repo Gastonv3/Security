@@ -112,5 +112,5 @@ public class SupervisorControlActivity extends AppCompatActivity implements OnMa
         mMap.setMinZoomPreference(18);
         mMap.setMaxZoomPreference(18);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-    }
+     }
 }

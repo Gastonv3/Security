@@ -14,8 +14,9 @@
         android:layout_gravity="top"
         android:background="@color/colorPrimaryDark"
         android:minHeight="?attr/actionBarSize"
-        app:title="Informes"
-        app:titleTextColor="@color/primary_light"/>
+        app:title="  Informes"
+        app:titleTextColor="@color/primary_light"
+        app:logo="@drawable/icono_toolbar_supervisor_informes"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/contenedorSupervisorInformes"

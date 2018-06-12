@@ -71,8 +71,8 @@ public class InformesActivity extends AppCompatActivity {
     StringRequest stringRequest;
     int idControl;
     String email;
-    private final String CARPETA_RAIZ = "misImagenesPrueba/";
-    private final String RUTA_IMAGEN = CARPETA_RAIZ + "misFotos";
+    private final String CARPETA_RAIZ = "Security/";
+    private final String RUTA_IMAGEN = CARPETA_RAIZ + "SecurityImagenes";
     final int CODIGO_FOTO = 20;
     final int CODIGO_SELECCIONA = 10;
     Bitmap bitmap;
@@ -183,7 +183,7 @@ public class InformesActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (etinforme.getText().toString().isEmpty()) {
-                    Toast.makeText(context, "Debe llernar todos los campos", Toast.LENGTH_SHORT).show();
+                    AlertaCampoVacio();
                 } else {
 
                     cargarInforme();
@@ -367,12 +367,12 @@ public class InformesActivity extends AppCompatActivity {
                 }
                 idControl = control.getIdControles();
                 email = lugar.getEmails();
-                progressDialog.hide();
+                progressDialog.dismiss();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                progressDialog.hide();
+                progressDialog.dismiss();
             }
         });
         //permite establecer la cominicacion con los metodos response o error
@@ -390,13 +390,13 @@ public class InformesActivity extends AppCompatActivity {
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                progressDialog.hide();
-                Toast.makeText(context, "se elimino", Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
+
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                progressDialog.hide();
+                progressDialog.dismiss();
 
             }
         });
@@ -431,14 +431,14 @@ public class InformesActivity extends AppCompatActivity {
                     // btnInsertarInforme.setText("Enviar Otro informe");
                     Toast.makeText(context, "Se registró correctamente", Toast.LENGTH_SHORT).show();
                 } else {
-                    progressDialog.hide();
+                    progressDialog.dismiss();
                     AlertaError();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                progressDialog.hide();
+                progressDialog.dismiss();
                 AlertaError();
 
             }
@@ -517,7 +517,22 @@ public class InformesActivity extends AppCompatActivity {
     private void AlertaError() {
         android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(context, R.style.AlertDialogCustom);
         builder.setTitle("Error");
-        builder.setMessage("Error al registrar, comprueba tu conexión");
+        builder.setCancelable(false);
+        builder.setMessage("Error al registrar, comprueba tu conexión.");
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+
+        builder.show();
+    }
+    private void AlertaCampoVacio() {
+        android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(context, R.style.AlertDialogCustom);
+        builder.setTitle("Error");
+        builder.setCancelable(false);
+        builder.setMessage("Debe escribir un informe.");
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {

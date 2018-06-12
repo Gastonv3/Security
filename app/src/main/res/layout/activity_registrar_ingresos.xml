@@ -53,7 +53,7 @@
             android:ems="10"
             android:hint="Motivo de la visita"
             android:inputType="textMultiLine"
-            android:maxLength="300" />
+            android:maxLength="200" />
 
     </LinearLayout>
 

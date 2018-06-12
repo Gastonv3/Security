@@ -14,7 +14,10 @@ import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class BuscarInformeActivity extends AppCompatActivity {
     private DatePickerDialog.OnDateSetListener dateSetListenerDesde, dateSetListenerHasta,
@@ -166,10 +169,30 @@ public class BuscarInformeActivity extends AppCompatActivity {
                 if(tvdesdeinforme.getText().toString().isEmpty()||tvhastainforme.getText().toString().isEmpty()){
                     AlertaError();
                 }else {
-                    Intent returnIntent = new Intent();
-                    returnIntent.putExtra("desde",desde);
-                    returnIntent.putExtra("hasta",hasta);
-                    setResult(Activity.RESULT_OK,returnIntent); finish();
+                    String incio = desde;
+                    String Final = hasta;
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                    try {
+                        Date a = sdf.parse(incio);
+                        Date b = sdf.parse(Final);
+                        if (tvdesdeinforme.getText().toString().isEmpty() || tvhastainforme.getText().toString().isEmpty()) {
+                            AlertaError();
+                        }
+                        if (a.after(b)) {
+                            AlertaError3();
+                        } else if (b.before(a)) {
+                            AlertaError4();
+                        } else {
+                            Intent returnIntent = new Intent();
+                            returnIntent.putExtra("desde", desde);
+                            returnIntent.putExtra("hasta", hasta);
+                            setResult(Activity.RESULT_OK, returnIntent);
+                            finish();
+                        }
+
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
                 }
 
             }
@@ -203,6 +226,7 @@ public class BuscarInformeActivity extends AppCompatActivity {
     private void AlertaError (){
         AlertDialog.Builder builder = new AlertDialog.Builder(BuscarInformeActivity.this, R.style.AlertDialogCustom);
         builder.setTitle("Error");
+        builder.setCancelable(false);
         builder.setMessage("Debe seleccionar 2 fechas");
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
@@ -215,7 +239,36 @@ public class BuscarInformeActivity extends AppCompatActivity {
     private void AlertaError2 (){
         AlertDialog.Builder builder = new AlertDialog.Builder(BuscarInformeActivity.this, R.style.AlertDialogCustom);
         builder.setTitle("Error");
+        builder.setCancelable(false);
         builder.setMessage("Debe seleccionar una fecha");
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+        builder.show();
+    }
+
+    private void AlertaError3() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AlertDialogCustom);
+        builder.setTitle("Error");
+        builder.setCancelable(false);
+        builder.setMessage("La fecha inicial es mayor que la final");
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+        builder.show();
+    }
+
+    private void AlertaError4() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AlertDialogCustom);
+        builder.setTitle("Error");
+        builder.setCancelable(false);
+        builder.setMessage("La fecha final es menor que la incial");
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {

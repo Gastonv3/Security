@@ -68,7 +68,7 @@ public class pruebaAutorizados extends AppCompatActivity implements  AdapterHold
                 JSONArray json = response.optJSONArray("ingresosautorizados");
                 if (json.length() == 0) {
                     progressDialog.dismiss();
-                    erroSinRegistros();
+
                 } else {
                     try {
                         for (int i = 0; i < json.length(); i++) {
@@ -96,10 +96,14 @@ public class pruebaAutorizados extends AppCompatActivity implements  AdapterHold
                         int Eliminador = ((lista.size())-1);
                         lista.remove(Eliminador);
                         progressDialog.dismiss();
+                        if (lista.isEmpty()){
+                            AlertaSinIngresos();
+                        }else {
+                            AdapterHolderAutorizados adapterSupervisorAutorizado = new AdapterHolderAutorizados(lista,context);
 
-                        AdapterHolderAutorizados adapterSupervisorAutorizado = new AdapterHolderAutorizados(lista,context);
+                            contenedoringresos.setAdapter(adapterSupervisorAutorizado);
+                        }
 
-                        contenedoringresos.setAdapter(adapterSupervisorAutorizado);
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -117,39 +121,38 @@ public class pruebaAutorizados extends AppCompatActivity implements  AdapterHold
         //request.add(jsonObjectRequest);
         VolleySingleton.getInstanciaVolley(context).addToRequestQueue(jsonObjectRequest);
     }
-    private void AlertaError() {
+    private void AlertaError (){
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogCustom);
+        builder.setCancelable(false);
         builder.setTitle("Error");
-        builder.setMessage("Comprueba tu conexión");
+        builder.setMessage("Comprueba tu conexión.");
         builder.setPositiveButton("REINTENTAR", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 cargarWebservice();
             }
         });
-        /*builder.setNegativeButton("CANCELAR", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("SALIR", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-
-            }
-        });*/
-        builder.show();
-    }
-    private void erroSinRegistros() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogCustom);
-        builder.setTitle("Error");
-        builder.setMessage("No se realizaron Ingresos Autorizados");
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
+                finish();
             }
         });
-        /*builder.setNegativeButton("CANCELAR", new DialogInterface.OnClickListener() {
+        builder.show();
+    }
+
+    private void AlertaSinIngresos (){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogCustom);
+        builder.setCancelable(false);
+        builder.setTitle("Sin Ingresos");
+        builder.setMessage("Sin Ingresos Autorizados en las instalaciones.");
+        builder.setPositiveButton("SALIR", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-
+                finish();
             }
-        });*/
+        });
+
         builder.show();
     }
 
