@@ -15,7 +15,7 @@
         android:layout_gravity="top"
         android:background="@color/colorPrimaryDark"
         android:minHeight="?attr/actionBarSize"
-        app:title="  Registrar Ingresos"
+        app:title="  Registrar Ingresos Externos"
         app:titleTextColor="@color/primary_light"
         app:logo="@drawable/icono_toolbar_registrar_ingresos"/>
 

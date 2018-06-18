@@ -177,9 +177,10 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
     }
     private void cargarDialogoRecomendacion() {
         final android.app.AlertDialog.Builder dialog = new android.app.AlertDialog.Builder(LoginActivity.this);
+       dialog.setCancelable(false);
         dialog.setTitle("Permiso Desactivado");
-        dialog.setMessage("Debe aceptar el permiso");
-        dialog.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+        dialog.setMessage("Debe aceptar el permiso.");
+        dialog.setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

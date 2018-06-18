@@ -121,21 +121,31 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Recuerdame" />
+            android:text="Recuérdame" />
 
     </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+       >
 <RelativeLayout
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="match_parent">
 
 
-    <TextView
+    <ImageView
         android:layout_alignParentBottom="true"
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Versión 1.0 - Autor: Gastón Emmanuel Nieto." />
+
+        android:layout_width="220dp"
+        android:layout_height="104dp"
+        app:srcCompat="@drawable/logo" />
+
 </RelativeLayout>
+
+
+    </RelativeLayout>
 
 
 
