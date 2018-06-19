@@ -280,7 +280,7 @@ public class BuscarAutorizadosActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(BuscarAutorizadosActivity.this, R.style.AlertDialogCustom);
         builder.setTitle("Error");
         builder.setCancelable(false);
-        builder.setMessage("La fecha inicial es mayor que la final.");
+        builder.setMessage("La Fecha Final es anterior a la Fecha Inicial.");
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {

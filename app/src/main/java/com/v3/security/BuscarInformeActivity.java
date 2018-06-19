@@ -227,7 +227,7 @@ public class BuscarInformeActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(BuscarInformeActivity.this, R.style.AlertDialogCustom);
         builder.setTitle("Error");
         builder.setCancelable(false);
-        builder.setMessage("Debe seleccionar 2 fechas");
+        builder.setMessage("Debe seleccionar 2 fechas.");
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -240,7 +240,7 @@ public class BuscarInformeActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(BuscarInformeActivity.this, R.style.AlertDialogCustom);
         builder.setTitle("Error");
         builder.setCancelable(false);
-        builder.setMessage("Debe seleccionar una fecha");
+        builder.setMessage("Debe seleccionar una fecha.");
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -254,7 +254,7 @@ public class BuscarInformeActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AlertDialogCustom);
         builder.setTitle("Error");
         builder.setCancelable(false);
-        builder.setMessage("La fecha inicial es mayor que la final");
+        builder.setMessage("La Fecha Final es anterior a la Fecha Inicial.");
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -268,7 +268,7 @@ public class BuscarInformeActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AlertDialogCustom);
         builder.setTitle("Error");
         builder.setCancelable(false);
-        builder.setMessage("La fecha final es menor que la incial");
+        builder.setMessage("La fecha final es menor que la incial.");
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {

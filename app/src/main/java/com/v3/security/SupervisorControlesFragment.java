@@ -57,10 +57,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -403,31 +405,55 @@ public class SupervisorControlesFragment extends Fragment implements Response.Er
     }
 
     private void errorFecha() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogCustom);
-        builder.setTitle("Error");
-        builder.setCancelable(false);
-        builder.setMessage("No se realizadron controles en esta fecha: " + unicafecha);
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
+        String fechastring2 = unicafecha;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date a = sdf.parse(fechastring2);
+            SimpleDateFormat fmtOut = new SimpleDateFormat("dd-MM-yyyy");
+            String c = fmtOut.format(a);
+            AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogCustom);
+            builder.setTitle("Alerta");
+            builder.setCancelable(false);
+            builder.setMessage("No se realizadron controles en esta fecha: " + c);
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
 
-            }
-        });
-        builder.show();
+                }
+            });
+            builder.show();
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
     }
 
     private void errorRango() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogCustom);
-        builder.setTitle("Error");
-        builder.setCancelable(false);
-        builder.setMessage("No se realizadron controles entre:" + desde + " y " + hasta);
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
+        String fechastring = desde;
+        String fechastring2 = hasta;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date a = sdf.parse(fechastring);
+            Date b = sdf.parse(fechastring2);
+            SimpleDateFormat fmtOut = new SimpleDateFormat("dd-MM-yyyy");
+            String c = fmtOut.format(a);
+            String d = fmtOut.format(b);
+            AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogCustom);
+            builder.setTitle("Alerta");
+            builder.setCancelable(false);
+            builder.setMessage("No se realizadron controles entre:" + c + " y " + d);
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
 
-            }
-        });
-        builder.show();
+                }
+            });
+            builder.show();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
     }
 
     private void AlertaError (){
@@ -452,7 +478,7 @@ public class SupervisorControlesFragment extends Fragment implements Response.Er
 
     private void erroSinRegistros() {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogCustom);
-        builder.setTitle("Error");
+        builder.setTitle("Alerta");
         builder.setCancelable(false);
         builder.setMessage("No se realizaron Controles.");
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {

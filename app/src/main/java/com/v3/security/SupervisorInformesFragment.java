@@ -12,12 +12,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -35,7 +37,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -62,6 +67,7 @@ public class SupervisorInformesFragment extends Fragment {
     Context context;
     ProgressDialog progressDialog;
     String desde = null, hasta = null, unicafecha = null;
+    String c = null;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -400,31 +406,56 @@ public class SupervisorInformesFragment extends Fragment {
     }
 
     private void errorFecha() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogCustom);
-        builder.setTitle("Error");
-        builder.setCancelable(false);
-        builder.setMessage("No se realizadron controles en esta fecha: " + unicafecha);
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
+        String b = unicafecha;
 
-            }
-        });
-        builder.show();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date a = sdf.parse(b);
+            SimpleDateFormat fmtOut = new SimpleDateFormat("dd-MM-yyyy");
+            String d = fmtOut.format(a);
+            Toast.makeText(context,"h"+d,Toast.LENGTH_LONG).show();
+            AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogCustom);
+            builder.setTitle("Alerta");
+            builder.setCancelable(false);
+            builder.setMessage("No se realizadron Informes en esta fecha: " +d);
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+                }
+            });
+            builder.show();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
     }
 
     private void errorRango() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogCustom);
-        builder.setTitle("Error");
-        builder.setCancelable(false);
-        builder.setMessage("No se realizadron controles entre:" + desde + " y " + hasta);
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
+        String fechastring = desde;
+        String fechastring2 = hasta;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date a = sdf.parse(fechastring);
+            Date b = sdf.parse(fechastring2);
+            SimpleDateFormat fmtOut = new SimpleDateFormat("dd-MM-yyyy");
+            String c = fmtOut.format(a);
+            String d = fmtOut.format(b);
+            AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogCustom);
+            builder.setTitle("Alerta");
+            builder.setCancelable(false);
+            builder.setMessage("No se realizadron Informes entre:" + c + " y " + d);
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
 
-            }
-        });
-        builder.show();
+                }
+            });
+            builder.show();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
     }
 
     private void AlertaError (){
@@ -449,7 +480,7 @@ public class SupervisorInformesFragment extends Fragment {
 
     private void erroSinRegistros() {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogCustom);
-        builder.setTitle("Error");
+        builder.setTitle("Alerta");
         builder.setCancelable(false);
         builder.setMessage("No se realizaron Informes.");
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
