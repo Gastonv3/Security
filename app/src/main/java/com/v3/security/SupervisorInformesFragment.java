@@ -413,7 +413,6 @@ public class SupervisorInformesFragment extends Fragment {
             Date a = sdf.parse(b);
             SimpleDateFormat fmtOut = new SimpleDateFormat("dd-MM-yyyy");
             String d = fmtOut.format(a);
-            Toast.makeText(context,"h"+d,Toast.LENGTH_LONG).show();
             AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogCustom);
             builder.setTitle("Alerta");
             builder.setCancelable(false);
