@@ -45,14 +45,14 @@ public class BuscarAutorizadosActivity extends AppCompatActivity {
 
         ibsalirAutorizados = findViewById(R.id.ibsalirAutorizados);
         ibsalirAutorizados2 = findViewById(R.id.ibsalirAutorizados2);
-        ibsalirAutorizados3 = findViewById(R.id.ibsalirAutorizados3);
+        //ibsalirAutorizados3 = findViewById(R.id.ibsalirAutorizados3);
 
         ibFechaUnicaAutorizados = findViewById(R.id.ibFechaUnicaAutorizados);
         ibBuscarResultadoFechaAutorizados = findViewById(R.id.ibBuscarResultadoFechaAutorizados);
 
-        ibBuscarDniAutorizados = findViewById(R.id.ibBuscarDniAutorizados);
+        //ibBuscarDniAutorizados = findViewById(R.id.ibBuscarDniAutorizados);
         tvFechaUnicaAutorizados = findViewById(R.id.tvFechaUnicaAutorizados);
-        tvDniAutorizados = findViewById(R.id.tvDniAutorizados);
+       // tvDniAutorizados = findViewById(R.id.tvDniAutorizados);
         tvDesdeAutorizados = findViewById(R.id.tvDesdeAutorizados);
         tvHastaAutorizados = findViewById(R.id.tvHastaAutorizados);
 
@@ -227,13 +227,13 @@ public class BuscarAutorizadosActivity extends AppCompatActivity {
                 finish();
             }
         });
-        ibsalirAutorizados3.setOnClickListener(new View.OnClickListener() {
+       /*ibsalirAutorizados3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
-        });
-        ibBuscarDniAutorizados.setOnClickListener(new View.OnClickListener() {
+        });*/
+       /* ibBuscarDniAutorizados.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(tvDniAutorizados.getText().toString().isEmpty()){
@@ -246,7 +246,7 @@ public class BuscarAutorizadosActivity extends AppCompatActivity {
                     finish();
                 }
             }
-        });
+        });*/
 
 
     }

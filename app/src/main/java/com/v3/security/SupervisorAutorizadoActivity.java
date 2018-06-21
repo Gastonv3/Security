@@ -48,7 +48,7 @@ public class SupervisorAutorizadoActivity extends AppCompatActivity {
             Date a = sdf.parse(fechastring2);
             SimpleDateFormat fmtOut = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
             String c = fmtOut.format(a);
-            fechaAutorizado.setText("Fecha y Hora: "+c);
+            fechaAutorizado.setText("Ingreso: " + c);
             cargoAutorizado.setText("Cargo: "+(extras.getString("cargo")));
             dniAutorizado.setText("Dni: "+(extras.getString("dni")));
             /*informe.setText(extras.getString("informe"));

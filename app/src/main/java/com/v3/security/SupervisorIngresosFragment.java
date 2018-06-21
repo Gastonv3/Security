@@ -426,10 +426,10 @@ public class SupervisorIngresosFragment extends Fragment {
     }
     private void errorFecha (){
         String fechastring2 = unicafecha;
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
             Date a = sdf.parse(fechastring2);
-            SimpleDateFormat fmtOut = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+            SimpleDateFormat fmtOut = new SimpleDateFormat("dd-MM-yyyy");
             String c = fmtOut.format(a);
             AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogCustom);
             builder.setTitle("Alerta");

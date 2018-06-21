@@ -14,7 +14,7 @@
         android:layout_gravity="top"
         android:background="@color/colorPrimaryDark"
         android:minHeight="?attr/actionBarSize"
-        app:title="  Personal autorizado"
+        app:title="  Personal Autorizado"
         app:logo="@drawable/icono_toolbar_supervisor_autorizados"
         app:titleTextColor="@color/primary_light"/>
 

@@ -42,12 +42,12 @@ public class BuscarIngresosActivity extends AppCompatActivity {
         ibBuscarResultadoIngresos = findViewById(R.id.ibBuscarResultadoIngresos);
         ibsalirIngresos = findViewById(R.id.ibsalirIngresos);
         ibsalirIngresos2 = findViewById(R.id.ibsalirIngresos2);
-        ibsalirIngresos3 = findViewById(R.id.ibsalirIngresos3);
+       // ibsalirIngresos3 = findViewById(R.id.ibsalirIngresos3);
         ibFechaUnicaIngresos = findViewById(R.id.ibFechaUnicaIngresos);
         ibBuscarResultadoFechaIngresos = findViewById(R.id.ibBuscarResultadoFechaIngresos);
-        ibBuscarDniIngresos = findViewById(R.id.ibBuscarDniIngresos);
+       // ibBuscarDniIngresos = findViewById(R.id.ibBuscarDniIngresos);
         tvFechaUnicaIngresos = findViewById(R.id.tvFechaUnicaIngresos);
-        tvDniIngresos = findViewById(R.id.tvDniIngresos);
+      //  tvDniIngresos = findViewById(R.id.tvDniIngresos);
         tvDesdeIngresos = findViewById(R.id.tvDesdeIngresos);
         tvHastaIngresos = findViewById(R.id.tvHastaIngresos);
 
@@ -222,13 +222,13 @@ public class BuscarIngresosActivity extends AppCompatActivity {
                 finish();
             }
         });
-        ibsalirIngresos3.setOnClickListener(new View.OnClickListener() {
+      /*  ibsalirIngresos3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
-        });
-        ibBuscarDniIngresos.setOnClickListener(new View.OnClickListener() {
+        });*/
+      /*  ibBuscarDniIngresos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(tvDniIngresos.getText().toString().isEmpty()){
@@ -241,7 +241,7 @@ public class BuscarIngresosActivity extends AppCompatActivity {
                     finish();
                 }
             }
-        });
+        });*/
 
 
     }
