@@ -1,6 +1,7 @@
 package com.v3.security;
 
 import android.app.ProgressDialog;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -8,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
 import android.media.ExifInterface;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
@@ -48,6 +50,7 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -68,6 +71,8 @@ public class InformesActivity extends AppCompatActivity {
     JsonObjectRequest jsonObjectRequest;
     Button btnInsertarInforme, btnFoto, btnCancelar;
     String path = null;
+    String path2 = null;
+    String path3 = null;
     StringRequest stringRequest;
     int idControl;
     String email;
@@ -106,6 +111,7 @@ public class InformesActivity extends AppCompatActivity {
                     bitmap = redimensionarImagen(bitmap, 1600, 1200);
 
                     rotateimagen(bitmap);
+                    guardar(bitmap);
                     // imageView.setImageBitmap(bitmap);
 
                     break;
@@ -154,7 +160,25 @@ public class InformesActivity extends AppCompatActivity {
 
     }
 
+    private Bitmap redimensionarLogo(Bitmap bitmap, float anchoNuevo, float altoNuevo) {
 
+        int ancho = bitmap.getWidth();
+        int alto = bitmap.getHeight();
+
+        if (ancho > anchoNuevo || alto > altoNuevo) {
+            float escalaAncho = anchoNuevo / ancho;
+            float escalaAlto = altoNuevo / alto;
+
+            Matrix matrix = new Matrix();
+            matrix.postScale(escalaAncho, escalaAlto);
+
+            return Bitmap.createBitmap(bitmap, 0, 0, ancho, alto, matrix, false);
+
+        } else {
+            return bitmap;
+        }
+
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -169,7 +193,7 @@ public class InformesActivity extends AppCompatActivity {
         ibInsertarInforme = findViewById(R.id.ibInsertarInforme);
         ibCancelar = findViewById(R.id.ibCancelar);
         ibFoto = findViewById(R.id.ibFoto);
-
+        guardarlogo();
         extraerId();
 
         ibCancelar.setOnClickListener(new View.OnClickListener() {
@@ -299,7 +323,109 @@ public class InformesActivity extends AppCompatActivity {
         });
         dialogo.show();
     }
+    private void guardar(Bitmap bitmap){
+        /*
+         * Save bitmap to ExternalStorageDirectory
+         */
 
+        //get bitmap from ImageVIew
+        //not always valid, depends on your drawable
+        // Bitmap bitmap = ((BitmapDrawable)ivFotoRegistro.getDrawable()).getBitmap();
+
+        //always save as
+        String fileName = "holamundo.jpg";
+
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        path2 =Environment.getExternalStorageDirectory() +
+                File.separator + RUTA_IMAGEN + File.separator + fileName ;
+        // File ExternalStorageDirectory = Environment.getExternalStorageDirectory();
+        File file = new File(path2);
+
+        FileOutputStream fileOutputStream = null;
+        try {
+            file.createNewFile();
+            fileOutputStream = new FileOutputStream(file);
+            fileOutputStream.write(bytes.toByteArray());
+
+           /* ContentResolver cr = getContentResolver();
+            String imagePath = file.getAbsolutePath();
+            String name = file.getName();
+            String description = "My bitmap created by Android-er";
+            String savedURL = MediaStore.Images.Media
+                    .insertImage(cr, imagePath, name, description);*/
+
+            Toast.makeText(this,
+                    path,
+                    Toast.LENGTH_LONG).show();
+
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } finally {
+            if(fileOutputStream != null){
+                try {
+                    fileOutputStream.close();
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+        }
+
+    }
+    private void guardarlogo(){
+        /*
+         * Save bitmap to ExternalStorageDirectory
+         */
+
+        //get bitmap from ImageVIew
+        //not always valid, depends on your drawable
+        // Bitmap bitmap = ((BitmapDrawable)ivFotoRegistro.getDrawable()).getBitmap();
+        Bitmap bitMap = BitmapFactory.decodeResource(getResources(),R.drawable.logomail);
+        bitMap = redimensionarLogo(bitMap,522,174);
+        //always save as
+        String fileName = "logo.jpg";
+
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        bitMap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        path3 =Environment.getExternalStorageDirectory() +
+                File.separator + RUTA_IMAGEN + File.separator + fileName ;
+        // File ExternalStorageDirectory = Environment.getExternalStorageDirectory();
+        File file = new File(path3);
+
+        FileOutputStream fileOutputStream = null;
+        try {
+            file.createNewFile();
+            fileOutputStream = new FileOutputStream(file);
+            fileOutputStream.write(bytes.toByteArray());
+
+           /* ContentResolver cr = getContentResolver();
+            String imagePath = file.getAbsolutePath();
+            String name = file.getName();
+            String description = "My bitmap created by Android-er";
+            String savedURL = MediaStore.Images.Media
+                    .insertImage(cr, imagePath, name, description);*/
+
+            Toast.makeText(this,
+                    path3,
+                    Toast.LENGTH_LONG).show();
+
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } finally {
+            if(fileOutputStream != null){
+                try {
+                    fileOutputStream.close();
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+        }
+
+    }
     private void tomarFoto() {
         File fileImagen = new File(Environment.getExternalStorageDirectory(), RUTA_IMAGEN);
         boolean isCreada = fileImagen.exists();
@@ -420,7 +546,7 @@ public class InformesActivity extends AppCompatActivity {
              //   subject = etTituloInforme.getText().toString();
                 body = etinforme.getText().toString();
                 EmailSender emailSender = new EmailSender();
-                emailSender.execute("seguridadunlar@gmail.com", "seguridadunlar18", to, "Informe", body, path);
+                emailSender.execute("seguridadunlar@gmail.com", "seguridadunlar18", to, "Informe", body,path2, path3);
                 //progressDialog = ProgressDialog.show(context, "", "Cargando...", true);
                 if (response.trim().equalsIgnoreCase("registra")) {
 //                    etTituloInforme.setText("");
@@ -553,7 +679,7 @@ public class InformesActivity extends AppCompatActivity {
             String subject = (String) data[3];
             String comments = (String) data[4];
             String pictureFileName = (String) data[5];
-
+            String pictureFileName2 = (String) data[6];
             Email m = new Email(emailSenderAddress, emailSenderPassword);
 
             m.setTo(recipients);
@@ -564,6 +690,7 @@ public class InformesActivity extends AppCompatActivity {
             try {
                 ///m.addAttachment("/sdcard/filelocation");
                 m.setPictureFileName(pictureFileName);
+                m.set_fileName2(pictureFileName2);
                 return m.send();
             } catch (Exception e) {
                 //Toast.makeText(MainActivity.this, "There was a problem sending the email." + e.getMessage(), Toast.LENGTH_LONG).show();

@@ -32,6 +32,7 @@ public class Email extends javax.mail.Authenticator {
     private String _subject;
     private String _body;
     private String _fileName;
+    private String _fileName2;
     private boolean _auth;
 
     private boolean _debuggable;
@@ -73,6 +74,10 @@ public class Email extends javax.mail.Authenticator {
 
     public void setPictureFileName(String fileName) {
         _fileName = fileName;
+    }
+
+    public void set_fileName2(String _fileName2) {
+        this._fileName2 = _fileName2;
     }
 
     public boolean send() throws Exception {
@@ -157,10 +162,26 @@ public class Email extends javax.mail.Authenticator {
 
                 // first part (the html)
                 BodyPart messageBodyPart = new MimeBodyPart();
-                String htmlText = _body + " <img src=\"cid:image\">";
+                String htmlText = "<H1>"+_body+"</H1><img src=\"cid:image\">";
+
+                // String htmlText = _body + " <img src=\"cid:image\">";
                 messageBodyPart.setContent(htmlText, "text/html");
                 // add it
                 multipart.addBodyPart(messageBodyPart);
+                if (_fileName2 != null) {
+                    messageBodyPart = new MimeBodyPart();
+                    DataSource fds = new FileDataSource(_fileName2);
+
+                    messageBodyPart.setDataHandler(new DataHandler(fds));
+                    messageBodyPart.setHeader("Content-ID", "<image>");
+
+                    // add image to the multipart
+                    multipart.addBodyPart(messageBodyPart);
+
+                    // put everything together
+                    message.setContent(multipart);
+                    // Send message
+                }
                 if (_fileName != null) {
                     messageBodyPart = new MimeBodyPart();
                     DataSource fds = new FileDataSource(_fileName);
@@ -180,7 +201,7 @@ public class Email extends javax.mail.Authenticator {
                     // Send message
                     Transport.send(message);
                 }
-                System.out.println("Sent message successfully....");
+                System.out.println("Mail Enviado.");
                 return true;
             } catch (Exception e) {
                 return false;
