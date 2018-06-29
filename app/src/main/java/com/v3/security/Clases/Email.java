@@ -162,9 +162,74 @@ public class Email extends javax.mail.Authenticator {
 
                 // first part (the html)
                 BodyPart messageBodyPart = new MimeBodyPart();
-                String htmlText = "<H1>"+_body+"</H1><img src=\"cid:image\">";
+               // String htmlText = "<H3>"+_body+"</H3>  <img Text-align=\"center\" src=\"cid:image\">";
 
-                // String htmlText = _body + " <img src=\"cid:image\">";
+                String htmlText = "<html>\n" +
+                        "<head>\n" +
+                        "\t<title>Informes de SECURITY</title>\n" +
+                        "</head>\n" +
+                        "<body class=\"container\">\n" +
+                        "\t<header>\n" +
+                        "\t\t<img src=\"cid:image\">\t\n" +
+                        "\t</header><!-- /header -->\n" +
+                        "\t\n" +
+                        "\t<div class=\"titulo\">\n" +
+                        "\t\t<h1>Informe</h1>\n" +
+                        "\t</div>\n" +
+                        "\t<div class=\"body\"> \n" +
+                        "\t<style type=\"text/css\" media=\"screen\">\n" +
+                        "\t\t.body{\n" +
+                        "\t\t\tbackground-color: #eee;\n" +
+                        "\t\t\tmax-width: 100%;\n" +
+                        "\t\t\tmin-height: 400px;\n" +
+                        "\t\t}\n" +
+                        "\t\t.titulo{\n" +
+                        "\t\t\tbackground-color: #eee;\n" +
+                        "\t\t\ttext-align: center;\n" +
+                        "\t\t}\n" +
+                        "\t\t.container{\n" +
+                        "\t\t\tbackground-color: #eee;\n" +
+                        "\t\t}\n" +
+                        "\t\theader {\n" +
+                        "\t\t  background-color: #222a38;/*#d6d6c2;*/\n" +
+                        "\t\t  padding: 0px;\n" +
+                        "\t\t  margin-bottom:0px;\n" +
+                        "\t\t  text-align: center;\n" +
+                        "\t\t}\n" +
+                        "\t\theader img{\n" +
+                        "\t\t\tmax-width: 100%;\n" +
+                        "\t\t}\n" +
+                        "\t\tfooter {\n" +
+                        "\t\t  background-color: #222a38;/*#d6d6c2;*/\n" +
+                        "\t\t  padding: 35px;\n" +
+                        "\t\t  margin-bottom:0px;\n" +
+                        "\t\t  color: white;\n" +
+                        "\t\t  max-width: 100%;\n" +
+                        "\t\t}\n" +
+                        "\t\tfooter img{\n" +
+                        "\t\t   width: 640px;\n" +
+                        "\t\t   height: 125px;\n" +
+                        "\t\t   max-width: 100%;\n" +
+                        "\t\t   margin-left: -20px;\n" +
+                        "\t\t}\n" +
+                        "\t\t\n" +
+                        "\t\t\n" +
+                        "\t</style>\n" +
+                        "\t\t<p style=\"text-align: center;\">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\n" +
+                        "\t\ttempor <br>incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\n" +
+                        "\t\tquis nostrud <br>exercitation ullamco laboris nisi ut aliquip ex ea commodo\n" +
+                        "\t\tconsequat. Duis aute irure dolor in reprehenderit <br>in voluptate velit esse\n" +
+                        "\t\tcillum dolore eu <br>fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\n" +
+                        "\t\tproident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>\t\t\n" +
+                        "\t</div>\t\n" +
+                        "\t<footer>\n" +
+                        "\t\t<p style=\"text-align: center;\">Universidad Nacional de La Rioja - 2018</p>\n" +
+                        "\t</footer>\n" +
+                        "\t\t\n" +
+                        "\t\n" +
+                        "\n" +
+                        "</body>\n" +
+                        "</html>";
                 messageBodyPart.setContent(htmlText, "text/html");
                 // add it
                 multipart.addBodyPart(messageBodyPart);

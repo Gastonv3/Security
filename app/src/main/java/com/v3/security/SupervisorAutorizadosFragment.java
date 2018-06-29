@@ -343,7 +343,8 @@ public class SupervisorAutorizadosFragment extends Fragment {
         progressDialog.setCancelable(false);
         progressDialog.show();
         String ip = getString(R.string.ip_bd);
-        String url = ip + "/security/extraerIngresosAutorizados.php";
+       // String url = ip + "/security/extraerIngresosAutorizados.php";
+        String url = ip + "/security/extraerIngresantePost.php";
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -377,14 +378,20 @@ public class SupervisorAutorizadosFragment extends Fragment {
 
                             lista.add(ingresosAutorizados);
                         }
-                        int Eliminador = ((lista.size()) - 1);
-                        lista.remove(Eliminador);
+                        String tester = lista.get(0).getPersonalAutorizado().getCargo();
+                        if (tester.equals("0")){
+                            int Eliminador = ((lista.size())-1);
+                            lista.remove(Eliminador);
+                            progressDialog.dismiss();
+                        }
                         progressDialog.dismiss();
+                        if (lista.isEmpty()){
+                            erroSinRegistros();
+                        }else {
+                            AdapterSupervisorAutorizado adapterSupervisorAutorizado = new AdapterSupervisorAutorizado(lista);
 
-                        AdapterSupervisorAutorizado adapterSupervisorAutorizado = new AdapterSupervisorAutorizado(lista);
-
-                        contenedorSupervisorAutorizados.setAdapter(adapterSupervisorAutorizado);
-
+                            contenedorSupervisorAutorizados.setAdapter(adapterSupervisorAutorizado);
+                        }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

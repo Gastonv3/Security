@@ -168,7 +168,7 @@ public class LugarFragment extends Fragment implements Response.Listener<JSONObj
                 fuenteDatos.setEstado(jsonObject.optInt("estado"));
                 lista.add(fuenteDatos);
             }
-            progressDialog.hide();
+            progressDialog.dismiss();
             AdapterLugares adapter = new AdapterLugares(lista);
             contenedor.setAdapter(adapter);
 

@@ -323,14 +323,21 @@ public class SupervisorInformesFragment extends Fragment {
                             informes.setControl(control);
                             lista.add(informes);
                         }
-                        int Eliminador = ((lista.size()) - 1);
-                        lista.remove(Eliminador);
+                        String tester = lista.get(0).getTituloInforme();
+                        if (tester.equals("NOBORRAR")){
+                            int Eliminador = ((lista.size())-1);
+                            lista.remove(Eliminador);
+                            progressDialog.dismiss();
+                        }
                         progressDialog.dismiss();
+                        if (lista.isEmpty()){
+                            erroSinRegistros();
+                        }else {
 
-                        AdapterSupervisorInformes adapterSupervisorInformes = new AdapterSupervisorInformes(lista);
+                            AdapterSupervisorInformes adapterSupervisorInformes = new AdapterSupervisorInformes(lista);
 
-                        contenedorsupervisorinformes.setAdapter(adapterSupervisorInformes);
-
+                            contenedorsupervisorinformes.setAdapter(adapterSupervisorInformes);
+                        }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

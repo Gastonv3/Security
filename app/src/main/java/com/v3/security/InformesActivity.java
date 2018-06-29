@@ -382,13 +382,13 @@ public class InformesActivity extends AppCompatActivity {
         //get bitmap from ImageVIew
         //not always valid, depends on your drawable
         // Bitmap bitmap = ((BitmapDrawable)ivFotoRegistro.getDrawable()).getBitmap();
-        Bitmap bitMap = BitmapFactory.decodeResource(getResources(),R.drawable.logomail);
-        bitMap = redimensionarLogo(bitMap,522,174);
+        Bitmap bitMap = BitmapFactory.decodeResource(getResources(),R.drawable.logo);
+        bitMap = redimensionarLogo(bitMap,322,107);
         //always save as
         String fileName = "logo.jpg";
 
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        bitMap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        bitMap.compress(Bitmap.CompressFormat.PNG, 100, bytes);
         path3 =Environment.getExternalStorageDirectory() +
                 File.separator + RUTA_IMAGEN + File.separator + fileName ;
         // File ExternalStorageDirectory = Environment.getExternalStorageDirectory();

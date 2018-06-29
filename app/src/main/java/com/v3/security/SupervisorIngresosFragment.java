@@ -351,15 +351,20 @@ public class SupervisorIngresosFragment extends Fragment {
                             ingresos.setGuardia(guardia);
 
                             lista.add(ingresos);
+                        }  String tester= lista.get(0).getApellidoIngreso();
+                        if (tester.equals("NOBORRAR")){
+                            int Eliminador = ((lista.size()) - 1);
+                            lista.remove(Eliminador);
+                            progressDialog.dismiss();
                         }
-                        int Eliminador = ((lista.size())-1);
-                        lista.remove(Eliminador);
                         progressDialog.dismiss();
+                        if (lista.isEmpty()){
+                            erroSinRegistros();
+                        }else {
+                            AdapterSupervisorIngresos adapterSupervisorIngresos = new AdapterSupervisorIngresos(lista);
 
-                        AdapterSupervisorIngresos adapterSupervisorIngresos = new AdapterSupervisorIngresos(lista);
-
-                        contenedorSupervisorIngresos.setAdapter(adapterSupervisorIngresos);
-
+                            contenedorSupervisorIngresos.setAdapter(adapterSupervisorIngresos);
+                        }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

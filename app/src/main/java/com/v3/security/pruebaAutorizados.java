@@ -23,6 +23,7 @@ import com.v3.security.Clases.Guardia;
 import com.v3.security.Clases.Ingresos;
 import com.v3.security.Clases.IngresosAutorizados;
 import com.v3.security.Clases.PersonalAutorizado;
+import com.v3.security.Util.Preferencias;
 import com.v3.security.Util.VolleySingleton;
 
 import org.json.JSONArray;
@@ -38,6 +39,7 @@ public class pruebaAutorizados extends AppCompatActivity implements  AdapterHold
     ProgressDialog progressDialog;
     RecyclerView contenedoringresos;
     Context context;
+    int idguardia;
     JsonObjectRequest jsonObjectRequest;
     private static final int MY_REQUEST=1001;
 
@@ -50,6 +52,7 @@ public class pruebaAutorizados extends AppCompatActivity implements  AdapterHold
         contenedoringresos = (RecyclerView) findViewById(R.id.contenedorPruebaAutorizados);
         contenedoringresos.setLayoutManager(new LinearLayoutManager(context));
         contenedoringresos.setHasFixedSize(true);
+        idguardia = Preferencias.getInteger(context, Preferencias.getKeyGuardia());
         cargarWebservice();
     }
     private void cargarWebservice() {
@@ -58,7 +61,7 @@ public class pruebaAutorizados extends AppCompatActivity implements  AdapterHold
         progressDialog.setCancelable(false);
         progressDialog.show();
         String ip = getString(R.string.ip_bd);
-        String url = ip + "/security/extraerAutorizadosEgreso.php";
+        String url = ip + "/security/extraerAutorizadosEgreso.php?idGuardia=" + idguardia;
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -93,8 +96,12 @@ public class pruebaAutorizados extends AppCompatActivity implements  AdapterHold
 
                             lista.add(ingresosAutorizados);
                         }
-                        int Eliminador = ((lista.size())-1);
+                        String tester = lista.get(0).getPersonalAutorizado().getCargo();
+                        if (tester.equals("0")){
+                            int Eliminador = ((lista.size())-1);
                         lista.remove(Eliminador);
+                            progressDialog.dismiss();
+                        }
                         progressDialog.dismiss();
                         if (lista.isEmpty()){
                             AlertaSinIngresos();

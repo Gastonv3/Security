@@ -18,6 +18,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.v3.security.Adapter.AdapterHolderIngresos;
 import com.v3.security.Clases.Guardia;
 import com.v3.security.Clases.Ingresos;
+import com.v3.security.Util.Preferencias;
 import com.v3.security.Util.VolleySingleton;
 
 import org.json.JSONArray;
@@ -33,6 +34,7 @@ public class RegistrarEgresosActivity extends AppCompatActivity  implements Adap
     ArrayList<Ingresos> lista;
     ProgressDialog progressDialog;
     RecyclerView contenedoringresos;
+    int idguardia;
     private static final int MY_REQUEST=1001;
 
     @Override
@@ -44,6 +46,7 @@ public class RegistrarEgresosActivity extends AppCompatActivity  implements Adap
         contenedoringresos = (RecyclerView) findViewById(R.id.contenedorPrueba);
         contenedoringresos.setLayoutManager(new LinearLayoutManager(context));
         contenedoringresos.setHasFixedSize(true);
+        idguardia = Preferencias.getInteger(context, Preferencias.getKeyGuardia());
         cargarWebservice();
     }
 
@@ -53,15 +56,17 @@ public class RegistrarEgresosActivity extends AppCompatActivity  implements Adap
         progressDialog.setCancelable(false);
         progressDialog.show();
         String ip = getString(R.string.ip_bd);
-        String url = ip + "/security/extraerIngresantes.php";
+        String url = ip + "/security/extraerIngresantes.php?idGuardia=" + idguardia;
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
+
                 Ingresos ingresos = null;
 
                 Guardia guardia = null;
                 JSONArray json = response.optJSONArray("ingresos");
-                if (json.length() == 0) {
+
+                    if (json.length() == 0) {
                     progressDialog.dismiss();
                     //  erroSinRegistros();
                 } else {
@@ -86,8 +91,12 @@ public class RegistrarEgresosActivity extends AppCompatActivity  implements Adap
 
                             lista.add(ingresos);
                         }
-                        int Eliminador = ((lista.size()) - 1);
-                        lista.remove(Eliminador);
+                        String tester= lista.get(0).getApellidoIngreso();
+                        if (tester.equals("NOBORRAR")){
+                            int Eliminador = ((lista.size()) - 1);
+                            lista.remove(Eliminador);
+                            progressDialog.dismiss();
+                        }
                         progressDialog.dismiss();
                         if (lista.isEmpty()){
                             AlertaSinIngresos();

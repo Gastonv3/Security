@@ -266,14 +266,20 @@ public class SupervisorControlesFragment extends Fragment implements Response.Er
                     fuenteDatos.setFechaHora(jsonObject.optString("fechaHora"));
                     lista.add(fuenteDatos);
                 }
-                int Eliminador = ((lista.size()) - 1);
-                lista.remove(Eliminador);
+                String tester= lista.get(0).getLugar().getNombre_lugares();
+                if (tester.equals("NOBORRAR")){
+                    int Eliminador = ((lista.size()) - 1);
+                    lista.remove(Eliminador);
+                    progressDialog.dismiss();
+                }
                 progressDialog.dismiss();
+                if (lista.isEmpty()){
+                    erroSinRegistros();
+                }else {
+                    AdapterSupervisorControles adapterSupervisorControles = new AdapterSupervisorControles(lista);
 
-                AdapterSupervisorControles adapterSupervisorControles = new AdapterSupervisorControles(lista);
-
-                contenedorsupervisorcontroles.setAdapter(adapterSupervisorControles);
-
+                    contenedorsupervisorcontroles.setAdapter(adapterSupervisorControles);
+                }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
