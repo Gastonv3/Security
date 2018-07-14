@@ -73,6 +73,7 @@ public class InformesActivity extends AppCompatActivity {
     String path = null;
     String path2 = null;
     String path3 = null;
+    String path4 = null;
     StringRequest stringRequest;
     int idControl;
     String email;
@@ -193,6 +194,7 @@ public class InformesActivity extends AppCompatActivity {
         ibInsertarInforme = findViewById(R.id.ibInsertarInforme);
         ibCancelar = findViewById(R.id.ibCancelar);
         ibFoto = findViewById(R.id.ibFoto);
+        guardarlogo2();
         guardarlogo();
         extraerId();
 
@@ -323,6 +325,7 @@ public class InformesActivity extends AppCompatActivity {
         });
         dialogo.show();
     }
+
     private void guardar(Bitmap bitmap){
         /*
          * Save bitmap to ExternalStorageDirectory
@@ -374,14 +377,44 @@ public class InformesActivity extends AppCompatActivity {
         }
 
     }
-    private void guardarlogo(){
-        /*
-         * Save bitmap to ExternalStorageDirectory
-         */
+    private void guardarlogo2(){
 
-        //get bitmap from ImageVIew
-        //not always valid, depends on your drawable
-        // Bitmap bitmap = ((BitmapDrawable)ivFotoRegistro.getDrawable()).getBitmap();
+        Bitmap bitMap = BitmapFactory.decodeResource(getResources(),R.drawable.security);
+        bitMap = redimensionarLogo(bitMap,150,136);
+        //always save as
+        String fileName = "logosecurity.jpg";
+
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        bitMap.compress(Bitmap.CompressFormat.PNG, 100, bytes);
+        path4 =Environment.getExternalStorageDirectory() +
+                File.separator + RUTA_IMAGEN + File.separator + fileName ;
+        // File ExternalStorageDirectory = Environment.getExternalStorageDirectory();
+        File file = new File(path4);
+
+        FileOutputStream fileOutputStream = null;
+        try {
+            file.createNewFile();
+            fileOutputStream = new FileOutputStream(file);
+            fileOutputStream.write(bytes.toByteArray());
+
+
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } finally {
+            if(fileOutputStream != null){
+                try {
+                    fileOutputStream.close();
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+        }
+
+    }
+    private void guardarlogo(){
+
         Bitmap bitMap = BitmapFactory.decodeResource(getResources(),R.drawable.logo);
         bitMap = redimensionarLogo(bitMap,322,107);
         //always save as
@@ -400,16 +433,7 @@ public class InformesActivity extends AppCompatActivity {
             fileOutputStream = new FileOutputStream(file);
             fileOutputStream.write(bytes.toByteArray());
 
-           /* ContentResolver cr = getContentResolver();
-            String imagePath = file.getAbsolutePath();
-            String name = file.getName();
-            String description = "My bitmap created by Android-er";
-            String savedURL = MediaStore.Images.Media
-                    .insertImage(cr, imagePath, name, description);*/
 
-            Toast.makeText(this,
-                    path3,
-                    Toast.LENGTH_LONG).show();
 
         } catch (IOException e) {
             // TODO Auto-generated catch block
@@ -546,7 +570,7 @@ public class InformesActivity extends AppCompatActivity {
              //   subject = etTituloInforme.getText().toString();
                 body = etinforme.getText().toString();
                 EmailSender emailSender = new EmailSender();
-                emailSender.execute("seguridadunlar@gmail.com", "seguridadunlar18", to, "Informe", body,path2, path3);
+                emailSender.execute("seguridadunlar@gmail.com", "seguridadunlar18", to, "Informe", body,path2, path3, path4);
                 //progressDialog = ProgressDialog.show(context, "", "Cargando...", true);
                 if (response.trim().equalsIgnoreCase("registra")) {
 //                    etTituloInforme.setText("");
@@ -680,6 +704,8 @@ public class InformesActivity extends AppCompatActivity {
             String comments = (String) data[4];
             String pictureFileName = (String) data[5];
             String pictureFileName2 = (String) data[6];
+            String pictureFileName3 = (String) data[7];
+
             Email m = new Email(emailSenderAddress, emailSenderPassword);
 
             m.setTo(recipients);
@@ -691,6 +717,8 @@ public class InformesActivity extends AppCompatActivity {
                 ///m.addAttachment("/sdcard/filelocation");
                 m.setPictureFileName(pictureFileName);
                 m.set_fileName2(pictureFileName2);
+                m.set_fileName3(pictureFileName3);
+
                 return m.send();
             } catch (Exception e) {
                 //Toast.makeText(MainActivity.this, "There was a problem sending the email." + e.getMessage(), Toast.LENGTH_LONG).show();

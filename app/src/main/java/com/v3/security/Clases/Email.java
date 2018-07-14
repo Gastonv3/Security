@@ -33,6 +33,8 @@ public class Email extends javax.mail.Authenticator {
     private String _body;
     private String _fileName;
     private String _fileName2;
+    private String _fileName3;
+
     private boolean _auth;
 
     private boolean _debuggable;
@@ -70,6 +72,10 @@ public class Email extends javax.mail.Authenticator {
 
         _user = user;
         _pass = pass;
+    }
+
+    public void set_fileName3(String _fileName3) {
+        this._fileName3 = _fileName3;
     }
 
     public void setPictureFileName(String fileName) {
@@ -166,64 +172,35 @@ public class Email extends javax.mail.Authenticator {
 
                 String htmlText = "<html>\n" +
                         "<head>\n" +
+                        "  <meta charset=\"utf-8\" >\n" +
+                        "  <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\" >\n" +
+                        "  <meta content=\"width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no\" name=\"viewport\">\n" +
                         "\t<title>Informes de SECURITY</title>\n" +
                         "</head>\n" +
-                        "<body class=\"container\">\n" +
-                        "\t<header>\n" +
-                        "\t\t<img src=\"cid:image\">\t\n" +
-                        "\t</header><!-- /header -->\n" +
-                        "\t\n" +
-                        "\t<div class=\"titulo\">\n" +
-                        "\t\t<h1>Informe</h1>\n" +
-                        "\t</div>\n" +
-                        "\t<div class=\"body\"> \n" +
-                        "\t<style type=\"text/css\" media=\"screen\">\n" +
-                        "\t\t.body{\n" +
-                        "\t\t\tbackground-color: #eee;\n" +
-                        "\t\t\tmax-width: 100%;\n" +
-                        "\t\t\tmin-height: 400px;\n" +
-                        "\t\t}\n" +
-                        "\t\t.titulo{\n" +
-                        "\t\t\tbackground-color: #eee;\n" +
-                        "\t\t\ttext-align: center;\n" +
-                        "\t\t}\n" +
-                        "\t\t.container{\n" +
-                        "\t\t\tbackground-color: #eee;\n" +
-                        "\t\t}\n" +
-                        "\t\theader {\n" +
-                        "\t\t  background-color: #222a38;/*#d6d6c2;*/\n" +
+                        "<body style=\"background-color: #eee;\">\n" +
+                        "\t<header style=\"background-color: #222a38;/*#d6d6c2;*/\n" +
                         "\t\t  padding: 0px;\n" +
                         "\t\t  margin-bottom:0px;\n" +
                         "\t\t  text-align: center;\n" +
-                        "\t\t}\n" +
-                        "\t\theader img{\n" +
-                        "\t\t\tmax-width: 100%;\n" +
-                        "\t\t}\n" +
-                        "\t\tfooter {\n" +
-                        "\t\t  background-color: #222a38;/*#d6d6c2;*/\n" +
-                        "\t\t  padding: 35px;\n" +
+                        "\t\t  max-width: 100%; \">\n" +
+                        "\t\t<img src=\"cid:image2\" style=\"max-width: 100%;\">\t\n" +
+                        "\t</header><!-- /header -->\n" +
+                        "\t\n" +
+                        "\t<div style=\" text-align: center;\">\n" +
+                        "\t\t<img src=\"img/informe1.png\" style=\"max-width: 100%;width: 350px;height: 120px;\">\n" +
+                        "\t</div>\n" +
+                        "\t<div style=\"background-color: #eee; \n" +
+                        "\t\t\t\tmax-width: 100%;\n" +
+                        "\t\t\t\tmin-height: 300px;\n" +
+                        "\t\"> \n" +
+                        "\t\t<p style=\"text-align: center;\">"+_body+"</p>\t\t\n" +
+                        "\t</div>\t\n" +
+                        "\t<footer style=\"background-color: #222a38;/*#d6d6c2;*/  \n" +
                         "\t\t  margin-bottom:0px;\n" +
                         "\t\t  color: white;\n" +
-                        "\t\t  max-width: 100%;\n" +
-                        "\t\t}\n" +
-                        "\t\tfooter img{\n" +
-                        "\t\t   width: 640px;\n" +
-                        "\t\t   height: 125px;\n" +
-                        "\t\t   max-width: 100%;\n" +
-                        "\t\t   margin-left: -20px;\n" +
-                        "\t\t}\n" +
-                        "\t\t\n" +
-                        "\t\t\n" +
-                        "\t</style>\n" +
-                        "\t\t<p style=\"text-align: center;\">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\n" +
-                        "\t\ttempor <br>incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\n" +
-                        "\t\tquis nostrud <br>exercitation ullamco laboris nisi ut aliquip ex ea commodo\n" +
-                        "\t\tconsequat. Duis aute irure dolor in reprehenderit <br>in voluptate velit esse\n" +
-                        "\t\tcillum dolore eu <br>fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\n" +
-                        "\t\tproident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>\t\t\n" +
-                        "\t</div>\t\n" +
-                        "\t<footer>\n" +
-                        "\t\t<p style=\"text-align: center;\">Universidad Nacional de La Rioja - 2018</p>\n" +
+                        "\t\t  max-width: 100%;\">\n" +
+                        "\n" +
+                        "\t\t<p style=\"text-align: center;\"><img src=\"cid:image\" style=\"align-content: center;max-width: 100%;width: 350px;height: 120px;\" ><br>Universidad Nacional de La Rioja - 2018</p>\n" +
                         "\t</footer>\n" +
                         "\t\t\n" +
                         "\t\n" +
@@ -233,6 +210,20 @@ public class Email extends javax.mail.Authenticator {
                 messageBodyPart.setContent(htmlText, "text/html");
                 // add it
                 multipart.addBodyPart(messageBodyPart);
+                if (_fileName3!= null) {
+                    messageBodyPart = new MimeBodyPart();
+                    DataSource fds = new FileDataSource(_fileName3);
+
+                    messageBodyPart.setDataHandler(new DataHandler(fds));
+                    messageBodyPart.setHeader("Content-ID", "<image2>");
+
+                    // add image to the multipart
+                    multipart.addBodyPart(messageBodyPart);
+
+                    // put everything together
+                    message.setContent(multipart);
+                    // Send message
+                }
                 if (_fileName2 != null) {
                     messageBodyPart = new MimeBodyPart();
                     DataSource fds = new FileDataSource(_fileName2);
