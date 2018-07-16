@@ -20,25 +20,32 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Login">
-        <activity android:name=".LoginActivity">
+        <activity android:name=".LoginActivity"
             android:theme="@style/Login"
+            android:screenOrientation="portrait"
+            >
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/Login">
+            android:theme="@style/Login"
+            android:screenOrientation="portrait">
         </activity>
 
         <activity
             android:name=".ControlActivity"
             android:label="Control"
-            android:theme="@style/Main" />
-        <activity android:name=".InformesActivity" />
+            android:theme="@style/Main"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".InformesActivity"
+            android:screenOrientation="portrait"/>
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -64,26 +71,44 @@
 
         <activity
             android:name=".googleMapsSecurity"
-            android:label="@string/title_activity_google_maps_security" />
-        <activity android:name=".Scanner" />
-        <activity android:name=".ScannerActivity" />
+            android:label="@string/title_activity_google_maps_security"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Scanner"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ScannerActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".SupervisorActivity"
-            android:label="@string/title_activity_supervisor" />
-        <activity android:name=".SupervisorControlActivity" />
-        <activity android:name=".BuscarControlActivity" />
-        <activity android:name=".SupervisorInformesActivity" />
-        <activity android:name=".BuscarInformeActivity" />
-        <activity android:name=".SupervisorIngresosActivity" />
-        <activity android:name=".BuscarIngresosActivity" />
-        <activity android:name=".BuscarAutorizadosActivity" />
-        <activity android:name=".SupervisorAutorizadoActivity" />
-        <activity android:name=".IngresanteSalidaActivity" />
-        <activity android:name=".RegistrarIngresosActivity" />
-        <activity android:name=".RegistrarEgresosActivity" />
-        <activity android:name=".Adapter.RegistrarAutorizados" />
-        <activity android:name=".AutorizadosSalidaActivity" />
-        <activity android:name=".pruebaAutorizados"></activity>
+            android:label="@string/title_activity_supervisor"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".SupervisorControlActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".BuscarControlActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".SupervisorInformesActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".BuscarInformeActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".SupervisorIngresosActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".BuscarIngresosActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".BuscarAutorizadosActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".SupervisorAutorizadoActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".IngresanteSalidaActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".RegistrarIngresosActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".RegistrarEgresosActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Adapter.RegistrarAutorizados"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".AutorizadosSalidaActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".pruebaAutorizados"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

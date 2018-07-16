@@ -48,6 +48,7 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
     boolean estado;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         context = this;
