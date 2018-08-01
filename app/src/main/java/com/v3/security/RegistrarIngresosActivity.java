@@ -104,30 +104,9 @@ public class RegistrarIngresosActivity extends AppCompatActivity {
             }
         });
 
-    /*    btnFotoRegistro.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                tomarFoto();
-            }
-        });
-        btnEnviarRegistro.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ingresarVisitas();
-            }
-        });*/
-
 
     }
 
- /*   @Override
-    public void finish() {
-        Intent i = new Intent();
-        int ok2 = 1;
-        i.putExtra("ok",ok2);
-        setResult(RESULT_OK, i);
-        super.finish();
-    }*/
 
     private void ingresarVisitas() {
         progressDialog = new ProgressDialog(context);

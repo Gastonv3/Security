@@ -54,7 +54,7 @@ public class viewHolderSupervisorInformes extends RecyclerView.ViewHolder implem
           Bundle bundle = new Bundle();
            Bitmap bitmap = informes.getImagenInforme();
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 90, baos);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos);
             byte[] b = baos.toByteArray();
             Intent intent = new Intent(context, SupervisorInformesActivity.class);
             bundle.putByteArray("imagenInforme", b);

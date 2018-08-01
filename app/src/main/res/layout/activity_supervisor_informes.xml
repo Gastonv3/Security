@@ -100,7 +100,6 @@
                     android:src="@drawable/ic_rotar_imagendp"
                     android:theme="@style/MyButton" />
 
-
             </RelativeLayout>
         </RelativeLayout>
 

@@ -20,8 +20,7 @@ import uk.co.senab.photoview.PhotoViewAttacher;
 public class SupervisorAutorizadoActivity extends AppCompatActivity {
     TextView nombreGuardiaAutorizado, personaAutorizada, dniAutorizado, cargoAutorizado, fechaAutorizado, fechasalida;
     EditText prueba;
-   /* ImageView imageninforme;
-    ImageButton ibrotar;*/
+
    PhotoViewAttacher photoViewAttacher;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +33,7 @@ public class SupervisorAutorizadoActivity extends AppCompatActivity {
         fechaAutorizado = findViewById(R.id.fechaAutorizado);
         fechasalida = findViewById(R.id.fechaSalidaAutorizado);
         Bundle extras = getIntent().getBundleExtra("ingresosAutorizados");
-        /*ibrotar = findViewById(R.id.ibRotarImagen);
-        Bundle extras = getIntent().getBundleExtra("suerte");
-        byte[] b = extras.getByteArray("imagenInforme");
-        Bitmap bmp = BitmapFactory.decodeByteArray(b, 0, b.length);
-        imageninforme.setImageBitmap(bmp);*/
+
 
         personaAutorizada.setText("Ingresante: "+(extras.getString("nombrePersonalAutorizado"))+" "+(extras.getString("apellidoPersonalAutorizado")));
         String fechastring2 = extras.getString("fechaHora");
@@ -72,18 +67,6 @@ public class SupervisorAutorizadoActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-
-
-
-
-
-     /*   ibrotar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                imageninforme.setRotation(imageninforme.getRotation()+90);
-            }
-        });*/
-
 
     }
 

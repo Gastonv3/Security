@@ -43,14 +43,6 @@ import java.util.Date;
 import static android.app.Activity.RESULT_OK;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link SupervisorAutorizadosFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link SupervisorAutorizadosFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class SupervisorAutorizadosFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

@@ -70,7 +70,6 @@ public class Informes implements Serializable  {
 
     public void setDato(String dato) {
         this.dato = dato;
-        this.dato = dato;
         try {
             byte[] byteCode = Base64.decode(dato, Base64.DEFAULT);
             this.imagenInforme = BitmapFactory.decodeByteArray(byteCode, 0, byteCode.length);

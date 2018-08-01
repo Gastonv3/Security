@@ -34,7 +34,7 @@ import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class pruebaAutorizados extends AppCompatActivity implements  AdapterHolderAutorizados.CallbackInterface{
+public class EgresoAutorizados extends AppCompatActivity implements  AdapterHolderAutorizados.CallbackInterface{
     ArrayList<IngresosAutorizados> lista;
     ProgressDialog progressDialog;
     RecyclerView contenedoringresos;

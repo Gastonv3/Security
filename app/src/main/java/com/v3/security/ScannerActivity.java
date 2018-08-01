@@ -63,27 +63,10 @@ public class ScannerActivity extends AppCompatActivity implements ZBarScannerVie
     @Override
     public void handleResult(Result result) {
          String code = result.getContents();
-       // final  String format = result.getBarcodeFormat().getName();
-        //String fullMessage = "Contents = "+code+", Format = "+format;
-      /*  //Bundle bundle = new Bundle();
 
-        Intent intent = new Intent(Scanner.this, AutorizadoFragment.class);
-     //   bundle.putString("qr", fullMessage);
-        intent.putExtra("scan", fullMessage);
-        startActivity(intent);*/
-       /* AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("hola");
-        builder.setMessage(fullMessage);
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();*/
-
-        /*Intent intent = new Intent();
-        intent.putExtra("barcode", fullMessage);
-        setResult(RESULT_OK, intent);*/
         Intent returnIntent = new Intent();
         returnIntent.putExtra("result",code);
         setResult(Activity.RESULT_OK,returnIntent); finish();
-        // mScannerView.resumeCameraPreview(this);
     }
     @Override
     public void onResume() {
@@ -127,9 +110,6 @@ public class ScannerActivity extends AppCompatActivity implements ZBarScannerVie
                 return super.onOptionsItemSelected(item);
         }
     }
-
-
-
 
 
     @Override

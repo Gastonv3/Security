@@ -87,29 +87,7 @@
                 android:src="@drawable/ic_assignment_ind_black_24dp"
                 android:theme="@style/MyButton"/>
 
-            <!--   <ImageButton
-                   android:id="@+id/ibCancelarRegistro"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:src="@drawable/ic_cancel_black_24dp"
-                   android:theme="@style/MyButton"
-                   android:layout_alignParentRight="true"/>
-                 <Button
-                   android:id="@+id/btnEnviarRegistro"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:layout_weight="1"
-                   android:text="enviar"
-                   android:theme="@style/MyButton" />
 
-               <Button
-                   android:id="@+id/btn"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:layout_weight="1"
-                   android:text="Cancelar"
-                   android:theme="@style/MyButton"/>
-                   -->
         </RelativeLayout>
     </RelativeLayout>
 

@@ -102,13 +102,6 @@ public class IngresanteSalidaActivity extends AppCompatActivity {
     }
 
 
-
-    /* @Override
-     public void onMapReady(GoogleMap googleMap) {
-         mMap = googleMap;
-
-
-     }*/
     private void AlertaError() {
         android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(context, R.style.AlertDialogCustom);
         builder.setTitle("Error");

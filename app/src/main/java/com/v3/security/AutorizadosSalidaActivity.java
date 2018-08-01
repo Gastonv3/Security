@@ -44,11 +44,7 @@ public class AutorizadosSalidaActivity extends AppCompatActivity {
         btnsalirautorizado = findViewById(R.id.btnSalidaAutorizado);
 
         Bundle extras = getIntent().getBundleExtra("autorizados");
-        /*ibrotar = findViewById(R.id.ibRotarImagen);
-        Bundle extras = getIntent().getBundleExtra("suerte");
-        byte[] b = extras.getByteArray("imagenInforme");
-        Bitmap bmp = BitmapFactory.decodeByteArray(b, 0, b.length);
-        imageninforme.setImageBitmap(bmp);*/
+
 
         personaingresanteAutorizada.setText("Ingresante: " + (extras.getString("nombrePersonalAutorizado")) + " " + (extras.getString("apellidoPersonalAutorizado")));
         String fechastring2 = extras.getString("fechaHora");

@@ -39,8 +39,6 @@ public class RegistrarAutorizados extends AppCompatActivity implements Response.
     int idPersonalAutorizado;
     String s = null;
     JsonObjectRequest jsonObjectRequest;
-
-
     ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

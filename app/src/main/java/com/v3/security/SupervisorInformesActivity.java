@@ -55,10 +55,6 @@ public class SupervisorInformesActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-
-
-
-
         ibrotar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

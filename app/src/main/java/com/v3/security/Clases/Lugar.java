@@ -2,14 +2,9 @@ package com.v3.security.Clases;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Parcelable;
 import android.util.Base64;
 
 import java.io.Serializable;
-
-/**
- * Created by Skylake on 25/3/2018.
- */
 
 public class Lugar implements Serializable{
     private Integer idLugares;
