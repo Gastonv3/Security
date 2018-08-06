@@ -23,8 +23,10 @@ import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
 import android.util.Base64;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -211,8 +213,9 @@ public class InformesActivity extends AppCompatActivity {
                 if (etinforme.getText().toString().isEmpty()) {
                     AlertaCampoVacio();
                 } else {
-
-                    cargarInforme();
+                    String informe = etinforme.getText().toString();
+                    confirmar2(informe);
+                    //cargarInforme();
                 }
 
             }
@@ -358,10 +361,10 @@ public class InformesActivity extends AppCompatActivity {
             String savedURL = MediaStore.Images.Media
                     .insertImage(cr, imagePath, name, description);*/
 
-            Toast.makeText(this,
+          /*  Toast.makeText(this,
                     path,
                     Toast.LENGTH_LONG).show();
-
+*/
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -606,6 +609,7 @@ public class InformesActivity extends AppCompatActivity {
                 if (bitmap == null) {
                     Bitmap bitmap2 = BitmapFactory.decodeResource(context.getResources(),
                             R.drawable.img_base);
+                    bitmap2 = redimensionarLogo(bitmap2,600,600);
                     imagenInforme = convertirImgString(bitmap2);
                 } else {
                     imagenInforme = convertirImgString(bitmap);
@@ -690,6 +694,50 @@ public class InformesActivity extends AppCompatActivity {
             }
         });
 
+        builder.show();
+    }
+
+    private void confirmar(String informe) {
+        android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(context, R.style.AlertDialogCustom);
+        builder.setTitle("¿Confirmar Informe?");
+        builder.setCancelable(false);
+        builder.setMessage(""+ informe);
+        builder.setPositiveButton("CONFIRMAR", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                cargarInforme();
+            }
+        });
+        builder.setNegativeButton("CANCELAR", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+        builder.show();
+    }
+    private void confirmar2(String informe) {
+        android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(context, R.style.AlertDialogCustom);
+        LayoutInflater factory = LayoutInflater.from(context);
+        final View view = factory.inflate(R.layout.dialog, null);
+        ImageView imageView = view.findViewById(R.id.imagendialog);
+        imageView.setImageBitmap(bitmap);
+        builder.setView(view);
+        builder.setTitle("¿Confirmar Informe?");
+        builder.setCancelable(false);
+        builder.setMessage(""+ informe);
+        builder.setPositiveButton("CONFIRMAR", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                cargarInforme();
+            }
+        });
+        builder.setNegativeButton("CANCELAR", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
         builder.show();
     }
 

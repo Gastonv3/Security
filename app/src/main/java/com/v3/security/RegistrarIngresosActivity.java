@@ -148,6 +148,7 @@ public class RegistrarIngresosActivity extends AppCompatActivity {
                 if (bitmap == null) {
                     Bitmap bitmap2 = BitmapFactory.decodeResource(context.getResources(),
                             R.drawable.img_base);
+                    bitmap2 = redimensionarLogo(bitmap2, 600,600);
                     imagenRegistro = convertirImgString(bitmap2);
                 } else {
                     imagenRegistro = convertirImgString(bitmap);
@@ -289,6 +290,25 @@ public class RegistrarIngresosActivity extends AppCompatActivity {
         }
     }
 
+    private Bitmap redimensionarLogo(Bitmap bitmap, float anchoNuevo, float altoNuevo) {
+
+        int ancho = bitmap.getWidth();
+        int alto = bitmap.getHeight();
+
+        if (ancho > anchoNuevo || alto > altoNuevo) {
+            float escalaAncho = anchoNuevo / ancho;
+            float escalaAlto = altoNuevo / alto;
+
+            Matrix matrix = new Matrix();
+            matrix.postScale(escalaAncho, escalaAlto);
+
+            return Bitmap.createBitmap(bitmap, 0, 0, ancho, alto, matrix, false);
+
+        } else {
+            return bitmap;
+        }
+
+    }
     private Bitmap redimensionarImagen(Bitmap bitmap, float anchoNuevo, float altoNuevo) {
         ExifInterface exifInterface = null;
         try {
