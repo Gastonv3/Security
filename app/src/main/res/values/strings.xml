@@ -10,6 +10,6 @@
     <string name="title_activity_google_maps_security">Map</string>
     <!--  <string name="ip_bd">https://securityunlar.000webhostapp.com</string>-->
     <string name="title_activity_supervisor">SupervisorActivity</string>
-    <string name="ip_bd">http://192.168.252.171</string>
+    <string name="ip_bd">http://192.168.0.13</string>
 
 </resources>

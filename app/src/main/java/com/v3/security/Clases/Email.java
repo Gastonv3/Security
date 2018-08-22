@@ -187,7 +187,7 @@ public class Email extends javax.mail.Authenticator {
                         "\t</header><!-- /header -->\n" +
                         "\t\n" +
                         "\t<div style=\" text-align: center;\">\n" +
-                        "\t\t<img src=\"img/informe1.png\" style=\"max-width: 100%;width: 350px;height: 120px;\">\n" +
+                        "\t\t<p style=\"text-align: center;\"><b>INFORME</b></p>\n" +
                         "\t</div>\n" +
                         "\t<div style=\"background-color: #eee; \n" +
                         "\t\t\t\tmax-width: 100%;\n" +
