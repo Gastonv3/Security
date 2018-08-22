@@ -65,7 +65,8 @@ import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 public class InformesActivity extends AppCompatActivity {
     Session session = null;
     String to, subject, body;
-
+    String usuarioEmail= "informessy@gmail.com";
+    String contraseñaEmail="seguridadinformes18";
 
     EditText etinforme, etTituloInforme;
     Context context;
@@ -573,7 +574,7 @@ public class InformesActivity extends AppCompatActivity {
              //   subject = etTituloInforme.getText().toString();
                 body = etinforme.getText().toString();
                 EmailSender emailSender = new EmailSender();
-                emailSender.execute("seguridadunlar@gmail.com", "seguridadunlar18", to, "Informe", body,path2, path3, path4);
+                emailSender.execute(usuarioEmail, contraseñaEmail, to, "Informe", body,path2, path3, path4);
                 //progressDialog = ProgressDialog.show(context, "", "Cargando...", true);
                 if (response.trim().equalsIgnoreCase("registra")) {
 //                    etTituloInforme.setText("");
