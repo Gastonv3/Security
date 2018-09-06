@@ -22,7 +22,8 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="Nombre"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:maxLength="20"/>
 
         <EditText
             android:id="@+id/etApellidoIngresante"
@@ -32,6 +33,7 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="Apellido"
+            android:maxLength="20"
             android:inputType="textPersonName" />
 
         <EditText

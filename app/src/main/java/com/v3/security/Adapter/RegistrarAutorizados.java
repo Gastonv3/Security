@@ -31,10 +31,10 @@ public class RegistrarAutorizados extends AppCompatActivity implements Response.
     Context context;
     public static final int REQUEST_CODE = 800;
     //rivate ZXingScannerView mScannerView;
-    TextView tvNombre, tvApellido;
+    TextView tvNombre, tvDni, tvCargo;
     ImageButton ibQrAutorizar, ibRegistrarPersonalAtuorizado;
     ImageView siautorizado, noatuorizado;
-    String codigo, nombre, apellido, completo;
+    String codigo, nombre, apellido, completo, dni, cargo;
     int idguardia;
     int idPersonalAutorizado;
     String s = null;
@@ -51,6 +51,8 @@ public class RegistrarAutorizados extends AppCompatActivity implements Response.
         noatuorizado = findViewById(R.id.noAutorizado);
         ibQrAutorizar = findViewById(R.id.btn2);
         tvNombre = findViewById(R.id.tvNombre);
+        tvCargo= findViewById(R.id.tvCargo);
+        tvDni = findViewById(R.id.tvDni);
         tvNombre.setText(s);
         codigo = Preferencias.getString(context, Preferencias.getKeyGuardiaNombre());
         ibRegistrarPersonalAtuorizado = findViewById(R.id.ibEnviarRegistroPersonalAutorizado);
@@ -142,7 +144,11 @@ public class RegistrarAutorizados extends AppCompatActivity implements Response.
             idPersonalAutorizado = personalAutorizado.getIdPersonalAutorizado();
             nombre = personalAutorizado.getNombrePersonalAutorizado();
             apellido= personalAutorizado.getApellidoPersonalAutorizado();
-            completo= nombre+" "+apellido;
+            completo= "NOMBRE: " +nombre+" "+apellido;
+            dni = "DNI: "+ personalAutorizado.getDni();
+            cargo = "CARGO: "+ personalAutorizado.getCargo();
+            tvDni.setText(dni);
+            tvCargo.setText(cargo);
             tvNombre.setText(completo);
             noatuorizado.setVisibility(View.INVISIBLE);
             siautorizado.setVisibility(View.VISIBLE);
