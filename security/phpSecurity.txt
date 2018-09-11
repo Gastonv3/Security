@@ -1,9 +1,0 @@
-login- listo
-extraerLugares - listo
-insertarControl- listo
-extraerEmail - listo
-eliminarControl - listo
-insertarInforme - listo
-registrarIngresos - listo
-extraerPersonalAutorizado - listo
-registrarPersonalAutorizado - listo

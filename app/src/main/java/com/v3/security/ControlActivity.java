@@ -204,7 +204,7 @@ public class ControlActivity extends AppCompatActivity implements Response.Error
         btnPolicia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:*555"));
+                Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:911"));
                 if (ActivityCompat.checkSelfPermission(context, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                     // TODO: Consider calling
                     //    ActivityCompat#requestPermissions

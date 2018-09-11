@@ -171,6 +171,8 @@ public class RegistrarAutorizados extends AppCompatActivity implements Response.
                 siautorizado.setVisibility(View.INVISIBLE);
                 Toast.makeText(context,"Se registró correctamente",Toast.LENGTH_SHORT).show();
                 tvNombre.setText(s);
+                tvCargo.setText(s);
+                tvDni.setText(s);
                 progressDialog.dismiss();
             }
         }, new Response.ErrorListener() {
